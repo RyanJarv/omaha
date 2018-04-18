@@ -28,8 +28,8 @@ namespace omaha {
 
 namespace {
 
-const TCHAR kSourceMsi[] = _T("GoogleUpdateHelper.msi");
-const TCHAR kTaggedMsi[] = _T("tagged_GoogleUpdateHelper.msi");
+const TCHAR kSourceMsi[] = _T("BraveUpdateHelper.msi");
+const TCHAR kTaggedMsi[] = _T("tagged_BraveUpdateHelper.msi");
 
 }  // namesapce
 

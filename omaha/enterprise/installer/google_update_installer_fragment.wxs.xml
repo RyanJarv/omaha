@@ -22,10 +22,10 @@
          To avoid multiple Directory elements with the 'ProgramFilesFolder' Id,
          assume that the product MSI has defined a it and reference it here. -->
     <DirectoryRef Id='ProgramFilesFolder'>
-      <Directory Id='GoogleProgramDir' Name='Google'>
+      <Directory Id='BraveProgramDir' Name='Google'>
         <Directory Id='UpdateDir' Name='Update'>
 
-          <Component Id='ComponentGoogleUpdate'
+          <Component Id='ComponentBraveUpdate'
                      Guid='6B528A57-0CD8-4b26-85F8-1CA05523B8F1'>
             <!-- Clear the last UI string before running the installer so we know
                  that any value present upon rollback is fresh. -->
@@ -89,15 +89,15 @@
       <!-- Build tag property. -->
       <Custom Action='SetProductTagProperty'
               Before='AppendCustomParamsToProductTagProperty'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
+        (($ComponentBraveUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
       </Custom>
       <Custom Action='AppendCustomParamsToProductTagProperty'
               Before='AppendBrandToProductTagProperty'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
+        (($ComponentBraveUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
       </Custom>
       <Custom Action='AppendBrandToProductTagProperty'
               Before='RollbackGoogleUpdateRegistration'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES) AND (BRAND &lt;&gt; "")
+        (($ComponentBraveUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES) AND (BRAND &lt;&gt; "")
       </Custom>
 
       <!-- Install Google Update before 'InstallFiles' so that brand, etc. will
@@ -105,11 +105,11 @@
       <Custom Action='RollbackGoogleUpdateRegistration'
               Before='InstallGoogleUpdateAndRegister'
               >
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES) AND (PRODUCT_REGISTERED_VERSION = "")
+        (($ComponentBraveUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES) AND (PRODUCT_REGISTERED_VERSION = "")
       </Custom>
       <Custom Action='InstallGoogleUpdateAndRegister'
               Before='InstallFiles'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
+        (($ComponentBraveUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
       </Custom>
 
       <!-- Google Update will uninstall itself if the product is the only

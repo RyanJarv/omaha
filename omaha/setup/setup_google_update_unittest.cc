@@ -725,7 +725,7 @@ TEST_F(SetupGoogleUpdateMachineTest,
   }
 
   const TCHAR kDifferentMsi[] =
-      _T("unittest_support\\GoogleUpdateHelper.msi");
+      _T("unittest_support\\BraveUpdateHelper.msi");
   const TCHAR* MsiInstallRegValueKey =
       ConfigManager::Instance()->machine_registry_update();
 

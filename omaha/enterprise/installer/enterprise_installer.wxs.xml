@@ -88,7 +88,7 @@
             SourceFile='$(var.MsiInstallerCADll)' />
 
     <Feature Id='Complete' Level='1'>
-      <ComponentRef Id='ComponentGoogleUpdate' />
+      <ComponentRef Id='ComponentBraveUpdate' />
     </Feature>
 
     <CustomAction Id='NewerVersionError' Error='4000'/>
@@ -166,42 +166,42 @@
            was installed before installing it and only add the rollback then.
       <Custom Action='Rollback$(var.ProductNameLegalIdentifier)'
               After='InstallFiles'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT $(var.ProductNameLegalIdentifier)_INSTALLED)
+        (($ComponentBraveUpdate>2) OR REINSTALL) AND (NOT $(var.ProductNameLegalIdentifier)_INSTALLED)
       </Custom>
       Change After='InstallFiles' below to
       After='Rollback$(var.ProductNameLegalIdentifier)'. -->
       <Custom Action='SetInstallerInstallCommandProperty'
               After='InstallFiles'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL)
+        (($ComponentBraveUpdate>2) OR REINSTALL)
       </Custom>
       <Custom Action='AppendDisableUpdateRegistrationArgToInstallerInstallCommandProperty'
               After='SetInstallerInstallCommandProperty'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND DISABLE_UPDATES
+        (($ComponentBraveUpdate>2) OR REINSTALL) AND DISABLE_UPDATES
       </Custom>
       <Custom Action='SetAppGuidProperty'
               After='AppendDisableUpdateRegistrationArgToInstallerInstallCommandProperty'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL)
+        (($ComponentBraveUpdate>2) OR REINSTALL)
       </Custom>
       <Custom Action='ShowInstallerResultUIString'
               After='SetAppGuidProperty'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL)
+        (($ComponentBraveUpdate>2) OR REINSTALL)
       </Custom>
       <Custom Action='Install$(var.ProductNameLegalIdentifier)'
               After='ShowInstallerResultUIString'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL)
+        (($ComponentBraveUpdate>2) OR REINSTALL)
       </Custom>
 
       <Custom Action='CallUninstallerArgs.SetProperty'
               Before='CallUninstaller.SetProperty'>
-        $ComponentGoogleUpdate=2
+        $ComponentBraveUpdate=2
       </Custom>
       <Custom Action='CallUninstaller.SetProperty'
               Before='CallUninstaller'>
-        $ComponentGoogleUpdate=2
+        $ComponentBraveUpdate=2
       </Custom>
       <Custom Action='CallUninstaller'
               Before='RemoveFiles'>
-        $ComponentGoogleUpdate=2
+        $ComponentBraveUpdate=2
       </Custom>
 
     </InstallExecuteSequence>

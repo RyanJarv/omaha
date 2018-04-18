@@ -54,7 +54,7 @@ unittest_support = env.Replicate('$STAGING_DIR/unittest_support/', [
     'unittest_support/GoogleUpdate_corrupted.exe',
     'unittest_support/GoogleUpdate_now_expired_cert.exe',
     'unittest_support/GoogleUpdate_old_signature.exe',
-    'unittest_support/GoogleUpdateHelper.msi',
+    'unittest_support/BraveUpdateHelper.msi',
     'unittest_support/old_google_certificate.dll',
     'unittest_support/SaveArguments.exe',
     'unittest_support/SaveArguments_different_ou.exe',

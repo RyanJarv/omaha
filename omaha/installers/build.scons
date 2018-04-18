@@ -159,7 +159,7 @@ def _BuildSetupRepairVersion(omaha_version_info,
       prefix = prefix,
       suffix = '_repair',
       additional_payload_contents = [
-          '$STAGING_DIR/GoogleUpdateHelperPatch.msp',
+          '$STAGING_DIR/BraveUpdateHelperPatch.msp',
           ],
   )
 

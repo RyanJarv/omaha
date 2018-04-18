@@ -170,7 +170,7 @@ if BUILDING_WITH_GOOGLE_UPDATE:
 # To bundle Google Update with a product that has an MSI installer:
 #  * Build a .wixobj that contains the Google Update installation fragment
 #    by calling BuildGoogleUpdateFragment().
-#  * Include the ComponentGoogleUpdate component in the appropriate feature in
+#  * Include the ComponentBraveUpdate component in the appropriate feature in
 #    the product's WiX code.
 #
 # For an example, see instances of "enterprise" in the following files:
