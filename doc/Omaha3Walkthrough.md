@@ -8,8 +8,8 @@ You might want to read this in parallel with the design docs; they explain the i
     * User Omaha: Omaha is installed for a single user.  The files live in the user’s local application data directory (for example, `\Users\%user%\AppData\Local\Google\Update` on Win7), and all relevant Registry keys are stored in `HKCU\Software\Google`.  Omaha installs are initiated by a user; subsequent automatic updates are run under that user’s account.
     * Machine Omaha: Omaha is installed in a machine-wide manner.  The files live in the machine’s app directory -- for example, `\Program Files (x86)\Google\Update` -- and all relevant Registry keys are stored in `HKLM\Software\Google\Update` (for 32-bit) or `HKLM\Software\Wow6432Node\Google\Update` (for 64-bit).  Omaha installs are still typically initiated by a user account, but the automatic updates themselves will run under `LocalSystem`.
   * “Goopdate” - The core DLL in which nearly all Omaha code lives.
-  * “Constant Shell” - The executable commonly known as `GoogleUpdate.exe`.  This is a small, statically linked EXE with no load-time DLL dependencies (not even a CRT!).  It attempts to find a copy of `goopdate.dll` -- the local directory first, if one exists there, otherwise the Omaha install location in the registry.  It may verify that the DLL has an intact Authenticode signature from Google, and then loads the DLL and runs its Main() function, passing along any command line switches it received.
-  * “Meta-installer” (often abbreviated to MI) - The executable known as `GoogleUpdateSetup.exe`.  A metainstaller is an EXE with a large binary resource containing a compressed TAR archive of all the files needed for an Omaha install.  The MI’s code decompresses and extracts the tarball’s contents to a temporary directory, and runs the constant shell inside that directory, passing any command line along.  The MI is almost always Authenticode signed.
+  * “Constant Shell” - The executable commonly known as `BraveUpdate.exe`.  This is a small, statically linked EXE with no load-time DLL dependencies (not even a CRT!).  It attempts to find a copy of `goopdate.dll` -- the local directory first, if one exists there, otherwise the Omaha install location in the registry.  It may verify that the DLL has an intact Authenticode signature from Google, and then loads the DLL and runs its Main() function, passing along any command line switches it received.
+  * “Meta-installer” (often abbreviated to MI) - The executable known as `BraveUpdateSetup.exe`.  A metainstaller is an EXE with a large binary resource containing a compressed TAR archive of all the files needed for an Omaha install.  The MI’s code decompresses and extracts the tarball’s contents to a temporary directory, and runs the constant shell inside that directory, passing any command line along.  The MI is almost always Authenticode signed.
   * “Tagged Meta-installer” - A copy of the MI that has been configured to pass a predefined command line to Omaha - for example, `ChromeSetup.exe`.  A “tag” refers to a predefined command line.  We stow the tag string in an PE section that is not covered by the Authenticode signature; in this way, a meta-installer EXE can be modified to download and install nearly any app that Google offers by simply adding the tag, without having to re-sign it.
   * “CUP” -  A proprietary Google protocol, built on top of HTTP.  It provides SSL-like authentication/repudiation while avoiding some of the downsides of HTTPS.  Acronym for “Client Update Protocol.”  CUP is described in more detail in a [separate design document](cup.html).
   * “Code Red” - Describes a situation where a bugged Omaha build or an OS patch has been released that prevents Omaha from updating for a very large percentage of users, and the tools for resolving it.  Google-authored applications can link with a static library produced during the Omaha build that checks for Code Red releases through an alternate channel; if a Code Red release is enabled, an executable is downloaded which attempts to repair/reinstall Omaha.
@@ -43,7 +43,7 @@ Let’s walk through an example - the user downloads a Chrome installer from a m
 
   * The Chrome installer EXE (~500KB) is actually a tagged meta-installer.  It decompresses the Omaha files to a temporary directory and invokes the constant shell with the following command line.  The part after the /install is the tag string:
 ```
-GoogleUpdate /install "bundlename=Google%20Chrome%20Bundle&appguid={8A69D345-D564-463C-AFF1-A69D9E530F96}&
+BraveUpdate /install "bundlename=Google%20Chrome%20Bundle&appguid={8A69D345-D564-463C-AFF1-A69D9E530F96}&
 appname=Google%20Chrome&needsadmin=False&lang=en"
 ```
   * The constant shell loads goopdate.dll from the temporary directory and passes along this command line; we start by parsing it.  The `/install` flag tells us that we’re operating as the Client, and we need to install Omaha; we examine and sanitize the tag (known from here on as extra-args) to figure out whether we need a user or machine Omaha.  We decide from `“needsadmin=false”` that a user Omaha install is warranted.  (If needsadmin were equal to true, we would attempt to re-launch ourselves in a new, elevated process.)
@@ -62,19 +62,19 @@ appname=Google%20Chrome&needsadmin=False&lang=en"
   * The COM Server no longer has any active clients, and will shut down on its own in a minute or two.
   * Five hours later, a scheduled task fires that starts up the constant shell with the commandline `/ua`.  This triggers a Client who reads the registry to get a full list of all applications currently being managed by Omaha.  It creates an App Bundle (starting the COM Server) and adds all the apps to it; the COM Server checks for updates, and the whole process starts again.
 
-A crucial thing to pick up here is that, since one file (goopdate.dll) does many different tasks based simply on the command line, a typical Omaha task will involve many processes being created.  A typical clean install of Machine Chrome may involve as many as 15 different instances of GoogleUpdate.exe being started, each doing small parts of the task.
+A crucial thing to pick up here is that, since one file (goopdate.dll) does many different tasks based simply on the command line, a typical Omaha task will involve many processes being created.  A typical clean install of Machine Chrome may involve as many as 15 different instances of BraveUpdate.exe being started, each doing small parts of the task.
 
 ## The Omaha Files ##
 
 So, what files are actually in a permanent install of Omaha once it’s completed?
 
-| `GoogleUpdate.exe` | The Constant Shell.  Just takes the command line given to it and passes it to goopdate.dll; if necessary, it will validate that goopdate has an intact digital signature from Google. |
+| `BraveUpdate.exe` | The Constant Shell.  Just takes the command line given to it and passes it to goopdate.dll; if necessary, it will validate that goopdate has an intact digital signature from Google. |
 |:-------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `GoogleCrashHandler.exe` | A copy of the constant shell, renamed for Omaha2 compatibility reasons.  Expected to always be started with /crashhandler.                                                            |
-| `GoogleUpdateBroker.exe`<br><code>GoogleUpdateOnDemand.exe</code> <table><thead><th> COM Forwarders.  Both of these are small EXEs whose sole purpose is to take their own command line, append a command line switch to the end, and pass it to the Constant Shell.       </th></thead><tbody>
+| `BraveCrashHandler.exe` | A copy of the constant shell, renamed for Omaha2 compatibility reasons.  Expected to always be started with /crashhandler.                                                            |
+| `BraveUpdateBroker.exe`<br><code>BraveUpdateOnDemand.exe</code> <table><thead><th> COM Forwarders.  Both of these are small EXEs whose sole purpose is to take their own command line, append a command line switch to the end, and pass it to the Constant Shell.       </th></thead><tbody>
 <tr><td> <code>goopdate.dll</code> </td><td> The central Omaha3 binary.                                                                                                                                                            </td></tr>
 <tr><td> <code>goopdateres_*.dll</code> </td><td> Resource-only DLLs, one per language, containing localized strings.  As part of its startup, Goopdate will read the “lang” extra-args parameter if one exists (or the Registry) and select a language to load. </td></tr>
-<tr><td> <code>npGoogleUpdate3.dll</code> </td><td> Our web browser plugin.  (It actually contains two plugins: ActiveX plugins for IE, and an NPAPI plugin for Firefox, Chrome, and other browsers that use that.)  Allows Javascript on selected subdomains of google.com to access and use the COM Server. </td></tr>
+<tr><td> <code>npBraveUpdate3.dll</code> </td><td> Our web browser plugin.  (It actually contains two plugins: ActiveX plugins for IE, and an NPAPI plugin for Firefox, Chrome, and other browsers that use that.)  Allows Javascript on selected subdomains of google.com to access and use the COM Server. </td></tr>
 <tr><td> <code>psmachine.dll</code><br><code>psuser.dll</code> </td><td> Custom marshaling stubs used by the COM Server.  Used in order to work around some Windows bugs that are triggered by having both Machine and User Omaha installed simultaneously.    </td></tr></tbody></table>
 
 The directory tree typically looks like this:<br>
@@ -85,8 +85,8 @@ The directory tree typically looks like this:<br>
             ... the files listed above ...<br>
         Download\		Temp area for installers currently being downloaded.<br>
         Install\		Temp area for installers that are verified and about to be launched.<br>
-        GoogleUpdate.exe	A copy of the the constant shell.  This will look into the registry for<br>
+        BraveUpdate.exe	A copy of the the constant shell.  This will look into the registry for<br>
 				the most recently successfully installed version of Omaha, and<br>
 				use the goopdate.dll there.<br>
 </code></pre>
-At this point, the value of the Constant Shell becomes obvious - we can modify or change the location of goopdate.dll, without having to touch <code>GoogleUpdate.exe</code> in most cases.  This means that minor changes or bugfixes in Omaha can be pushed out, in the form of an update to goopdate.dll, without triggering a prompt from firewalls, virus scanners, or process whitelisters that may be in place on a machine.
+At this point, the value of the Constant Shell becomes obvious - we can modify or change the location of goopdate.dll, without having to touch <code>BraveUpdate.exe</code> in most cases.  This means that minor changes or bugfixes in Omaha can be pushed out, in the form of an update to goopdate.dll, without triggering a prompt from firewalls, virus scanners, or process whitelisters that may be in place on a machine.

@@ -37,7 +37,7 @@ typedef HRESULT (*DownloadCallback)(const TCHAR* url,
 // app_language should follow the external Internet standard
 // Best Common Practice (BCP) 47: http://www.rfc-editor.org/rfc/bcp/bcp47.txt
 // context can be NULL if download_callback does not use it.
-HRESULT FixGoogleUpdate(const TCHAR* app_guid,
+HRESULT FixBraveUpdate(const TCHAR* app_guid,
                         const TCHAR* app_version,
                         const TCHAR* app_language,
                         bool is_machine_app,

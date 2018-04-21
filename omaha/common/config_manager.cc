@@ -1044,7 +1044,7 @@ bool ConfigManager::AreUpdatesSuppressedNow() {
 }
 
 bool ConfigManager::CanInstallApp(const GUID& app_guid) const {
-  // Google Update should never be checking whether it can install itself.
+  // Brave Update should never be checking whether it can install itself.
   ASSERT1(!::IsEqualGUID(kGoopdateGuid, app_guid));
 
   return kPolicyDisabled != GetEffectivePolicyForAppInstalls(app_guid);

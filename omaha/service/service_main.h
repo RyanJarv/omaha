@@ -18,11 +18,11 @@
 //
 // The service can be started in one of two modes:
 //   * As a regular service, typically at system startup.
-//   * As a COM service, typically by an Omaha client using IGoogleUpdateCore.
+//   * As a COM service, typically by an Omaha client using IBraveUpdateCore.
 // The COM case is distinguished from the regular service case by registering a
 // ServiceParameters command line in the AppID registration.
 //
-// In all cases, the service initializes COM, and allows for IGoogleUpdateCore
+// In all cases, the service initializes COM, and allows for IBraveUpdateCore
 // clients to connect to the service. In the regular service case, the service
 // shuts down after a small idle check timeout, provided that there are no COM
 // clients connected. In the COM server case, and in the case where there are

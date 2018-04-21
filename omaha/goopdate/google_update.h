@@ -13,7 +13,7 @@
 // limitations under the License.
 // ========================================================================
 //
-// Contains GoogleUpdate class which is the ATL exe module for the local
+// Contains BraveUpdate class which is the ATL exe module for the local
 // server that allows launching of the browser at medium integrity.
 
 #ifndef OMAHA_GOOPDATE_GOOGLE_UPDATE_H_
@@ -34,7 +34,7 @@ namespace omaha {
 // It might also be a good idea to rename this class and file since it is more
 // a boilerplate for COM servers than it is related to "Google Update" or the
 // main Omaha 3 COM server since it als handles various brokers.
-class GoogleUpdate : public CAtlExeModuleT<GoogleUpdate> {
+class BraveUpdate : public CAtlExeModuleT<BraveUpdate> {
  public:
   enum ComServerMode {
     kUpdate3Mode,
@@ -42,10 +42,10 @@ class GoogleUpdate : public CAtlExeModuleT<GoogleUpdate> {
     kOnDemandMode,
   };
 
-  DECLARE_LIBID(LIBID_GoogleUpdate3Lib)
+  DECLARE_LIBID(LIBID_BraveUpdate3Lib)
 
-  explicit GoogleUpdate(bool is_machine, ComServerMode mode);
-  ~GoogleUpdate();
+  explicit BraveUpdate(bool is_machine, ComServerMode mode);
+  ~BraveUpdate();
   HRESULT RegisterClassObjects(DWORD cls_ctx, DWORD flags) throw();
   HRESULT RevokeClassObjects() throw();
 
@@ -63,7 +63,7 @@ class GoogleUpdate : public CAtlExeModuleT<GoogleUpdate> {
   virtual LONG Lock() throw() {
     ::CoAddRefServerProcess();
     LONG lock_count = CComGlobalsThreadModel::Increment(&m_nLockCnt);
-    CORE_LOG(L6, (_T("[GoogleUpdate::Lock][%d]"), lock_count));
+    CORE_LOG(L6, (_T("[BraveUpdate::Lock][%d]"), lock_count));
     return lock_count;
   }
 
@@ -81,7 +81,7 @@ class GoogleUpdate : public CAtlExeModuleT<GoogleUpdate> {
 
     ::CoReleaseServerProcess();
     LONG lock_count = CComGlobalsThreadModel::Decrement(&m_nLockCnt);
-    CORE_LOG(L6, (_T("[GoogleUpdate::Unlock][%d]"), lock_count));
+    CORE_LOG(L6, (_T("[BraveUpdate::Unlock][%d]"), lock_count));
 
     if (lock_count == 0) {
       ::PostThreadMessage(m_dwMainThreadID, WM_QUIT, 0, 0);
@@ -98,7 +98,7 @@ class GoogleUpdate : public CAtlExeModuleT<GoogleUpdate> {
   ComServerMode mode_;
   bool is_machine_;
 
-  DISALLOW_EVIL_CONSTRUCTORS(GoogleUpdate);
+  DISALLOW_EVIL_CONSTRUCTORS(BraveUpdate);
 };
 
 }  // namespace omaha

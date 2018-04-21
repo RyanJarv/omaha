@@ -227,19 +227,19 @@ TEST(CommandLineBuilder, BuildUpdateWithSessionId) {
       cmd_line);
 }
 
-// The /update builder works when not used with GoogleUpdate.exe.
-TEST(CommandLineBuilder, BuildUpdateAndGetCommandLineWithNonGoogleUpdateExe) {
+// The /update builder works when not used with BraveUpdate.exe.
+TEST(CommandLineBuilder, BuildUpdateAndGetCommandLineWithNonBraveUpdateExe) {
   CommandLineBuilder builder(COMMANDLINE_MODE_UPDATE);
-  CString cmd_line = builder.GetCommandLine(_T("C:\\GoogleUpdateSetup_en.exe"));
-  EXPECT_STREQ(_T("\"C:\\GoogleUpdateSetup_en.exe\" /update"), cmd_line);
+  CString cmd_line = builder.GetCommandLine(_T("C:\\BraveUpdateSetup_en.exe"));
+  EXPECT_STREQ(_T("\"C:\\BraveUpdateSetup_en.exe\" /update"), cmd_line);
 }
 
-// The /update builder should not be used with GoogleUpdate.exe directly.
-TEST(CommandLineBuilder, BuildUpdateAndGetCommandLineWithGoogleUpdateExe) {
+// The /update builder should not be used with BraveUpdate.exe directly.
+TEST(CommandLineBuilder, BuildUpdateAndGetCommandLineWithBraveUpdateExe) {
   CommandLineBuilder builder(COMMANDLINE_MODE_UPDATE);
   ExpectAsserts expect_asserts;
-  CString cmd_line = builder.GetCommandLine(_T("C:\\GoogleUpdate.exe"));
-  EXPECT_STREQ(_T("\"C:\\GoogleUpdate.exe\" /update"), cmd_line);
+  CString cmd_line = builder.GetCommandLine(_T("C:\\BraveUpdate.exe"));
+  EXPECT_STREQ(_T("\"C:\\BraveUpdate.exe\" /update"), cmd_line);
 }
 
 TEST(CommandLineBuilder, BuildComServer) {
@@ -474,12 +474,12 @@ TEST(CommandLineBuilder, BuildHandoffInstallWithExtraArgsEnterprise) {
 TEST(CommandLineBuilder, BuildRegisterProduct) {
   CommandLineBuilder builder(COMMANDLINE_MODE_REGISTER_PRODUCT);
   builder.set_extra_args(_T("appguid={7DD3DAE3-87F1-4CFE-8BF4-452C74421401}&")
-                         _T("appname=Google Toolbar&needsadmin=True&")
+                         _T("appname=Brave Toolbar&needsadmin=True&")
                          _T("lang=en"));
   CString cmd_line = builder.GetCommandLineArgs();
   EXPECT_STREQ(_T("/registerproduct ")
                _T("\"appguid={7DD3DAE3-87F1-4CFE-8BF4-452C74421401}&")
-               _T("appname=Google Toolbar&needsadmin=True&lang=en\""),
+               _T("appname=Brave Toolbar&needsadmin=True&lang=en\""),
                cmd_line);
 }
 

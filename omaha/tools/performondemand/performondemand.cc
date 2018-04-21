@@ -262,11 +262,11 @@ class VistaProxyRegistrar {
       return HRESULT_FROM_WIN32(result);
     }
 
-    hr = RegisterHKCUPSClsid(__uuidof(IGoogleUpdate),
+    hr = RegisterHKCUPSClsid(__uuidof(IBraveUpdate),
                              address(googleupdate_library_),
                              &googleupdate_cookie_);
     if (FAILED(hr)) {
-      wprintf(_T("RegisterHKCUPSClsid for IGoogleUpdate failed [0x%x]\n"), hr);
+      wprintf(_T("RegisterHKCUPSClsid for IBraveUpdate failed [0x%x]\n"), hr);
       return hr;
     }
 
@@ -326,7 +326,7 @@ int DoMain(int argc, TCHAR* argv[]) {
   }
   CComPtr<IJobObserver> job_holder(job_observer);
 
-  CComPtr<IGoogleUpdate> on_demand;
+  CComPtr<IBraveUpdate> on_demand;
   hr = on_demand.CoCreateInstance(is_machine ?
                                   __uuidof(OnDemandMachineAppsClass) :
                                   __uuidof(OnDemandUserAppsClass));

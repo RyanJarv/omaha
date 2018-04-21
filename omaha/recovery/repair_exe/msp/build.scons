@@ -49,7 +49,7 @@ def CreateMsiInstallerFiles(env, wxs_file, suffix=''):
           '-dFinalMsi=0',
           '-dCertificateFile=' + _cert_file,
           '-dRequiredFile=' + env.File(_required_file).abspath,
-          '-dGoogleUpdateVersion=' + omaha_version_string,
+          '-dBraveUpdateVersion=' + omaha_version_string,
           ],
       WIXLIGHTFLAGS = [
           '-dRequiredFile=' + env.File(_required_file).abspath,
@@ -71,7 +71,7 @@ def CreateMsiInstallerFiles(env, wxs_file, suffix=''):
           '-dExecuteCustomActionDLL=' + env.File(_custom_actions_path).abspath,
           '-dCertificateFile=' + _cert_file,
           '-dRequiredFile=' + env.File(_required_file).abspath,
-          '-dGoogleUpdateVersion=' + omaha_version_string,
+          '-dBraveUpdateVersion=' + omaha_version_string,
           ],
       WIXLIGHTFLAGS = [
           '-dRequiredFile=' + env.File(_required_file).abspath,

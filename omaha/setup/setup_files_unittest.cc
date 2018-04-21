@@ -114,7 +114,7 @@ class SetupFilesTest : public testing::Test {
   explicit SetupFilesTest(bool is_machine)
       : is_machine_(is_machine),
         omaha_path_(is_machine ?
-            GetGoogleUpdateMachinePath() : GetGoogleUpdateUserPath()),
+            GetBraveUpdateMachinePath() : GetBraveUpdateUserPath()),
         hive_override_key_name_(kRegistryHiveOverrideRoot) {
   }
 

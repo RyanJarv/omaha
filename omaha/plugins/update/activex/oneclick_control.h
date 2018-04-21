@@ -57,10 +57,10 @@ typedef IObjectSafetyImpl<OneClickControl, INTERFACESAFE_FOR_UNTRUSTED_CALLER>
 class ATL_NO_VTABLE OneClickControl
     : public CComObjectRootEx<CComObjectThreadModel>,
       public CComCoClass<OneClickControl,
-                         &__uuidof(GoogleUpdateOneClickControlCoClass)>,
-      public IDispatchImpl<IGoogleUpdateOneClick,
-                           &__uuidof(IGoogleUpdateOneClick),
-                           &LIBID_GoogleUpdateControlLib, 0xffff, 0xffff>,
+                         &__uuidof(BraveUpdateOneClickControlCoClass)>,
+      public IDispatchImpl<IBraveUpdateOneClick,
+                           &__uuidof(IBraveUpdateOneClick),
+                           &LIBID_BraveUpdateControlLib, 0xffff, 0xffff>,
       public OneClickControlSafety,
       public IObjectWithSiteImpl<OneClickControl> {
  public:

@@ -5,7 +5,7 @@
     Language="1033"
     Codepage="1252"
     UpgradeCode="9515FFBD-40AB-4690-B983-4FA8E14EE7F5"
-    Version="$(var.GoogleUpdateVersion)"
+    Version="$(var.BraveUpdateVersion)"
     Manufacturer="Google Inc.">
 
     <Package Id="*"

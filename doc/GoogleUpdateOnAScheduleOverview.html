@@ -487,7 +487,7 @@ body {
     
     
 <h1 id=x.3q>
-  <font size=4>GoogleUpdate.exe on a Schedule Overview</font>
+  <font size=4>BraveUpdate.exe on a Schedule Overview</font>
 </h1>
 <div id=ll4w style=TEXT-ALIGN:left>
   <h2 id=a7yy0>
@@ -495,7 +495,7 @@ body {
   </h2>
   <span style="FONT-FAMILY:Arial; COLOR:#333333">
   <div>
-    <font class=Apple-style-span face=Verdana><font class=Apple-style-span color=#000000>As mentioned in the&nbsp;<a href=http://google-opensource.blogspot.com/2009/07/google-update-regularly-scheduled.html id=elc5 target=_blank title="release announcement">release announcement</a>, client software products have unique challenges, with one of the important challenges being keeping the product up to date. Deploying critical security fixes in a timely and effective manner is one key way that GoogleUpdate.exe, code name Omaha, helps&nbsp;</font></font><a href=http://www.techzoom.net/publications/silent-updates/ id=ddnv target=_blank title="keep users secure"><font class=Apple-style-span face=Verdana><font class=Apple-style-span color=#000000>keep users secure</font></font></a><font class=Apple-style-span face=Verdana><font class=Apple-style-span color=#000000>. Another benefit is that cool new features get deployed and adopted quickly.&nbsp;</font></font>
+    <font class=Apple-style-span face=Verdana><font class=Apple-style-span color=#000000>As mentioned in the&nbsp;<a href=http://google-opensource.blogspot.com/2009/07/google-update-regularly-scheduled.html id=elc5 target=_blank title="release announcement">release announcement</a>, client software products have unique challenges, with one of the important challenges being keeping the product up to date. Deploying critical security fixes in a timely and effective manner is one key way that BraveUpdate.exe, code name Omaha, helps&nbsp;</font></font><a href=http://www.techzoom.net/publications/silent-updates/ id=ddnv target=_blank title="keep users secure"><font class=Apple-style-span face=Verdana><font class=Apple-style-span color=#000000>keep users secure</font></font></a><font class=Apple-style-span face=Verdana><font class=Apple-style-span color=#000000>. Another benefit is that cool new features get deployed and adopted quickly.&nbsp;</font></font>
   </div>
   <div>
     <br>
@@ -522,7 +522,7 @@ body {
       Only run Google Update when needed and limit the amount of time it runs.
     </li>
     <li>
-      For handling crashes, GoogleCrashHandler.exe will be running and ready at the point where the Google application process starts. This is to allow for early crashes in an application to be caught. In addition, the application does not incur a startup delay waiting for the crash handler to start.
+      For handling crashes, BraveCrashHandler.exe will be running and ready at the point where the Google application process starts. This is to allow for early crashes in an application to be caught. In addition, the application does not incur a startup delay waiting for the crash handler to start.
     </li>
   </ol>
   <h2 id=a7yy11>
@@ -564,7 +564,7 @@ body {
     &nbsp;
   </p>
   <div id=t9e3 style=TEXT-ALIGN:left>
-    <img src="GoogleUpdateOnAScheduleOverview_Images/Omaha_kickoff_mechanisms_setup.jpg" style="WIDTH:582px; HEIGHT:831px">
+    <img src="BraveUpdateOnAScheduleOverview_Images/Omaha_kickoff_mechanisms_setup.jpg" style="WIDTH:582px; HEIGHT:831px">
   </div>
   &nbsp;
   <p>
@@ -575,7 +575,7 @@ body {
     &nbsp;
   </p>
   <div id=lhbt style=TEXT-ALIGN:left>
-    <img src="GoogleUpdateOnAScheduleOverview_Images/Core_Update_Worker_Crash_Handler.jpg" style="WIDTH:648px; HEIGHT:838.588px">
+    <img src="BraveUpdateOnAScheduleOverview_Images/Core_Update_Worker_Crash_Handler.jpg" style="WIDTH:648px; HEIGHT:838.588px">
   </div>
   <p>
     &nbsp;
@@ -608,9 +608,9 @@ body {
       <i>If Omaha does not need uninstalling, start a plain-vanilla Update worker. </i>The update worker will check if it needs to do an update check, and if not, shut down immediately. Update check intervals for Omaha are now configurable, as are update policies per Omaha application, using Group Policy. For more information, please refer to&nbsp;<a href=http://google-opensource.blogspot.com/2009/05/google-update-releases-update-controls.html target=_blank title="Omaha Group Policy Support">Omaha Group Policy Support</a>.<br>
     </li>
     <li>
-      <i>Start a Crash Handler worker, GoogleCrashHandler.exe. </i>The crash handler worker will check if usagestats are enabled for any application that Omaha supports, and if not, shut down immediately. For per-machine installs (HKLM), Omaha will also check ClientStateMedium in addition to ClientState, where the application can write the usagestats value. Like the existing ClientState key, there will be a subkey for each application.&nbsp;<br>
+      <i>Start a Crash Handler worker, BraveCrashHandler.exe. </i>The crash handler worker will check if usagestats are enabled for any application that Omaha supports, and if not, shut down immediately. For per-machine installs (HKLM), Omaha will also check ClientStateMedium in addition to ClientState, where the application can write the usagestats value. Like the existing ClientState key, there will be a subkey for each application.&nbsp;<br>
       <br>
-      <i>If usagestats are enabled, the GoogleCrashHandler.exe will run all the time</i>, and handle crashes. When a crash occurs, GoogleCrashHandler.exe will spawn an instance of the GoogleUpdate.exe constant shell to upload the crash.<br>
+      <i>If usagestats are enabled, the BraveCrashHandler.exe will run all the time</i>, and handle crashes. When a crash occurs, BraveCrashHandler.exe will spawn an instance of the BraveUpdate.exe constant shell to upload the crash.<br>
       <br>
     </li>
     <li>
@@ -682,7 +682,7 @@ body {
             The Core scheduled task will have two triggers for machine, and one for user: The common trigger will run the Core task once every 24 hours. The additional trigger for machine will run the task at logon; this is a secondary kickoff mechanism for the machine case. Windows does not allow a "run only when logged on" task to have a logon trigger, hence Omaha does not have that trigger for the user case.&nbsp;
           </li>
           <li>
-            The Core task will have the default name of "GoogleUpdateTask[User|Machine]Core", or if that name is already taken, a name of the form "GoogleUpdateTask[User|Machine]{uniquestring}Core".&nbsp;
+            The Core task will have the default name of "BraveUpdateTask[User|Machine]Core", or if that name is already taken, a name of the form "BraveUpdateTask[User|Machine]{uniquestring}Core".&nbsp;
           </li>
           <li>
             If the Core task name is not the default name, the unique name will be stored in the "Google\Update" registry under the "gupdate_task_name_c" named value.
@@ -691,7 +691,7 @@ body {
             The Update Worker task will have one trigger: run at fixed intervals of approximately one hour.
           </li>
           <li>
-            The Update Worker task will have the default name of "GoogleUpdateTask[User|Machine]UA", or if that name already exists, a name of the form "GoogleUpdateTask[User|Machine]{uniquestring}UA".
+            The Update Worker task will have the default name of "BraveUpdateTask[User|Machine]UA", or if that name already exists, a name of the form "BraveUpdateTask[User|Machine]{uniquestring}UA".
           </li>
           <li>
             If the Update Worker task name is not the default name, the unique name will be stored in the "Google\Update" registry under the "gupdate_task_name_ua" named value.

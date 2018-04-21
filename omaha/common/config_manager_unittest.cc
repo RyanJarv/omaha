@@ -33,7 +33,7 @@ namespace omaha {
 
 namespace {
 
-// OMAHA_KEY_REL == "Software\Google\Update"
+// OMAHA_KEY_REL == "Software\Brave\Update"
 #define OMAHA_KEY_REL \
     _T("Software\\") SHORT_COMPANY_NAME _T("\\") PRODUCT_NAME
 
@@ -297,17 +297,17 @@ TEST_F(ConfigManagerNoOverrideTest, RegistryKeys) {
                cm_->registry_update(true));
 
   EXPECT_STREQ(_T("HKCU\\Software\\") COMPANY_NAME_IDENTIFIER _T("\\"),
-               cm_->user_registry_google());
+               cm_->user_registry_brave());
   EXPECT_STREQ(_T("HKLM\\Software\\") COMPANY_NAME_IDENTIFIER _T("\\"),
-               cm_->machine_registry_google());
+               cm_->machine_registry_brave());
   EXPECT_STREQ(_T("HKCU\\Software\\") COMPANY_NAME_IDENTIFIER _T("\\"),
-               cm_->registry_google(false));
+               cm_->registry_brave(false));
   EXPECT_STREQ(_T("HKLM\\Software\\") COMPANY_NAME_IDENTIFIER _T("\\"),
-               cm_->registry_google(true));
+               cm_->registry_brave(true));
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetUserCrashReportsDir) {
-  const CString expected_path = GetGoogleUserPath() + _T("CrashReports");
+  const CString expected_path = GetBraveUserPath() + _T("CrashReports");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetUserCrashReportsDir());
   EXPECT_TRUE(File::Exists(expected_path));
@@ -315,27 +315,27 @@ TEST_F(ConfigManagerNoOverrideTest, GetUserCrashReportsDir) {
 
 // Should run before the subdirectory tests to ensure the directory is created.
 TEST_F(ConfigManagerNoOverrideTest, GetUserGoopdateInstallDir) {
-  const CString expected_path = GetGoogleUserPath() + _T("Update");
+  const CString expected_path = GetBraveUserPath() + _T("Update");
   EXPECT_STREQ(expected_path, cm_->GetUserGoopdateInstallDir());
   EXPECT_TRUE(File::Exists(expected_path));
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetUserDownloadStorageDir) {
-  const CString expected_path = GetGoogleUpdateUserPath() + _T("Download");
+  const CString expected_path = GetBraveUpdateUserPath() + _T("Download");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetUserDownloadStorageDir());
   EXPECT_TRUE(File::Exists(expected_path));
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetUserInstallWorkingDir) {
-  const CString expected_path = GetGoogleUpdateUserPath() + _T("Install");
+  const CString expected_path = GetBraveUpdateUserPath() + _T("Install");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetUserInstallWorkingDir());
   EXPECT_TRUE(File::Exists(expected_path));
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetUserOfflineStorageDir) {
-  const CString expected_path = GetGoogleUpdateUserPath() + _T("Offline");
+  const CString expected_path = GetBraveUpdateUserPath() + _T("Offline");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetUserOfflineStorageDir());
   EXPECT_TRUE(File::Exists(expected_path));
@@ -364,27 +364,27 @@ TEST_F(ConfigManagerNoOverrideTest, GetMachineCrashReportsDir) {
 
 // Should run before the subdirectory tests to ensure the directory is created.
 TEST_F(ConfigManagerNoOverrideTest, GetMachineGoopdateInstallDir) {
-  CString expected_path = GetGoogleUpdateMachinePath();
+  CString expected_path = GetBraveUpdateMachinePath();
   EXPECT_STREQ(expected_path, cm_->GetMachineGoopdateInstallDir());
   EXPECT_TRUE(File::Exists(expected_path) || !vista_util::IsUserAdmin());
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetMachineSecureDownloadStorageDir) {
-  CString expected_path = GetGoogleUpdateMachinePath() + _T("\\Download");
+  CString expected_path = GetBraveUpdateMachinePath() + _T("\\Download");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetMachineSecureDownloadStorageDir());
   EXPECT_TRUE(File::Exists(expected_path) || !vista_util::IsUserAdmin());
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetMachineInstallWorkingDir) {
-  CString expected_path = GetGoogleUpdateMachinePath() + _T("\\Install");
+  CString expected_path = GetBraveUpdateMachinePath() + _T("\\Install");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetMachineInstallWorkingDir());
   EXPECT_TRUE(File::Exists(expected_path) || !vista_util::IsUserAdmin());
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetMachineSecureOfflineStorageDir) {
-  CString expected_path = GetGoogleUpdateMachinePath() + _T("\\Offline");
+  CString expected_path = GetBraveUpdateMachinePath() + _T("\\Offline");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetMachineSecureOfflineStorageDir());
   EXPECT_TRUE(File::Exists(expected_path) || !vista_util::IsUserAdmin());
@@ -1436,22 +1436,22 @@ TEST_P(ConfigManagerTest, CanUpdateApp_Auto_DefaultInvalid_NoAppValue) {
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Auto_Omaha_DefaultDisabled) {
   EXPECT_SUCCEEDED(SetPolicy(_T("UpdateDefault"), 0));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, false));
+  EXPECT_TRUE(CanUpdateApp(kBraveUpdateAppId, false));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Auto_Omaha_DefaultManualOnly) {
   EXPECT_SUCCEEDED(SetPolicy(_T("UpdateDefault"), 2));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, false));
+  EXPECT_TRUE(CanUpdateApp(kBraveUpdateAppId, false));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Auto_Omaha_DefaultAutoOnly) {
   EXPECT_SUCCEEDED(SetPolicy(_T("UpdateDefault"), 3));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, false));
+  EXPECT_TRUE(CanUpdateApp(kBraveUpdateAppId, false));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Auto_Omaha_AppDisabled) {
   EXPECT_SUCCEEDED(SetPolicy(_T("Update") GOOPDATE_APP_ID, 0));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, false));
+  EXPECT_TRUE(CanUpdateApp(kBraveUpdateAppId, false));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Manual_NoGroupPolicy) {
@@ -1667,22 +1667,22 @@ TEST_P(ConfigManagerTest, CanUpdateApp_Manual_DefaultInvalid_NoAppValue) {
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Manual_Omaha_DefaultDisabled) {
   EXPECT_SUCCEEDED(SetPolicy(_T("UpdateDefault"), 0));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, true));
+  EXPECT_TRUE(CanUpdateApp(kBraveUpdateAppId, true));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Manual_Omaha_DefaultManualOnly) {
   EXPECT_SUCCEEDED(SetPolicy(_T("UpdateDefault"), 2));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, true));
+  EXPECT_TRUE(CanUpdateApp(kBraveUpdateAppId, true));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Manual_Omaha_DefaultAutoOnly) {
   EXPECT_SUCCEEDED(SetPolicy(_T("UpdateDefault"), 3));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, true));
+  EXPECT_TRUE(CanUpdateApp(kBraveUpdateAppId, true));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Manual_Omaha_AppDisabled) {
   EXPECT_SUCCEEDED(SetPolicy(_T("Update") GOOPDATE_APP_ID, 0));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, true));
+  EXPECT_TRUE(CanUpdateApp(kBraveUpdateAppId, true));
 }
 
 TEST_P(ConfigManagerTest, GetPackageCacheSizeLimitMBytes_Default) {

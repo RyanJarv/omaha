@@ -15,9 +15,9 @@
 //
 // Tracing and logging system.
 //
-// The log output goes to "All Users/Application Data/Google/Update/Log/".
+// The log output goes to "All Users/Application Data/Brave/Update/Log/".
 // The log configuration file is under
-// "%Program Files%/C:\Program Files\Google\Common\Update".
+// "%Program Files%/C:\Program Files\Brave\Common\Update".
 // By default, the logging is on in debug modes and off in opt mode although in
 // opt mode only the OPT_LOG statements write to the log.
 //
@@ -891,7 +891,7 @@ bool Logging::UnregisterWriter(LogWriter* log_writer) {
   return true;
 }
 
-// The primary configuration file under %PROGRAMFILES%\Google\Update is
+// The primary configuration file under %PROGRAMFILES%\Brave\Update is
 // removed on uninstall. This is midly inconvenient during development
 // therefore a fallback location for the configuration file is desired.
 CString Logging::GetCurrentConfigurationFilePath() const {

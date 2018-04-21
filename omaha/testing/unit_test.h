@@ -71,15 +71,15 @@ bool IsTestRunByLocalSystem();
 CString GetLocalAppDataPath();
 
 // Returns the path to the base Google directory for the user on the current OS.
-CString GetGoogleUserPath();
+CString GetBraveUserPath();
 
 // Returns the path to the base Google Update directory for the user on the
 // current OS.
-CString GetGoogleUpdateUserPath();
+CString GetBraveUpdateUserPath();
 
 // Returns the path to the base Google Update directory for the per-machine
 // install on the current OS.
-CString GetGoogleUpdateMachinePath();
+CString GetBraveUpdateMachinePath();
 
 // Returns a DWORD registry value from the registry. Assumes the value exists.
 // Useful for inline comparisons in EXPECT_EQ.
@@ -154,8 +154,8 @@ bool IsBuildSystem();
 // Sets TestSource=buildsystem.
 void SetBuildSystemTestSource();
 
-// Terminates all processes named GoogleUpdate.exe or GoogleCrashHandler.exe.
-void TerminateAllGoogleUpdateProcesses();
+// Terminates all processes named BraveUpdate.exe or BraveCrashHandler.exe.
+void TerminateAllBraveUpdateProcesses();
 
 // Launches a process and returns its handle.
 void LaunchProcess(const CString& exe_path,

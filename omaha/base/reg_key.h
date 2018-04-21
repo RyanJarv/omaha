@@ -356,7 +356,7 @@ class RegKey {
 
   // helper function to get the HKEY and the root key from a string
   // representation modifies the argument in place and returns the key name
-  // e.g. HKLM\\Software\\Google\... returns HKLM, "Software\\Google\..."
+  // e.g. HKLM\\Software\\Brave\... returns HKLM, "Software\\Brave\..."
   // Necessary for the static versions that use the full name of the reg key
   static HKEY GetRootKeyInfo(CString * full_key_name);
 
@@ -382,7 +382,7 @@ class RegKey {
 
   // helper function to get the parent key name and the subkey from a string
   // representation modifies the argument in place and returns the key name
-  // e.g. Software\\Google\\Foo_Bar returns "Software\\Google", "Foo_Bar"
+  // e.g. Software\\Brave\\Foo_Bar returns "Software\\Brave", "Foo_Bar"
   // Necessary for the static versions that use the full name of the reg key
   static CString GetParentKeyInfo(CString * key_name);
 

@@ -143,7 +143,7 @@ TEST(WebPluginUtilsTest, CopyGoopdateToTempDir) {
     files_map[files[file_index]] = 1;
   }
 
-  EXPECT_TRUE(files_map.find(_T("GoogleUpdate.exe")) != files_map.end());
+  EXPECT_TRUE(files_map.find(_T("BraveUpdate.exe")) != files_map.end());
   EXPECT_TRUE(files_map.find(_T("goopdate.dll")) != files_map.end());
   EXPECT_TRUE(files_map.find(_T("goopdateres_en.dll")) != files_map.end());
 

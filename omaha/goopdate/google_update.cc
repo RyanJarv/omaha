@@ -46,19 +46,19 @@ TCHAR kHKRootMachine[] = _T("HKLM");
 TCHAR kProgIDUpdate3COMClassUserLocal[] = kProgIDUpdate3COMClassUser;
 
 BEGIN_OBJECT_MAP(object_map_update3_user_mode)
-  OBJECT_ENTRY(__uuidof(GoogleUpdate3UserClass), Update3COMClassUser)
+  OBJECT_ENTRY(__uuidof(BraveUpdate3UserClass), Update3COMClassUser)
 END_OBJECT_MAP()
 
 BEGIN_OBJECT_MAP(object_map_broker_machine_mode)
   OBJECT_ENTRY(__uuidof(OnDemandMachineAppsClass), OnDemandMachineBroker)
-  OBJECT_ENTRY(__uuidof(GoogleUpdate3WebMachineClass), Update3WebMachineBroker)
+  OBJECT_ENTRY(__uuidof(BraveUpdate3WebMachineClass), Update3WebMachineBroker)
   OBJECT_ENTRY(__uuidof(CoCreateAsyncClass), CoCreateAsync)
   OBJECT_ENTRY(__uuidof(OneClickMachineProcessLauncherClass),
                         OneClickProcessLauncher)
 END_OBJECT_MAP()
 
 BEGIN_OBJECT_MAP(object_map_ondemand_user_mode)
-  OBJECT_ENTRY(__uuidof(GoogleUpdate3WebUserClass), Update3WebUser)
+  OBJECT_ENTRY(__uuidof(BraveUpdate3WebUserClass), Update3WebUser)
   OBJECT_ENTRY(__uuidof(OnDemandUserAppsClass), OnDemandUser)
   OBJECT_ENTRY(__uuidof(CredentialDialogUserClass), CredentialDialogUser)
   OBJECT_ENTRY(__uuidof(OneClickUserProcessLauncherClass),
@@ -67,15 +67,15 @@ END_OBJECT_MAP()
 
 BEGIN_OBJECT_MAP(object_map_ondemand_machine_mode)
   OBJECT_ENTRY(__uuidof(ProcessLauncherClass), ProcessLauncher)
-  OBJECT_ENTRY(__uuidof(GoogleUpdateCoreMachineClass), GoogleUpdateCoreMachine)
+  OBJECT_ENTRY(__uuidof(BraveUpdateCoreMachineClass), BraveUpdateCoreMachine)
   OBJECT_ENTRY(__uuidof(OnDemandMachineAppsFallbackClass),
                OnDemandMachineFallback)
-  OBJECT_ENTRY(__uuidof(GoogleUpdate3WebMachineFallbackClass),
+  OBJECT_ENTRY(__uuidof(BraveUpdate3WebMachineFallbackClass),
                Update3WebMachineFallback)
   OBJECT_ENTRY(__uuidof(CredentialDialogMachineClass), CredentialDialogMachine)
 END_OBJECT_MAP()
 
-_ATL_OBJMAP_ENTRY* GoogleUpdate::GetObjectMap() {
+_ATL_OBJMAP_ENTRY* BraveUpdate::GetObjectMap() {
   if (mode_ == kUpdate3Mode && !is_machine_) {
     return object_map_update3_user_mode;
   }
@@ -95,16 +95,16 @@ _ATL_OBJMAP_ENTRY* GoogleUpdate::GetObjectMap() {
   return NULL;
 }
 
-GoogleUpdate::GoogleUpdate(bool is_machine, ComServerMode mode)
+BraveUpdate::BraveUpdate(bool is_machine, ComServerMode mode)
     : is_machine_(is_machine), mode_(mode) {
   // Disable the delay on shutdown mechanism in CAtlExeModuleT.
   m_bDelayShutdown = false;
 }
 
-GoogleUpdate::~GoogleUpdate() {
+BraveUpdate::~BraveUpdate() {
 }
 
-HRESULT GoogleUpdate::Main() {
+HRESULT BraveUpdate::Main() {
   HRESULT hr = E_FAIL;
   if (!ParseCommandLine(::GetCommandLine(), &hr)) {
     // This was either /RegServer or /UnregServer. Return early.
@@ -122,11 +122,11 @@ HRESULT GoogleUpdate::Main() {
   // the ThreadPool and the ShutdownHandler within the Worker are not
   // initialized. We need to eventually fix this.
 
-  CORE_LOG(L2, (_T("[Calling CAtlExeModuleT<GoogleUpdate>::WinMain]")));
-  return CAtlExeModuleT<GoogleUpdate>::WinMain(0);
+  CORE_LOG(L2, (_T("[Calling CAtlExeModuleT<BraveUpdate>::WinMain]")));
+  return CAtlExeModuleT<BraveUpdate>::WinMain(0);
 }
 
-HRESULT GoogleUpdate::RegisterClassObjects(DWORD, DWORD) throw() {
+HRESULT BraveUpdate::RegisterClassObjects(DWORD, DWORD) throw() {
   CORE_LOG(L3, (_T("[RegisterClassObjects]")));
 
   for (_ATL_OBJMAP_ENTRY* entry = GetObjectMap();
@@ -145,7 +145,7 @@ HRESULT GoogleUpdate::RegisterClassObjects(DWORD, DWORD) throw() {
   return S_OK;
 }
 
-HRESULT GoogleUpdate::RevokeClassObjects() throw() {
+HRESULT BraveUpdate::RevokeClassObjects() throw() {
   CORE_LOG(L3, (_T("[RevokeClassObjects]")));
 
   for (_ATL_OBJMAP_ENTRY* entry = GetObjectMap();
@@ -162,7 +162,7 @@ HRESULT GoogleUpdate::RevokeClassObjects() throw() {
   return S_OK;
 }
 
-HRESULT GoogleUpdate::RegisterOrUnregisterExe(bool is_register) {
+HRESULT BraveUpdate::RegisterOrUnregisterExe(bool is_register) {
   CORE_LOG(L3, (_T("[RegisterOrUnregisterExe][%d]"), is_register));
 
   for (_ATL_OBJMAP_ENTRY* entry = GetObjectMap();
@@ -179,10 +179,10 @@ HRESULT GoogleUpdate::RegisterOrUnregisterExe(bool is_register) {
   return S_OK;
 }
 
-HRESULT GoogleUpdate::RegisterOrUnregisterExe(void* data,
+HRESULT BraveUpdate::RegisterOrUnregisterExe(void* data,
                                               bool is_register) {
   ASSERT1(data);
-  return reinterpret_cast<GoogleUpdate*>(data)->RegisterOrUnregisterExe(
+  return reinterpret_cast<BraveUpdate*>(data)->RegisterOrUnregisterExe(
       is_register);
 }
 
@@ -201,7 +201,7 @@ HRESULT RegisterOrUnregisterProxies32(bool is_machine, bool is_register) {
 
 // Register/unregister 64-bit proxy for 64-bit OS. We cannot directly load the
 // 64-bit DLL since Omaha is running in 32-bit mode. Fork a process and let
-// GoogleUpdateComRegisterShell64.exe do heavy lifting.
+// BraveUpdateComRegisterShell64.exe do heavy lifting.
 HRESULT RegisterOrUnregisterProxies64(bool is_machine, bool is_register) {
   BOOL is64bit = FALSE;
   if (0 == Kernel32::IsWow64Process(GetCurrentProcess(), &is64bit) ||
@@ -252,7 +252,7 @@ HRESULT RegisterOrUnregisterProxies(void* data, bool is_register) {
   return S_OK;
 }
 
-HRESULT GoogleUpdate::RegisterServer(BOOL, const CLSID*) throw() {
+HRESULT BraveUpdate::RegisterServer(BOOL, const CLSID*) throw() {
   HRESULT hr = goopdate_utils::RegisterOrUnregisterModule(
       is_machine_, true, &RegisterOrUnregisterProxies, &is_machine_);
   if (FAILED(hr)) {
@@ -262,13 +262,13 @@ HRESULT GoogleUpdate::RegisterServer(BOOL, const CLSID*) throw() {
   return goopdate_utils::RegisterOrUnregisterModule(
       is_machine_,
       true,
-      &GoogleUpdate::RegisterOrUnregisterExe,
+      &BraveUpdate::RegisterOrUnregisterExe,
       this);
 }
 
-HRESULT GoogleUpdate::UnregisterServer(BOOL, const CLSID*) throw() {
+HRESULT BraveUpdate::UnregisterServer(BOOL, const CLSID*) throw() {
   HRESULT hr = goopdate_utils::RegisterOrUnregisterModule(
-      is_machine_, false, &GoogleUpdate::RegisterOrUnregisterExe, this);
+      is_machine_, false, &BraveUpdate::RegisterOrUnregisterExe, this);
   if (FAILED(hr)) {
     return hr;
   }
@@ -277,12 +277,12 @@ HRESULT GoogleUpdate::UnregisterServer(BOOL, const CLSID*) throw() {
       is_machine_, false, &RegisterOrUnregisterProxies, &is_machine_);
 }
 
-HRESULT GoogleUpdate::PreMessageLoop(int show_cmd) throw() {
-  return CAtlExeModuleT<GoogleUpdate>::PreMessageLoop(show_cmd);
+HRESULT BraveUpdate::PreMessageLoop(int show_cmd) throw() {
+  return CAtlExeModuleT<BraveUpdate>::PreMessageLoop(show_cmd);
 }
 
-HRESULT GoogleUpdate::PostMessageLoop() throw() {
-  return CAtlExeModuleT<GoogleUpdate>::PostMessageLoop();
+HRESULT BraveUpdate::PostMessageLoop() throw() {
+  return CAtlExeModuleT<BraveUpdate>::PostMessageLoop();
 }
 
 }  // namespace omaha

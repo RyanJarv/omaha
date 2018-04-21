@@ -113,8 +113,8 @@ void CoCreateAsyncStatus::CreateOmahaMachineServer(const CString origin_url,
                     ByRef(hr),
                     ByRef(ptr));
 
-  CComPtr<IGoogleUpdate3WebSecurity> security;
-  REFCLSID clsid(__uuidof(GoogleUpdate3WebMachineClass));
+  CComPtr<IBraveUpdate3WebSecurity> security;
+  REFCLSID clsid(__uuidof(BraveUpdate3WebMachineClass));
   hr = create_elevated ?
       System::CoCreateInstanceAsAdmin(NULL, clsid, IID_PPV_ARGS(&security)) :
       ::CoCreateInstance(clsid, NULL, CLSCTX_ALL, IID_PPV_ARGS(&security));

@@ -4,7 +4,7 @@
 
   <!-- This fragment assumes machine install (ALLUSER=1). -->
 
-  <Fragment Id='FragmentGoogleUpdate' >
+  <Fragment Id='FragmentBraveUpdate' >
     <!-- Detect whether product is already registered with Google Update. -->
     <Property Id='PRODUCT_REGISTERED_VERSION'>
       <RegistrySearch Id='$(var.ProductNameLegalIdentifier)RegistrationSearch'
@@ -13,8 +13,8 @@
                       Name='pv' Type='raw' />
     </Property>
 
-    <Binary Id='GoogleUpdateSetup'
-            SourceFile='$(var.GoogleUpdateMetainstallerPath)' />
+    <Binary Id='BraveUpdateSetup'
+            SourceFile='$(var.BraveUpdateMetainstallerPath)' />
 
     <!-- This fragment needs a component that can be referenced.
          Components must be in Directory[Ref] elements and cannot be empty.
@@ -35,7 +35,7 @@
             <RemoveRegistryValue Key='$(var.UpdateKeyPath)'
                                  Name='LastInstallerResultUIString'
                                  Root='HKLM' />
-            <?ifdef UsingGoogleUpdate_1_2_171_OrLater?>
+            <?ifdef UsingBraveUpdate_1_2_171_OrLater?>
             <RegistryValue Id='NonEmptyComponent' Action='write'
                            Root='HKLM'
                            Key='$(var.UpdateKeyPath)\ClientState\$(var.ProductGuid)'
@@ -67,8 +67,8 @@
       Value='[ProductTag]&amp;brand=[BRAND]'
       Execute='immediate'
       Return='check' />
-    <CustomAction Id='RollbackGoogleUpdateRegistration'
-      BinaryKey='GoogleUpdateSetup'
+    <CustomAction Id='RollbackBraveUpdateRegistration'
+      BinaryKey='BraveUpdateSetup'
       Impersonate='no'
       Execute='rollback'
       ExeCommand='/unregisterproduct "[ProductTag]"'
@@ -78,8 +78,8 @@
          write the pv value to the product's ClientState. Otherwise, Omaha
          might uninstall itself before the product's normal install flow writes
          these values. -->
-    <CustomAction Id='InstallGoogleUpdateAndRegister'
-      BinaryKey='GoogleUpdateSetup'
+    <CustomAction Id='InstallBraveUpdateAndRegister'
+      BinaryKey='BraveUpdateSetup'
       Impersonate='no'
       Execute='deferred'
       ExeCommand='/registerproduct "[ProductTag]" /installsource enterprisemsi'
@@ -96,18 +96,18 @@
         (($ComponentBraveUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
       </Custom>
       <Custom Action='AppendBrandToProductTagProperty'
-              Before='RollbackGoogleUpdateRegistration'>
+              Before='RollbackBraveUpdateRegistration'>
         (($ComponentBraveUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES) AND (BRAND &lt;&gt; "")
       </Custom>
 
       <!-- Install Google Update before 'InstallFiles' so that brand, etc. will
            be present when the product is installed. -->
-      <Custom Action='RollbackGoogleUpdateRegistration'
-              Before='InstallGoogleUpdateAndRegister'
+      <Custom Action='RollbackBraveUpdateRegistration'
+              Before='InstallBraveUpdateAndRegister'
               >
         (($ComponentBraveUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES) AND (PRODUCT_REGISTERED_VERSION = "")
       </Custom>
-      <Custom Action='InstallGoogleUpdateAndRegister'
+      <Custom Action='InstallBraveUpdateAndRegister'
               Before='InstallFiles'>
         (($ComponentBraveUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
       </Custom>

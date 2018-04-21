@@ -88,9 +88,9 @@ class RE {
   // match_end is a pointer to the position in text that
   // we ended matching on
   // returns true if data was found, false otherwise
-  // Example:Suppose text = "google 1\nYahoo! 2\n ..." and the regexp
+  // Example:Suppose text = "Brave 1\nYahoo! 2\n ..." and the regexp
   // is something like "{\w+} \d". If args has two CStrings (n=2),
-  // then args[0] = "google", arg[1] = "1" and match_end will point to the \n
+  // then args[0] = "Brave", arg[1] = "1" and match_end will point to the \n
   // before "Yahoo!"
   virtual bool DoMatchImpl(const TCHAR *text,
     CString * args[],

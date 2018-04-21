@@ -192,7 +192,7 @@ HRESULT Core::StartCoreIfNeeded(bool is_system) {
   CommandLineBuilder builder(omaha::COMMANDLINE_MODE_CORE);
   CString cmd_line(builder.GetCommandLineArgs());
   scoped_process process;
-  HRESULT hr = goopdate_utils::StartGoogleUpdateWithArgs(is_system,
+  HRESULT hr = goopdate_utils::StartBraveUpdateWithArgs(is_system,
                                                          cmd_line,
                                                          address(process));
   if (FAILED(hr)) {
@@ -360,7 +360,7 @@ HRESULT Core::StartUpdateWorker() const {
 HRESULT Core::StartUpdateWorkerInternal() const {
   CORE_LOG(L2, (_T("[Core::StartUpdateWorkerInternal]")));
 
-  CString exe_path = goopdate_utils::BuildGoogleUpdateExePath(is_system_);
+  CString exe_path = goopdate_utils::BuildBraveUpdateExePath(is_system_);
   CommandLineBuilder builder(COMMANDLINE_MODE_UA);
   builder.set_install_source(kCmdLineInstallSource_Core);
   CString cmd_line = builder.GetCommandLineArgs();
@@ -405,7 +405,7 @@ HRESULT Core::StartCodeRed() const {
     return S_FALSE;
   }
 
-  CString exe_path = goopdate_utils::BuildGoogleUpdateExePath(is_system_);
+  CString exe_path = goopdate_utils::BuildBraveUpdateExePath(is_system_);
   CommandLineBuilder builder(COMMANDLINE_MODE_CODE_RED_CHECK);
   CString cmd_line = builder.GetCommandLineArgs();
   HRESULT hr = System::StartProcessWithArgs(exe_path, cmd_line);

@@ -33,7 +33,7 @@ namespace {
 // application commands.
 HRESULT VerifyAppCommandExecutableMarkup(const CString& filename) {
   const TCHAR* kMarkupResourceName = MAKEINTRESOURCE(1);
-  const TCHAR* kMarkupResourceType = _T("GOOGLEUPDATEAPPLICATIONCOMMANDS");
+  const TCHAR* kMarkupResourceType = _T("BRAVEUPDATEAPPLICATIONCOMMANDS");
   const DWORD kMarkupResourceExpectedValue = 1;
 
   scoped_library module(::LoadLibraryEx(filename, 0, LOAD_LIBRARY_AS_DATAFILE));

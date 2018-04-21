@@ -603,7 +603,7 @@ AppVersionWeb::~AppVersionWeb() {
 
 HRESULT Update3WebBase::FinalConstruct() {
   HRESULT hr =
-      update3_utils::CreateGoogleUpdate3Class(is_machine_, &omaha_server_);
+      update3_utils::CreateBraveUpdate3Class(is_machine_, &omaha_server_);
   if (FAILED(hr)) {
     CORE_LOG(LE, (_T("[Update3WebBase::FinalConstruct failed][0x%x]"), hr));
     return hr;

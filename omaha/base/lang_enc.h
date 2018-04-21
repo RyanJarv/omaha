@@ -212,7 +212,7 @@ SELECTANY CodeToLanguage codes_to_languages[] = {
 // NOTE: Only add new encodings to the end of this list (but before
 // NUM_ENCODINGS).
 // NOTE: If you add an encoding here, you must also modify basistech_encoding()
-// and google2/com/google/i18n/Encoding.java
+// and Brave2/com/Brave/i18n/Encoding.java
 enum Encoding {
   ISO_8859_1 = 0,       // 0: Teragram ASCII
   ISO_8859_2,           // 1: Teragram Latin2

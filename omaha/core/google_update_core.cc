@@ -29,19 +29,19 @@
 
 namespace omaha {
 
-GoogleUpdateCoreBase::GoogleUpdateCoreBase() : StdMarshalInfo(true) {
-  CORE_LOG(L3, (_T("[GoogleUpdateCoreBase::GoogleUpdateCoreBase]")));
+BraveUpdateCoreBase::BraveUpdateCoreBase() : StdMarshalInfo(true) {
+  CORE_LOG(L3, (_T("[BraveUpdateCoreBase::BraveUpdateCoreBase]")));
 }
 
-GoogleUpdateCoreBase::~GoogleUpdateCoreBase() {
-  CORE_LOG(L3, (_T("[GoogleUpdateCoreBase::~GoogleUpdateCoreBase]")));
+BraveUpdateCoreBase::~BraveUpdateCoreBase() {
+  CORE_LOG(L3, (_T("[BraveUpdateCoreBase::~BraveUpdateCoreBase]")));
 }
 
-STDMETHODIMP GoogleUpdateCoreBase::LaunchCmdElevated(const WCHAR* app_guid,
+STDMETHODIMP BraveUpdateCoreBase::LaunchCmdElevated(const WCHAR* app_guid,
                                                      const WCHAR* cmd_id,
                                                      DWORD caller_proc_id,
                                                      ULONG_PTR* proc_handle) {
-  CORE_LOG(L3, (_T("[GoogleUpdateCoreBase::LaunchCmdElevated]")
+  CORE_LOG(L3, (_T("[BraveUpdateCoreBase::LaunchCmdElevated]")
                 _T("[app %s][cmd %s][pid %d]"),
                 app_guid, cmd_id, caller_proc_id));
   ASSERT1(app_guid);
@@ -115,7 +115,7 @@ STDMETHODIMP GoogleUpdateCoreBase::LaunchCmdElevated(const WCHAR* app_guid,
   return S_OK;
 }
 
-HRESULT GoogleUpdateCoreBase::OpenCallerProcessHandle(DWORD proc_id,
+HRESULT BraveUpdateCoreBase::OpenCallerProcessHandle(DWORD proc_id,
                                                       HANDLE* proc_handle) {
   ASSERT1(proc_handle);
   *proc_handle = NULL;

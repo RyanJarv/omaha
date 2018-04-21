@@ -23,10 +23,10 @@
 
 namespace omaha {
 
-class SetupGoogleUpdate {
+class SetupBraveUpdate {
  public:
-  SetupGoogleUpdate(bool is_machine, bool is_self_update);
-  ~SetupGoogleUpdate();
+  SetupBraveUpdate(bool is_machine, bool is_self_update);
+  ~SetupBraveUpdate();
 
   HRESULT FinishInstall();
 
@@ -52,7 +52,7 @@ class SetupGoogleUpdate {
   // Uninstalls appropriate launch mechanism(s).
   void UninstallLaunchMechanisms();
 
-  // Installs the scheduled task which runs the GoogleUpdate core.
+  // Installs the scheduled task which runs the BraveUpdate core.
   HRESULT InstallScheduledTask();
 
   // Installs the service and scheduled task.
@@ -108,10 +108,10 @@ class SetupGoogleUpdate {
   bool have_called_uninstall_previous_versions_;
 #endif
 
-  friend class SetupGoogleUpdateTest;
+  friend class SetupBraveUpdateTest;
   friend class AppManagerTestBase;
 
-  DISALLOW_EVIL_CONSTRUCTORS(SetupGoogleUpdate);
+  DISALLOW_EVIL_CONSTRUCTORS(SetupBraveUpdate);
 };
 
 }  // namespace omaha

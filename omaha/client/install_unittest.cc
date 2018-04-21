@@ -76,8 +76,8 @@ void PreventSetupFromRunning(bool is_machine) {
 class InstallHandoffTest : public testing::Test {
  protected:
   explicit InstallHandoffTest(bool is_machine)
-      : omaha_path_(is_machine ? GetGoogleUpdateMachinePath() :
-                                 GetGoogleUpdateUserPath()),
+      : omaha_path_(is_machine ? GetBraveUpdateMachinePath() :
+                                 GetBraveUpdateUserPath()),
         path_(ConcatenatePath(omaha_path_, kVersionString)) {
   }
 
@@ -847,7 +847,7 @@ TEST_F(InstallHandoffUserTest,
   args.install_source = _T("unittest");
   bool ui_displayed = false;
   bool has_launched_handoff = false;
-  EXPECT_EQ(GOOGLEUPDATE_E_DLL_NOT_FOUND,
+  EXPECT_EQ(BRAVEUPDATE_E_DLL_NOT_FOUND,
             internal::InstallApplications(false,
                                           false,
                                           args,

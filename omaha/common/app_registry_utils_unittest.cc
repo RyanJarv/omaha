@@ -1582,12 +1582,12 @@ TEST_F(AppRegistryUtilsRegistryProtectedTest, GetNumClients) {
 // This test verifies that InstallTime is created afresh for Omaha if it does
 // not exist, and even if the brand code is already set.
 TEST_F(AppRegistryUtilsRegistryProtectedTest,
-       SetGoogleUpdateBranding_BrandAlreadyExistsAllEmpty) {
+       SetBraveUpdateBranding_BrandAlreadyExistsAllEmpty) {
   EXPECT_SUCCEEDED(RegKey::SetValue(kAppMachineClientStatePath,
                                     kRegValueBrandCode,
                                     _T("EFGH")));
 
-  EXPECT_SUCCEEDED(SetGoogleUpdateBranding(kAppMachineClientStatePath,
+  EXPECT_SUCCEEDED(SetBraveUpdateBranding(kAppMachineClientStatePath,
                                            _T(""),
                                            _T("")));
 
@@ -1619,7 +1619,7 @@ TEST_F(AppRegistryUtilsRegistryProtectedTest,
 // This test verifies that InstallTime remains unchanged for Omaha if it already
 // exists and the brand code is already set.
 TEST_F(AppRegistryUtilsRegistryProtectedTest,
-       SetGoogleUpdateBranding_AllAlreadyExistAllEmpty) {
+       SetBraveUpdateBranding_AllAlreadyExistAllEmpty) {
   EXPECT_SUCCEEDED(RegKey::SetValue(kAppMachineClientStatePath,
                                     kRegValueBrandCode,
                                     _T("EFGH")));
@@ -1636,7 +1636,7 @@ TEST_F(AppRegistryUtilsRegistryProtectedTest,
                                     kRegValueDayOfInstall,
                                     kDayOfInstall));
 
-  EXPECT_SUCCEEDED(SetGoogleUpdateBranding(kAppMachineClientStatePath,
+  EXPECT_SUCCEEDED(SetBraveUpdateBranding(kAppMachineClientStatePath,
                                            _T(""),
                                            _T("")));
 
@@ -2402,7 +2402,7 @@ TEST_F(AppRegistryUtilsRegistryProtectedTest, GetAppVersion_User) {
                                             expected_pv));
 
   CString actual_pv;
-  GetAppVersion(false, kGoogleUpdateAppId, &actual_pv);
+  GetAppVersion(false, kBraveUpdateAppId, &actual_pv);
   EXPECT_STREQ(expected_pv, actual_pv);
 }
 
@@ -2414,7 +2414,7 @@ TEST_F(AppRegistryUtilsRegistryProtectedTest, GetAppVersion_Machine) {
                                             expected_pv));
 
   CString actual_pv;
-  GetAppVersion(true, kGoogleUpdateAppId, &actual_pv);
+  GetAppVersion(true, kBraveUpdateAppId, &actual_pv);
   EXPECT_STREQ(expected_pv, actual_pv);
 }
 
@@ -2426,7 +2426,7 @@ TEST_F(AppRegistryUtilsRegistryProtectedTest, GetAppName_User) {
                                             expected_name));
 
   CString actual_name;
-  GetAppName(false, kGoogleUpdateAppId, &actual_name);
+  GetAppName(false, kBraveUpdateAppId, &actual_name);
   EXPECT_STREQ(expected_name, actual_name);
 }
 
@@ -2438,7 +2438,7 @@ TEST_F(AppRegistryUtilsRegistryProtectedTest, GetAppName_Machine) {
                                             expected_name));
 
   CString actual_name;
-  GetAppName(true, kGoogleUpdateAppId, &actual_name);
+  GetAppName(true, kBraveUpdateAppId, &actual_name);
   EXPECT_STREQ(expected_name, actual_name);
 }
 
@@ -2450,7 +2450,7 @@ TEST_F(AppRegistryUtilsRegistryProtectedTest, GetAppLang_User) {
                                             expected_lang));
 
   CString actual_lang;
-  GetAppLang(false, kGoogleUpdateAppId, &actual_lang);
+  GetAppLang(false, kBraveUpdateAppId, &actual_lang);
   EXPECT_STREQ(expected_lang, actual_lang);
 }
 
@@ -2466,7 +2466,7 @@ TEST_F(AppRegistryUtilsRegistryProtectedTest, GetAppLang_Machine) {
                                             _T("ar")));
 
   CString actual_lang;
-  GetAppLang(true, kGoogleUpdateAppId, &actual_lang);
+  GetAppLang(true, kBraveUpdateAppId, &actual_lang);
   EXPECT_STREQ(expected_lang, actual_lang);
 }
 
@@ -2520,7 +2520,7 @@ TEST_P(AppRegistryUtilsRegistryProtectedTest, GetClientStateData) {
                                             kRegValueExperimentLabels,
                                             experiment_label));
   EXPECT_HRESULT_SUCCEEDED(WriteCohort(IsMachine(),
-                                       kGoogleUpdateAppId,
+                                       kBraveUpdateAppId,
                                        expected_cohort));
   EXPECT_HRESULT_SUCCEEDED(
       RegKey::SetValue(GetClientStatePath(),
@@ -2540,7 +2540,7 @@ TEST_P(AppRegistryUtilsRegistryProtectedTest, GetClientStateData) {
   int actual_install_time_diff_sec(0);
 
   GetClientStateData(IsMachine(),
-                     kGoogleUpdateAppId,
+                     kBraveUpdateAppId,
                      &actual_pv,
                      &actual_ap,
                      &actual_lang,

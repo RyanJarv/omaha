@@ -43,12 +43,12 @@ namespace omaha {
 
 class ATL_NO_VTABLE Update3WebBase
     : public CComObjectRootEx<CComObjectThreadModel>,
-      public IDispatchImpl<IGoogleUpdate3Web,
-                           &__uuidof(IGoogleUpdate3Web),
+      public IDispatchImpl<IBraveUpdate3Web,
+                           &__uuidof(IBraveUpdate3Web),
                            &CAtlModule::m_libid,
                            kMajorTypeLibVersion,
                            kMinorTypeLibVersion>,
-      public IGoogleUpdate3WebSecurity,
+      public IBraveUpdate3WebSecurity,
       public StdMarshalInfo {
  public:
   explicit Update3WebBase(bool is_machine) : StdMarshalInfo(is_machine),
@@ -56,20 +56,20 @@ class ATL_NO_VTABLE Update3WebBase
 
   BEGIN_COM_MAP(Update3WebBase)
     COM_INTERFACE_ENTRY(IDispatch)
-    COM_INTERFACE_ENTRY(IGoogleUpdate3Web)
-    COM_INTERFACE_ENTRY(IGoogleUpdate3WebSecurity)
+    COM_INTERFACE_ENTRY(IBraveUpdate3Web)
+    COM_INTERFACE_ENTRY(IBraveUpdate3WebSecurity)
     COM_INTERFACE_ENTRY(IStdMarshalInfo)
   END_COM_MAP()
 
   HRESULT FinalConstruct();
 
-  // IGoogleUpdate3Web
+  // IBraveUpdate3Web
   STDMETHOD(createAppBundleWeb)(IDispatch** app_bundle_web);
 
-  // IGoogleUpdate3WebSecurity
+  // IBraveUpdate3WebSecurity
   STDMETHOD(setOriginURL)(BSTR origin_url);
 
-  IGoogleUpdate3* omaha_server() const { return omaha_server_.p; }
+  IBraveUpdate3* omaha_server() const { return omaha_server_.p; }
   HANDLE impersonation_token() const {
     return impersonation_token_.GetHandle();
   }
@@ -81,7 +81,7 @@ class ATL_NO_VTABLE Update3WebBase
   virtual ~Update3WebBase() {}
 
  private:
-  CComPtr<IGoogleUpdate3> omaha_server_;
+  CComPtr<IBraveUpdate3> omaha_server_;
   CAccessToken impersonation_token_;
   CAccessToken primary_token_;
   bool is_machine_;
@@ -104,7 +104,7 @@ class ATL_NO_VTABLE Update3Web
     REGMAP_ENTRY(_T("HKROOT"), T::hk_root())
     REGMAP_ENTRY(_T("VERSION"), _T("1.0"))
     REGMAP_ENTRY(_T("PROGID"), T::prog_id())
-    REGMAP_ENTRY(_T("DESCRIPTION"), _T("GoogleUpdate Update3Web"))
+    REGMAP_ENTRY(_T("DESCRIPTION"), _T("BraveUpdate Update3Web"))
     REGMAP_ENTRY(_T("CLSID"), T::class_id())
     REGMAP_MODULE2(_T("MODULE"), kOmahaOnDemandFileName)
     REGMAP_ENTRY(_T("ICONRESID"), PP_STRINGIZE(IDI_ELEVATION_MONIKER_ICON))
@@ -122,7 +122,7 @@ class ATL_NO_VTABLE Update3Web
 struct Update3WebModeUser {
   static bool is_machine() { return false; }
   static const TCHAR* const prog_id() { return kProgIDUpdate3WebUser; }
-  static GUID class_id() { return __uuidof(GoogleUpdate3WebUserClass); }
+  static GUID class_id() { return __uuidof(BraveUpdate3WebUserClass); }
   static UINT registry_res_id() { return IDR_LOCAL_SERVER_RGS; }
   static const TCHAR* const hk_root() { return _T("HKCU"); }
 };
@@ -133,7 +133,7 @@ struct Update3WebModeMachineFallback {
     return kProgIDUpdate3WebMachineFallback;
   }
   static GUID class_id() {
-    return __uuidof(GoogleUpdate3WebMachineFallbackClass);
+    return __uuidof(BraveUpdate3WebMachineFallbackClass);
   }
   static UINT registry_res_id() { return IDR_LOCAL_SERVER_ELEVATION_RGS; }
   static const TCHAR* const hk_root() { return _T("HKLM"); }
@@ -142,7 +142,7 @@ struct Update3WebModeMachineFallback {
 struct Update3WebModeService {
   static bool is_machine() { return true; }
   static const TCHAR* const prog_id() { return kProgIDUpdate3WebSvc; }
-  static GUID class_id() { return __uuidof(GoogleUpdate3WebServiceClass); }
+  static GUID class_id() { return __uuidof(BraveUpdate3WebServiceClass); }
   static UINT registry_res_id() { return IDR_LOCAL_SERVICE_RGS; }
   static const TCHAR* const hk_root() { return _T("HKLM"); }
 };

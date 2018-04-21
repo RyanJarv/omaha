@@ -19,10 +19,10 @@ import "oaidl.idl";
   object,
   uuid(1655FEDC-1D2A-454C-8CDC-B7C253D3E7B1),
   dual,
-  helpstring("GoogleUpdate3Web Control"),
+  helpstring("BraveUpdate3Web Control"),
   pointer_default(unique)
 ]
-interface IGoogleUpdate3WebControl : IDispatch {
+interface IBraveUpdate3WebControl : IDispatch {
   [id(1)] HRESULT createOmahaMachineServerAsync(
       [in] VARIANT_BOOL create_elevated,
       [out, retval] IDispatch** async_status);
@@ -47,7 +47,7 @@ interface IGoogleUpdate3WebControl : IDispatch {
   helpstring("Google Update OneClick Control"),
   pointer_default(unique)
 ]
-interface IGoogleUpdateOneClick : IDispatch
+interface IBraveUpdateOneClick : IDispatch
 {
   // Deprecated. Will be removed in the next release of OneClick.
   [id(1), helpstring("Install")] HRESULT Install(
@@ -78,26 +78,26 @@ interface IGoogleUpdateOneClick : IDispatch
   version(1.0),
   helpstring("Omaha Browser Plugins 3.0 Type Library")
 ]
-library GoogleUpdateControlLib {
+library BraveUpdateControlLib {
   importlib("stdole2.tlb");
 
-  interface IGoogleUpdateOneClick;
-  interface IGoogleUpdate3WebControl;
+  interface IBraveUpdateOneClick;
+  interface IBraveUpdate3WebControl;
 
   [
     uuid(15D29936-2A57-4263-AF7E-A1A2BE525A95),
     helpstring("Google Update OneClick Control Class")
   ]
-  coclass GoogleUpdateOneClickControlCoClass
+  coclass BraveUpdateOneClickControlCoClass
   {
-    [default] interface IGoogleUpdateOneClick;
+    [default] interface IBraveUpdateOneClick;
   };
 
   [
     uuid(2810C6B4-D693-4E86-A05B-A2F9B6CA37DE),
-    helpstring("GoogleUpdate3Web Control Class")
+    helpstring("BraveUpdate3Web Control Class")
   ]
-  coclass GoogleUpdate3WebControlCoClass {
+  coclass BraveUpdate3WebControlCoClass {
     [default] interface IDispatch;
   };
 };

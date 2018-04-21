@@ -296,8 +296,8 @@ HRESULT InstallSelf(bool is_machine,
   VERIFY1(SUCCEEDED(internal::SetInstallationId(omaha_client_state_key_path,
                                                 extra_args.installation_id)));
   VERIFY1(SUCCEEDED(ExperimentLabels::WriteRegistry(
-      is_machine, kGoogleUpdateAppId, extra_args.experiment_labels)));
-  VERIFY1(SUCCEEDED(app_registry_utils::SetGoogleUpdateBranding(
+      is_machine, kBraveUpdateAppId, extra_args.experiment_labels)));
+  VERIFY1(SUCCEEDED(app_registry_utils::SetBraveUpdateBranding(
       omaha_client_state_key_path,
       extra_args.brand_code,
       extra_args.client_id)));
@@ -347,7 +347,7 @@ HRESULT UpdateSelf(bool is_machine, const CString& session_id) {
   // 'current_version' corresponds to the value of 'pv' read from the registry.
   CString current_version;
   app_registry_utils::GetAppVersion(is_machine,
-                                    kGoogleUpdateAppId,
+                                    kBraveUpdateAppId,
                                     &current_version);
 
   int extra_code1 = 0;

@@ -13,7 +13,7 @@
 // limitations under the License.
 // ========================================================================
 
-// Utilities for IGoogleUpdate3 and related interfaces.
+// Utilities for IBraveUpdate3 and related interfaces.
 
 #ifndef OMAHA_COMMON_UPDATE3_UTILS_H_
 #define OMAHA_COMMON_UPDATE3_UTILS_H_
@@ -59,10 +59,10 @@ HRESULT CoCreateWithProxyBlanket(REFCLSID rclsid, T* t) {
 }
 
 // Create methods.
-HRESULT CreateGoogleUpdate3Class(bool is_machine, IGoogleUpdate3** server);
-HRESULT CreateGoogleUpdate3MachineClass(IGoogleUpdate3** machine_server);
-HRESULT CreateGoogleUpdate3UserClass(IGoogleUpdate3** user_server);
-HRESULT CreateAppBundle(IGoogleUpdate3* server, IAppBundle** app_bundle);
+HRESULT CreateBraveUpdate3Class(bool is_machine, IBraveUpdate3** server);
+HRESULT CreateBraveUpdate3MachineClass(IBraveUpdate3** machine_server);
+HRESULT CreateBraveUpdate3UserClass(IBraveUpdate3** user_server);
+HRESULT CreateAppBundle(IBraveUpdate3* server, IAppBundle** app_bundle);
 HRESULT CreateApp(BSTR app_id, IAppBundle* app_bundle, IApp** app);
 HRESULT CreateInstalledApp(BSTR app_id, IAppBundle* app_bundle, IApp** app);
 HRESULT CreateAllInstalledApps(IAppBundle* app_bundle);

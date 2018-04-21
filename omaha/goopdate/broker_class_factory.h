@@ -146,14 +146,14 @@ typedef BrokerClassFactoryRegistrar<__uuidof(OnDemandMachineAppsServiceClass),
                                     kOnDemandMachineBrokerProgId>
                                     OnDemandMachineBroker;
 
-// The Pack web plugin client CoCreates GoogleUpdate3WebMachineClass, which
+// The Pack web plugin client CoCreates BraveUpdate3WebMachineClass, which
 // instantiates the class factory for the Update3WebBroker typedef below. The
 // class factory in turn passes the CreateInstance through to
-// GoogleUpdate3WebServiceClass.
+// BraveUpdate3WebServiceClass.
 typedef BrokerClassFactoryRegistrar<
-    __uuidof(GoogleUpdate3WebServiceClass),
-    __uuidof(GoogleUpdate3WebMachineFallbackClass),
-    __uuidof(GoogleUpdate3WebMachineClass),
+    __uuidof(BraveUpdate3WebServiceClass),
+    __uuidof(BraveUpdate3WebMachineFallbackClass),
+    __uuidof(BraveUpdate3WebMachineClass),
     kUpdate3WebMachineBrokerProgId>
     Update3WebMachineBroker;
 

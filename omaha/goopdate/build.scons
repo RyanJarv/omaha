@@ -49,7 +49,7 @@ def BuildCOMForwarder(cmd_line_switch,
           'shlwapi.lib',
       ],
   )
-  # The resource file used is the same as the one for GoogleUpdate.exe.
+  # The resource file used is the same as the one for BraveUpdate.exe.
   # The version resource used is the same as the one for goopdate.dll.
   com_forwarder_res = com_forwarder_env.RES('%s.res' % signed_exe_name,
                                             '../google_update/resource.rc')
@@ -74,9 +74,9 @@ def BuildCOMForwarder(cmd_line_switch,
 
 
 # Build the broker/legacy on-demand/WebPlugin forwarders.
-BuildCOMForwarder('/broker', 'GoogleUpdateBroker', False)
-BuildCOMForwarder('/ondemand', 'GoogleUpdateOnDemand', False)
-BuildCOMForwarder('/pi', 'GoogleUpdateWebPlugin', True)
+BuildCOMForwarder('/broker', 'BraveUpdateBroker', False)
+BuildCOMForwarder('/ondemand', 'BraveUpdateOnDemand', False)
+BuildCOMForwarder('/pi', 'BraveUpdateWebPlugin', True)
 
 def BuildCOMRegisterShell64():
   com_register_shell_env = env.CloneAndMake64Bit()
@@ -113,13 +113,13 @@ def BuildCOMRegisterShell64():
       ],
   )
   unsigned_exe = com_register_shell_env.ComponentProgram(
-      prog_name='GoogleUpdateComRegisterShell64_unsigned',
+      prog_name='BraveUpdateComRegisterShell64_unsigned',
       source= [
           'com_register_shell.cc',
           ]
   )
   signed_exe = com_register_shell_env.DualSignedBinary(
-      target='GoogleUpdateComRegisterShell64.exe',
+      target='BraveUpdateComRegisterShell64.exe',
       source=unsigned_exe,
   )
   env.Replicate('$STAGING_DIR', signed_exe)
@@ -142,7 +142,7 @@ def GenerateOmaha3IDLFile():
 #
 # Build omaha3_idl COM proxy.
 #
-def BuildGoogleUpdateCOMProxy(midl_env, generated_idl):
+def BuildBraveUpdateCOMProxy(midl_env, generated_idl):
   midl_env.Tool('midl')
   midl_env['MIDLFLAGS'] += [
       '/Oicf',  # generate optimized stubless proxy/stub code
@@ -180,10 +180,10 @@ def BuildGoogleUpdateCOMProxy(midl_env, generated_idl):
   )
 
 generated_omaha3_idl = GenerateOmaha3IDLFile()
-BuildGoogleUpdateCOMProxy(env.Clone(), generated_omaha3_idl)
-BuildGoogleUpdateCOMProxy(env.CloneAndMake64Bit(), generated_omaha3_idl)
+BuildBraveUpdateCOMProxy(env.Clone(), generated_omaha3_idl)
+BuildBraveUpdateCOMProxy(env.CloneAndMake64Bit(), generated_omaha3_idl)
 
-def BuildGoogleUpdateHandlerDll(handler_env,
+def BuildBraveUpdateHandlerDll(handler_env,
                                 omaha_version_info,
                                 is_machine_handler,
                                 psname):
@@ -275,13 +275,13 @@ def BuildGoogleUpdateHandlerDll(handler_env,
 
 handler_env = env.Clone(COMPONENT_STATIC = False)
 for omaha_version_info in env['omaha_versions_info']:
-  BuildGoogleUpdateHandlerDll(handler_env.Clone(),
+  BuildBraveUpdateHandlerDll(handler_env.Clone(),
                               omaha_version_info, 1, 'psmachine')
-  BuildGoogleUpdateHandlerDll(handler_env.CloneAndMake64Bit(),
+  BuildBraveUpdateHandlerDll(handler_env.CloneAndMake64Bit(),
                               omaha_version_info, 1, 'psmachine')
-  BuildGoogleUpdateHandlerDll(handler_env.Clone(),
+  BuildBraveUpdateHandlerDll(handler_env.Clone(),
                               omaha_version_info, 0, 'psuser')
-  BuildGoogleUpdateHandlerDll(handler_env.CloneAndMake64Bit(),
+  BuildBraveUpdateHandlerDll(handler_env.CloneAndMake64Bit(),
                               omaha_version_info, 0, 'psuser')
 
 gd_env = env.Clone()

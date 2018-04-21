@@ -215,7 +215,7 @@ HRESULT SetInitialDayOfValues(const CString& client_state_key_path,
 
 // Google Update does not have a referral_id. Everything else is the same as for
 // apps.
-HRESULT SetGoogleUpdateBranding(const CString& client_state_key_path,
+HRESULT SetBraveUpdateBranding(const CString& client_state_key_path,
                                 const CString& brand_code,
                                 const CString& client_id) {
   HRESULT hr(SetAppBranding(client_state_key_path,
@@ -284,7 +284,7 @@ HRESULT SetAppBranding(const CString& client_state_key_path,
   }
 
   const TCHAR* brand_code_to_write = brand_code.IsEmpty() ?
-                                     kDefaultGoogleUpdateBrandCode :
+                                     kDefaultBraveUpdateBrandCode :
                                      brand_code;
   hr = state_key.SetValue(kRegValueBrandCode, brand_code_to_write);
   if (FAILED(hr)) {

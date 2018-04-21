@@ -345,7 +345,7 @@ TEST_F(SetupRegistryProtectedMachineTest,
 // Even Google Update registered is not sufficient for detecting that Google
 // Update is already installed.
 TEST_F(SetupRegistryProtectedMachineTest,
-       SetEulaRequiredState_Required_ValueDoesNotExistGoogleUpdateRegistered) {
+       SetEulaRequiredState_Required_ValueDoesNotExistBraveUpdateRegistered) {
   EXPECT_SUCCEEDED(RegKey::SetValue(MACHINE_REG_CLIENT_STATE,
                                     _T("pv"),
                                     _T("1.2.3.4")));
@@ -633,7 +633,7 @@ TEST_F(SetupRegistryProtectedUserTest,
 // Even Google Update registered is not sufficient for detecting that Google
 // Update is already installed.
 TEST_F(SetupRegistryProtectedUserTest,
-       SetEulaRequiredState_Required_ValueDoesNotExistGoogleUpdateRegistered) {
+       SetEulaRequiredState_Required_ValueDoesNotExistBraveUpdateRegistered) {
   EXPECT_SUCCEEDED(RegKey::SetValue(USER_REG_CLIENT_STATE,
                                     _T("pv"),
                                     _T("1.2.3.4")));

@@ -11,7 +11,7 @@ To force your build to install and be used, you must either remove existing Goog
 There are several sample command lines at the top of http://code.google.com/p/omaha/source/browse/trunk/goopdate/goopdate.cc. For the initial install of any build, you should use one of the `/install` command lines. `needsadmin` determines whether to install Omaha and the app per-user (`False`) or per-machine/for all users (`True`).
 
 As an example, from the `staging` directory, run the following command:
-> `GoogleUpdate.exe /install "appguid={8A69D345-D564-463C-AFF1-A69D9E530F96}&appname=Google%20Chrome&needsadmin=False&lang=en"`
+> `BraveUpdate.exe /install "appguid={8A69D345-D564-463C-AFF1-A69D9E530F96}&appname=Google%20Chrome&needsadmin=False&lang=en"`
 
 This will install your build in Documents & Settings (XP) / Users (Vista), and it will in turn download and install Google Chrome.
 
@@ -26,6 +26,6 @@ See CustomizingOmaha for information on customizing the Omaha client to work wit
 
 # Create a Metainstaller for Your Application #
 
-The quoted string after `/install` in the command line above is called the tag. This tag can be added to the metainstaller (`GoogleUpdateSetup.exe`) so that double-clicking the metainstaller will install the application specified by the tag.
+The quoted string after `/install` in the command line above is called the tag. This tag can be added to the metainstaller (`BraveUpdateSetup.exe`) so that double-clicking the metainstaller will install the application specified by the tag.
 
 See TaggedMetainstallers.

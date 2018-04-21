@@ -173,7 +173,7 @@ HRESULT CommandLineValidator::Validate(
     }
   }
 
-  return GOOGLEUPDATE_COMMANDLINE_E_NO_SCENARIO_HANDLER_MATCHED;
+  return BRAVEUPDATE_COMMANDLINE_E_NO_SCENARIO_HANDLER_MATCHED;
 }
 
 bool CommandLineValidator::DoesScenarioMatch(

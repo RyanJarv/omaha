@@ -31,7 +31,7 @@
 #include "omaha/common/const_cmd_line.h"
 #include "omaha/common/goopdate_utils.h"
 
-// GoogleUpdate.exe is running in 32-bit mode and it cannot directly load
+// BraveUpdate.exe is running in 32-bit mode and it cannot directly load
 // 64-bit COM server DLL for register/unregister purpose. So create this
 // application to do that.
 

@@ -37,16 +37,16 @@ namespace omaha {
 // Construction of local static object is not thread-safe
 #pragma warning(disable:4640)
 
-class ATL_NO_VTABLE GoogleUpdateCoreBase
+class ATL_NO_VTABLE BraveUpdateCoreBase
     : public CComObjectRootEx<CComMultiThreadModel>,
-      public IGoogleUpdateCore,
+      public IBraveUpdateCore,
       public StdMarshalInfo {
  public:
-  GoogleUpdateCoreBase();
-  virtual ~GoogleUpdateCoreBase();
+  BraveUpdateCoreBase();
+  virtual ~BraveUpdateCoreBase();
 
-  BEGIN_COM_MAP(GoogleUpdateCoreBase)
-    COM_INTERFACE_ENTRY(IGoogleUpdateCore)
+  BEGIN_COM_MAP(BraveUpdateCoreBase)
+    COM_INTERFACE_ENTRY(IBraveUpdateCore)
     COM_INTERFACE_ENTRY(IStdMarshalInfo)
   END_COM_MAP()
 
@@ -60,32 +60,32 @@ class ATL_NO_VTABLE GoogleUpdateCoreBase
   // the process handle.
   static HRESULT OpenCallerProcessHandle(DWORD proc_id, HANDLE* proc_handle);
 
-  friend class GoogleUpdateCoreTest;
+  friend class BraveUpdateCoreTest;
 
-  DISALLOW_EVIL_CONSTRUCTORS(GoogleUpdateCoreBase);
+  DISALLOW_EVIL_CONSTRUCTORS(BraveUpdateCoreBase);
 };
 
 template <bool is_service>
-class ATL_NO_VTABLE GoogleUpdateCore
-    : public GoogleUpdateCoreBase,
-      public CComCoClass<GoogleUpdateCore<is_service> > {
+class ATL_NO_VTABLE BraveUpdateCore
+    : public BraveUpdateCoreBase,
+      public CComCoClass<BraveUpdateCore<is_service> > {
  public:
-  GoogleUpdateCore() {}
-  virtual ~GoogleUpdateCore() {}
+  BraveUpdateCore() {}
+  virtual ~BraveUpdateCore() {}
 
-  DECLARE_NOT_AGGREGATABLE(GoogleUpdateCore)
+  DECLARE_NOT_AGGREGATABLE(BraveUpdateCore)
   DECLARE_REGISTRY_RESOURCEID_EX(is_service ? IDR_LOCAL_SERVICE_RGS :
                                               IDR_LOCAL_SERVER_ELEVATION_RGS)
 
   BEGIN_REGISTRY_MAP()
-    REGMAP_ENTRY(_T("PROGID"), is_service ? kProgIDGoogleUpdateCoreService :
-                                            kProgIDGoogleUpdateCoreMachine)
+    REGMAP_ENTRY(_T("PROGID"), is_service ? kProgIDBraveUpdateCoreService :
+                                            kProgIDBraveUpdateCoreMachine)
     REGMAP_ENTRY(_T("VERSION"), _T("1"))
-    REGMAP_ENTRY(_T("NAME"), _T("GoogleUpdateCoreClass"))
+    REGMAP_ENTRY(_T("NAME"), _T("BraveUpdateCoreClass"))
     REGMAP_ENTRY(_T("DESCRIPTION"), _T("Google Update Core Class"))
     REGMAP_UUID(_T("CLSID"), is_service ?
-                             __uuidof(GoogleUpdateCoreClass) :
-                             __uuidof(GoogleUpdateCoreMachineClass))
+                             __uuidof(BraveUpdateCoreClass) :
+                             __uuidof(BraveUpdateCoreMachineClass))
     REGMAP_ENTRY(L"ICONRESID", PP_STRINGIZE(IDI_ELEVATION_MONIKER_ICON))
     REGMAP_ENTRY(L"STRINGRESID",
                  PP_STRINGIZE(IDS_ELEVATION_MONIKER_DISPLAYNAME))
@@ -94,11 +94,11 @@ class ATL_NO_VTABLE GoogleUpdateCore
 
  private:
 
-  DISALLOW_EVIL_CONSTRUCTORS(GoogleUpdateCore);
+  DISALLOW_EVIL_CONSTRUCTORS(BraveUpdateCore);
 };
 
-typedef GoogleUpdateCore<false> GoogleUpdateCoreMachine;
-typedef GoogleUpdateCore<true> GoogleUpdateCoreService;
+typedef BraveUpdateCore<false> BraveUpdateCoreMachine;
+typedef BraveUpdateCore<true> BraveUpdateCoreService;
 
 #pragma warning(pop)
 

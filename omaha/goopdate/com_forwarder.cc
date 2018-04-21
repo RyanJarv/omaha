@@ -81,13 +81,13 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previous_instance,
 
   // TODO(omaha): Use the registry to get the path of the constant shell.
   // Remove filename and move up one directory, because we want to use the
-  // constant shell GoogleUpdate.exe.
+  // constant shell BraveUpdate.exe.
   ::PathRemoveFileSpec(command_line);
 #if OFFICIAL_BUILD
   ::PathRemoveFileSpec(command_line);
 #else
   // This is to facilitate unit tests such as
-  // GoogleUpdateCoreTest.LaunchCmdElevated_LocalServerRegistered. If we are
+  // BraveUpdateCoreTest.LaunchCmdElevated_LocalServerRegistered. If we are
   // running from the staging directory, the shell is in the same directory.
   if (!IsRunningFromStaging(command_line)) {
     ::PathRemoveFileSpec(command_line);

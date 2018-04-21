@@ -63,17 +63,17 @@ CString GetLocalAppDataPath() {
   return expected_local_app_data_path;
 }
 
-CString GetGoogleUserPath() {
+CString GetBraveUserPath() {
   return GetLocalAppDataPath() + SHORT_COMPANY_NAME + _T("\\");
 }
 
-// TODO(omaha): make GetGoogleUpdateUserPath and GetGoogleUpdateMachinePath
+// TODO(omaha): make GetBraveUpdateUserPath and GetBraveUpdateMachinePath
 // consistent. They should end with \ or not.
-CString GetGoogleUpdateUserPath() {
-  return GetGoogleUserPath() + PRODUCT_NAME + _T("\\");
+CString GetBraveUpdateUserPath() {
+  return GetBraveUserPath() + PRODUCT_NAME + _T("\\");
 }
 
-CString GetGoogleUpdateMachinePath() {
+CString GetBraveUpdateMachinePath() {
   CString program_files;
   GetFolderPath(CSIDL_PROGRAM_FILES, &program_files);
   return program_files + _T("\\") + SHORT_COMPANY_NAME
@@ -216,7 +216,7 @@ void TerminateAllProcessesByName(const TCHAR* process_name) {
   }
 }
 
-void TerminateAllGoogleUpdateProcesses() {
+void TerminateAllBraveUpdateProcesses() {
   TerminateAllProcessesByName(kOmahaShellFileName);
   TerminateAllProcessesByName(kCrashHandlerFileName);
   TerminateAllProcessesByName(kCrashHandler64FileName);
@@ -224,7 +224,7 @@ void TerminateAllGoogleUpdateProcesses() {
 
 // The exit code of psexec is the pid it started when -d is used.
 // Wait for psexec to exit, get the exit code, and use it to get a handle
-// to the GoogleUpdate.exe instance.
+// to the BraveUpdate.exe instance.
 void LaunchProcessAsSystem(const CString& launch_cmd, HANDLE* process) {
   ASSERT_TRUE(process);
 
@@ -320,7 +320,7 @@ void RunAsAdmin(const CString& exe_path, const CString& cmd_line) {
 }
 
 void RegisterOrUnregisterGoopdateLocalServer(bool reg) {
-  CString server_path = ConcatenatePath(GetGoogleUpdateMachinePath(),
+  CString server_path = ConcatenatePath(GetBraveUpdateMachinePath(),
                                         kOmahaShellFileName);
   EnclosePath(&server_path);
 
@@ -331,7 +331,7 @@ void RegisterOrUnregisterGoopdateLocalServer(bool reg) {
 }
 
 void RegisterOrUnregisterGoopdateService(bool reg) {
-  CString service_path = ConcatenatePath(GetGoogleUpdateMachinePath(),
+  CString service_path = ConcatenatePath(GetBraveUpdateMachinePath(),
                                          kServiceFileName);
   EnclosePath(&service_path);
 

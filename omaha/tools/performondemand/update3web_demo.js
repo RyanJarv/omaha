@@ -48,7 +48,7 @@ var COMMAND_STATUS_ERROR = COMMAND_STATUS_RUNNING + 1;
 var COMMAND_STATUS_COMPLETE = COMMAND_STATUS_ERROR + 1;
 
 function update3webProgId(is_machine) {
-  return 'GoogleUpdate.Update3Web' + (is_machine ? 'Machine' : 'User');
+  return 'BraveUpdate.Update3Web' + (is_machine ? 'Machine' : 'User');
 }
 
 function initializeBundle(is_machine) {

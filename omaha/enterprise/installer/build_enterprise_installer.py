@@ -23,7 +23,7 @@
   The supplied wxs templates need to have an XML extension because SCons
   tries to apply WiX building rules to any input file with the .wxs suffix.
 
-  BuildGoogleUpdateFragment(): Build an update fragment into a .wixobj.
+  BuildBraveUpdateFragment(): Build an update fragment into a .wixobj.
   BuildEnterpriseInstaller(): Build an MSI installer for use in enterprises.
 """
 
@@ -32,7 +32,7 @@ import enterprise.installer.utils as ei_utils
 
 
 
-def BuildGoogleUpdateFragment(env,
+def BuildBraveUpdateFragment(env,
                               metainstaller_path,
                               product_name,
                               product_version,
@@ -277,7 +277,7 @@ def BuildEnterpriseInstaller(env,
   Raises:
     Nothing.
   """
-  google_update_wixobj_output = BuildGoogleUpdateFragment(
+  google_update_wixobj_output = BuildBraveUpdateFragment(
       env,
       metainstaller_path,
       product_name,

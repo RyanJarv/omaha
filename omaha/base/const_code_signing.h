@@ -29,8 +29,8 @@ namespace omaha {
 
 // The company and organization names expected in the code
 // signing certificates which are trusted.
-const TCHAR* const kCertificateSubjectName = _T("Google Inc");
-const TCHAR* const kSha256CertificateSubjectName = _T("Google Inc");
+const TCHAR* const kCertificateSubjectName = _T("Brave Inc");
+const TCHAR* const kSha256CertificateSubjectName = _T("Brave Inc");
 
 // The Omaha certificate thumbprint. Used by unit tests.
 const TCHAR* const kCertificateThumbprint =

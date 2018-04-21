@@ -17,7 +17,7 @@ import "oaidl.idl";
 import "ocidl.idl";
 
 // When adding interfaces to this file:
-//  * Do not use "Google" or "GoogleUpdate" directly. Instead, use preprocessor
+//  * Do not use "Google" or "BraveUpdate" directly. Instead, use preprocessor
 //    defines.
 //  * Add a test for the Google-specific value to
 //    omaha_customization_goopdate_apis_unittest.cc.
@@ -110,19 +110,19 @@ enum AppCommandStatus {
   object,
   dual,
   uuid(7CB305B1-4D45-4668-AD91-677F87BED305),
-  helpstring("IGoogleUpdate3 Interface"),
+  helpstring("IBraveUpdate3 Interface"),
   pointer_default(unique)
 ]
-interface IGoogleUpdate3 : IDispatch {
+interface IBraveUpdate3 : IDispatch {
   // TODO(Omaha): Perhaps this interface exposes helpers such as
   // RestartBrowsers, etc.
 
-  // Returns the count of the AppBundles in this IGoogleUpdate3 interface.
+  // Returns the count of the AppBundles in this IBraveUpdate3 interface.
   [id(1), propget] HRESULT Count([out, retval] long* count);
 
-  // Returns an IDispatch of the AppBundle in this IGoogleUpdate3 interface at
+  // Returns an IDispatch of the AppBundle in this IBraveUpdate3 interface at
   // the specified 0-based index. This property has the dispid of DISPID_VALUE
-  // to make it the default property of IGoogleUpdate3.
+  // to make it the default property of IBraveUpdate3.
   [id(DISPID_VALUE), propget] HRESULT Item([in] long index,
                                            [out, retval] IDispatch** bundle);
   // Returns an IDispatch to a newly created empty AppBundle.
@@ -523,27 +523,27 @@ interface ICredentialDialog : IUnknown {
 // BEGIN gupdatem interfaces.
 
 // The following interfaces are exposed as a narrower version of the
-// IGoogleUpdate3 interface from the gupdatem service. These interfaces are
+// IBraveUpdate3 interface from the gupdatem service. These interfaces are
 // meant for use from medium and low integrity clients.
 
 [
   object,
   dual,
   uuid(C9190589-ECEC-43F8-8AEC-62496BB87B26),
-  helpstring("IGoogleUpdate3Web Interface"),
+  helpstring("IBraveUpdate3Web Interface"),
   pointer_default(unique),
 ]
-interface IGoogleUpdate3Web : IDispatch {
+interface IBraveUpdate3Web : IDispatch {
   HRESULT createAppBundleWeb([out, retval] IDispatch** app_bundle_web);
 };
 
 [
   object,
   uuid(24D704AD-AC42-49F2-BB4F-68BA77C98E91),
-  helpstring("IGoogleUpdate3WebSecurity Interface"),
+  helpstring("IBraveUpdate3WebSecurity Interface"),
   pointer_default(unique),
 ]
-interface IGoogleUpdate3WebSecurity : IUnknown {
+interface IBraveUpdate3WebSecurity : IUnknown {
   HRESULT setOriginURL([in] BSTR origin_url);
 };
 
@@ -798,7 +798,7 @@ typedef enum {
   object,
   oleautomation,
   uuid(8504FB26-FC3E-4C1C-9C94-46EC93E6BA63),
-  helpstring("GoogleUpdate UI-specific events Interface"),
+  helpstring("BraveUpdate UI-specific events Interface"),
   pointer_default(unique)
 ]
 interface IProgressWndEvents : IUnknown {
@@ -859,10 +859,10 @@ interface IJobObserver2 : IUnknown {
   object,
   oleautomation,
   uuid(4C929BFE-4FA4-488D-B1E2-82ECD6F076C8),
-  helpstring("IGoogleUpdate Interface"),
+  helpstring("IBraveUpdate Interface"),
   pointer_default(unique)
 ]
-interface IGoogleUpdate : IUnknown {
+interface IBraveUpdate : IUnknown {
   // @param guid The guid for the app to be updated.
   // @param observer The eventing interface.
   HRESULT CheckForUpdate([in, string] const WCHAR* guid,
@@ -874,7 +874,7 @@ interface IGoogleUpdate : IUnknown {
                  [in] IJobObserver* observer);
 };
 
-// IGoogleUpdateCore is an internal Omaha interface.
+// IBraveUpdateCore is an internal Omaha interface.
 [
   object,
   oleautomation,
@@ -882,7 +882,7 @@ interface IGoogleUpdate : IUnknown {
   helpstring("Google Update Core Interface"),
   pointer_default(unique)
 ]
-interface IGoogleUpdateCore : IUnknown
+interface IBraveUpdateCore : IUnknown
 {
   // Runs a command elevated.
   //
@@ -903,13 +903,13 @@ interface IGoogleUpdateCore : IUnknown
   version(1.0),
   helpstring("Omaha 3.0 Type Library")
 ]
-library GoogleUpdate3Lib {
+library BraveUpdate3Lib {
   importlib("stdole2.tlb");
 
   // These Interfaces are forward declared to ensure that they are described in
   // the generated TLB file. This is required for ATL to correctly implement the
   // corresponding IDispatch interfaces.
-  interface IGoogleUpdate3;
+  interface IBraveUpdate3;
   interface IAppBundle;
   interface IApp;
   interface IApp2;
@@ -919,7 +919,7 @@ library GoogleUpdate3Lib {
   interface IPackage;
   interface ICurrentState;
 
-  interface IGoogleUpdate3Web;
+  interface IBraveUpdate3Web;
   interface IAppBundleWeb;
   interface IAppWeb;
   interface IAppCommandWeb;
@@ -928,49 +928,49 @@ library GoogleUpdate3Lib {
 
   [
     uuid(2CF4A521-EC1E-4075-A20B-5DE3E5B89B1B),
-    helpstring("GoogleUpdate3 Class for per-user applications")
+    helpstring("BraveUpdate3 Class for per-user applications")
   ]
-  coclass GoogleUpdate3UserClass {
+  coclass BraveUpdate3UserClass {
     [default] interface IDispatch;
   }
 
   [
     uuid(08F15E98-0442-45D3-82F1-F67495CC51EB),
-    helpstring("GoogleUpdate3 Service Class for machine applications")
+    helpstring("BraveUpdate3 Service Class for machine applications")
   ]
-  coclass GoogleUpdate3ServiceClass {
+  coclass BraveUpdate3ServiceClass {
     [default] interface IDispatch;
   }
 
   [
     uuid(2F78AECB-0A7F-4474-89D5-C325293DE960),
-    helpstring("GoogleUpdate3Web for user applications")
+    helpstring("BraveUpdate3Web for user applications")
   ]
-  coclass GoogleUpdate3WebUserClass {
+  coclass BraveUpdate3WebUserClass {
     [default] interface IDispatch;
   }
 
   [
     uuid(00B16F95-319A-4F01-AC81-CE69B8F4E387),
-    helpstring("Pass-through broker for the GoogleUpdate3WebServiceClass")
+    helpstring("Pass-through broker for the BraveUpdate3WebServiceClass")
   ]
-  coclass GoogleUpdate3WebMachineClass {
+  coclass BraveUpdate3WebMachineClass {
     [default] interface IDispatch;
   }
 
   [
     uuid(3A9D7221-2278-41DD-930B-C2356B7D3725),
-    helpstring("GoogleUpdate3Web")
+    helpstring("BraveUpdate3Web")
   ]
-  coclass GoogleUpdate3WebServiceClass {
+  coclass BraveUpdate3WebServiceClass {
     [default] interface IDispatch;
   }
 
   [
     uuid(66CE3D6C-0B35-4F78-AC77-39728A75CB75),
-    helpstring("Fallback mechanism if GoogleUpdate3WebServiceClass fails")
+    helpstring("Fallback mechanism if BraveUpdate3WebServiceClass fails")
   ]
-  coclass GoogleUpdate3WebMachineFallbackClass {
+  coclass BraveUpdate3WebMachineFallbackClass {
     [default] interface IDispatch;
   }
 
@@ -1090,18 +1090,18 @@ library GoogleUpdate3Lib {
 
   [
     uuid(3AD2D487-D166-4160-8E36-1AE505233A55),
-    helpstring("GoogleUpdateCore Class")
+    helpstring("BraveUpdateCore Class")
   ]
-  coclass GoogleUpdateCoreClass
+  coclass BraveUpdateCoreClass
   {
     [default] interface IUnknown;
   }
 
   [
     uuid(F7FF255A-A593-41BD-A69B-E05D72B72756),
-    helpstring("GoogleUpdateCore Machine Class")
+    helpstring("BraveUpdateCore Machine Class")
   ]
-  coclass GoogleUpdateCoreMachineClass
+  coclass BraveUpdateCoreMachineClass
   {
     [default] interface IUnknown;
   }

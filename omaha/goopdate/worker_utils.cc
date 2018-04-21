@@ -80,7 +80,7 @@ void AddHttpRequestDataToEventLog(HRESULT hr,
                     http_status_code,
                     http_trace);
 
-  GoogleUpdateLogEvent http_request_event(EVENTLOG_INFORMATION_TYPE,
+  BraveUpdateLogEvent http_request_event(EVENTLOG_INFORMATION_TYPE,
                                           kNetworkRequestEventId,
                                           is_machine);
   http_request_event.set_event_desc(msg);

@@ -15,7 +15,7 @@
 //
 // Unit test for the extractor and the ApplyTag class.
 //
-// TODO(omaha): eliminate the dependency on the hardcoded "GoogleUpdate.exe"
+// TODO(omaha): eliminate the dependency on the hardcoded "BraveUpdate.exe"
 // program name.
 
 #include <shlobj.h>
@@ -30,7 +30,7 @@
 namespace omaha {
 
 const TCHAR kFilePath[] = _T(".");
-const TCHAR kFileName[] = _T("GoogleUpdateSetup_repair.exe");
+const TCHAR kFileName[] = _T("BraveUpdateSetup_repair.exe");
 const char kTagString[] = "1234567890abcdefg";
 const char kAppendTagString[] = "..AppendedStr";
 

@@ -117,7 +117,7 @@ version of 55 (e.g. 55.24.34 or 55.60.2).  * "55.2.": update to any minor
 version of 55.2 (e.g. 55.2.34 or 55.2.2).  * "55.24.34": update to this specific
 version only.
 --------------------------------------------------------------------------------
-Lots of crashes in omaha::SetupGoogleUpdate::InstallMsiHelper(). This change
+Lots of crashes in omaha::SetupBraveUpdate::InstallMsiHelper(). This change
 moves the MSI Helper installation to a separate process, isolating any crashes
 in MSI registration from affecting the rest of the codebase.
 --------------------------------------------------------------------------------
@@ -157,12 +157,12 @@ working as expected on Windows 10 AE.
 Report build and patch number for Windows.
 --------------------------------------------------------------------------------
 Implement DoS Mitigation Headers.  * The client sends a
-X-GoogleUpdate-Interactivity header to indicate whether the current request is
+X-BraveUpdate-Interactivity header to indicate whether the current request is
 foreground or background.  A value of "fg" ("foreground") indicates foreground
 install or on-demand updates. "bg" ("background") indicates silent update
-traffic.  * The client sends a X-GoogleUpdate-AppId header to indicate the apps
+traffic.  * The client sends a X-BraveUpdate-AppId header to indicate the apps
 associated with the request. When updating multiple apps, the client specifies a
-comma-separated list of app ids.  * The client sends a X-GoogleUpdate-Updater
+comma-separated list of app ids.  * The client sends a X-BraveUpdate-Updater
 header to indicate the identity of the updater. This is the "updater" version
 string also present in the request. In the case of Omaha, prepend "Omaha-" to
 the version string.
@@ -174,11 +174,11 @@ other public methods. RemoveTimestamps() is only used when the experiment labels
 need to be sent over the wire. In all other cases, experiment labels include the
 timestamps.  -------------------------------------------- Google Installer shown
 as a performance bottleneck in Windows 8+. The Run key now runs
-GoogleUpdateCore.exe that checks if the Core "GoogleUpdate.exe /c" has run
-recently, and if not, runs "GoogleUpdate.exe /c". The expectation here is that
-for most people, the Core Scheduled Task will run "GoogleUpdate.exe /c", and the
+BraveUpdateCore.exe that checks if the Core "BraveUpdate.exe /c" has run
+recently, and if not, runs "BraveUpdate.exe /c". The expectation here is that
+for most people, the Core Scheduled Task will run "BraveUpdate.exe /c", and the
 Run mechanism is just a backup in case the Scheduled Task fails to run. This
-will greatly reduce the number of instances where "GoogleUpdate.exe /c" is run
+will greatly reduce the number of instances where "BraveUpdate.exe /c" is run
 at Startup.
 --------------------------------------------------------------------------------
 
@@ -210,8 +210,8 @@ locking/unlocking works correctly.
 --------------------------------------------------------------------------------
 Service not shutting down fast enough for a fallback local instance to install.
 This CL moves the Worker initialization (which includes the single instance
-mutex) to method calls on the IGoogleUpdate3 interface. In other words, the
-Worker is only initialized when the Client has a valid IGoogleUpdate3 interface
+mutex) to method calls on the IBraveUpdate3 interface. In other words, the
+Worker is only initialized when the Client has a valid IBraveUpdate3 interface
 pointer and calls a method on it. This change allows the client to reliably fall
 back to the in-proc COM server when the service takes too long to come up or if
 the interfaces are not registered correctly.
@@ -415,7 +415,7 @@ Branch eckeytool.c
 --------------------------------------------------------------------------------
 Recover if Handoff from an older metainstaller to a newer-but-broken
 installation of Omaha fails. This change introduces a new command line switch,
-'/healthcheck'. Running the installed 'GoogleUpdate.exe /healthcheck' returns
+'/healthcheck'. Running the installed 'BraveUpdate.exe /healthcheck' returns
 S_OK if the installation is healthy. An older metainstaller runs /healthcheck on
 the installed Omaha, and if that fails, it will overinstall itself over the
 newer version.
@@ -537,7 +537,7 @@ instead of WinCrypt in the CryptoHash class.
 --------------------------------------------------------------------------------
 Disable EtwTraceControllerTest.EnableDisable test.  It hangs on Windows 7.
 --------------------------------------------------------------------------------
-GoogleUpdateRecoveryTest.VerifyFileSignature* tests fail.  SaveArguments.exe
+BraveUpdateRecoveryTest.VerifyFileSignature* tests fail.  SaveArguments.exe
 needs to be updated every 6 months.  Now using the version 1.3.27.5 built on
 5/1/2015.
 --------------------------------------------------------------------------------
@@ -549,7 +549,7 @@ SDK.
 Include the passed in install source for Omaha install ping as well.
 --------------------------------------------------------------------------------
 Implement support for load shedding based on the priority of requests. The
-client sends a X-GoogleUpdate-Interactivity header to indicate whether the
+client sends a X-BraveUpdate-Interactivity header to indicate whether the
 current request is foreground or background. A value of "fg" ("foreground")
 indicates foreground install or on-demand updates. "bg" ("background") indicates
 silent update traffic.
@@ -605,7 +605,7 @@ the "InstallerExtraCode1" value as it progresses through the installation.
 --------------------------------------------------------------------------------
 Implement cohort attributes.
 --------------------------------------------------------------------------------
-Fix XP-compatibility for the VC 2013 build: * "GoogleUpdateSetup.exe is not a
+Fix XP-compatibility for the VC 2013 build: * "BraveUpdateSetup.exe is not a
 valid Win32 application": This is fixed by explicitly targetting Windows XP by
 setting the SUBSYSTEM to 5.01.  * "The procedure entry point
 InitializeCriticalSectionEx could not be located in the dynamic link library
@@ -621,7 +621,7 @@ scenarios.
 Fix UpdateRequest and XmlParser Group Policy related test cases to test Domain
 and Non-Domain scenarios.
 --------------------------------------------------------------------------------
-A SetupGoogleUpdateMachineTest unit test is broken. Changing
+A SetupBraveUpdateMachineTest unit test is broken. Changing
 vista_util::IsUACOn() to always reflect 'false' on platforms below Vista.
 --------------------------------------------------------------------------------
 Fix Group-Policy-related test cases to test both Domain and Non-Domain
@@ -651,8 +651,8 @@ is available and the response is an HTTP error.
 --------------------------------------------------------------------------------
 BITS download metrics don't include the error in some cases
 --------------------------------------------------------------------------------
-Have the OneClick control run GoogleUpdateWebPlugin.exe instead of
-GoogleUpdate.exe.
+Have the OneClick control run BraveUpdateWebPlugin.exe instead of
+BraveUpdate.exe.
 --------------------------------------------------------------------------------
 Fix time bombs in the experiment_labels_unittest
 --------------------------------------------------------------------------------
@@ -786,7 +786,7 @@ Changes required before switching to WTL 9.0.
 Remove code that is no longer needed. introduced our own variant of ATL's
 statreg.h.
 --------------------------------------------------------------------------------
-Ship the currently built version of the constant shell GoogleUpdate.exe instead
+Ship the currently built version of the constant shell BraveUpdate.exe instead
 of a checked-in version with the Omaha meta-installer. For updates of Omaha, we
 will only update the constant shell if the installed version is below
 kCompatibleMinimumOlderShellVersion (which is 1.3.21.103 as of 07/24/2014). This
@@ -795,12 +795,12 @@ will ensure minimal firewall prompt concerns.
 Update unit test for the minimum shell version 1.3.21.103.
 --------------------------------------------------------------------------------
 Omaha 1.3.24.15 causes alerts of Comodo Internet Security's HIPS subsystem.
-Omaha updates itself by running the newer setup (GoogleUpdateSetup.exe) from
-%ProgramFiles%\Google\Update\Install\{UniqueDir}\GoogleUpdateSetup.exe. This
+Omaha updates itself by running the newer setup (BraveUpdateSetup.exe) from
+%ProgramFiles%\Google\Update\Install\{UniqueDir}\BraveUpdateSetup.exe. This
 setup in turn ends up deleting the %ProgramFiles%\Google\Update\Install
-directory including GoogleUpdateSetup.exe. Finally, GoogleUpdateSetup tries to
+directory including BraveUpdateSetup.exe. Finally, BraveUpdateSetup tries to
 cleanup the temp directory that it created under %ProgramFiles%\GUM*. The
-anti-virus program fails to validate the GoogleUpdateSetup.exe executable at
+anti-virus program fails to validate the BraveUpdateSetup.exe executable at
 this point because the underlying disk image has been deleted (or to be more
 accurate, moved via MoveFileEx, since the file is in use otherwise).  The fix is
 to avoid deleting this directory at setup time, because the directory is cleaned
@@ -833,7 +833,7 @@ Increase the installer complete wait time to 30 mins
 For more resilient code, use SafeCStringAFormat() instead of directly calling
 CStringA::Format().
 --------------------------------------------------------------------------------
-GoogleUpdateSetup.exe size increased by about 35KB in 1.3.24.7 from what it was
+BraveUpdateSetup.exe size increased by about 35KB in 1.3.24.7 from what it was
 in 1.3.23.9. the increase in the crash handler. This change makes use of ATL's CStringT
 instead.
 --------------------------------------------------------------------------------
@@ -935,8 +935,8 @@ Resolved UT VerifyFileSignature_NonGoogleSignature failure.  Issues resolved: 1)
 Picked the right file for signature check on Vista and later.  2) Expand SYSTEM
 macro before checking file existance.  3) Corrected the expected error code.
 --------------------------------------------------------------------------------
-Change extractor_unittest to use the untagged GoogleUpdateSetup_repair.exe
-instead of GoogleUpdateSetup.exe, because the latter is tagged with the omaha
+Change extractor_unittest to use the untagged BraveUpdateSetup_repair.exe
+instead of BraveUpdateSetup.exe, because the latter is tagged with the omaha
 signature.
 --------------------------------------------------------------------------------
 Fix file length check to be less onerous.

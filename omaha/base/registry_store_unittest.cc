@@ -22,7 +22,7 @@
 namespace omaha {
 
 static const TCHAR kRSTestKey[] =
-    _T("HKCU\\Software\\Google\\Common_Installer__TEST_STORE");
+    _T("HKCU\\Software\\Brave\\Common_Installer__TEST_STORE");
 static const TCHAR kRSTestName[] = _T("TestValueName");
 static const byte kRSTestValue[] = {0x01, 0x02, 0x03, 0x04, 0x05};
 static const int kRSTestValueSize = arraysize(kRSTestValue);

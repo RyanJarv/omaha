@@ -78,7 +78,7 @@ namespace omaha {
 namespace {
 
 void WriteUpdateAppsStartEvent(bool is_machine) {
-  GoogleUpdateLogEvent update_event(EVENTLOG_INFORMATION_TYPE,
+  BraveUpdateLogEvent update_event(EVENTLOG_INFORMATION_TYPE,
                                     kWorkerStartEventId,
                                     is_machine);
   update_event.set_event_desc(_T("Update Apps start"));
@@ -114,7 +114,7 @@ HRESULT RegisterMSIHelperIfNeeded(bool is_machine) {
   CommandLineBuilder builder(COMMANDLINE_MODE_REGISTER_MSI_HELPER);
   const CString cmd_line = builder.GetCommandLineArgs();
   scoped_process process;
-  const HRESULT hr(goopdate_utils::StartGoogleUpdateWithArgs(is_machine,
+  const HRESULT hr(goopdate_utils::StartBraveUpdateWithArgs(is_machine,
                                                              cmd_line,
                                                              address(process)));
   if (FAILED(hr)) {

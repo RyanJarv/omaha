@@ -123,14 +123,14 @@ class EventLogger {
   static const WORD kDefaultCategory = 0;
 };
 
-class GoogleUpdateLogEvent {
+class BraveUpdateLogEvent {
  public:
-  GoogleUpdateLogEvent(int type, int id, bool is_machine)
+  BraveUpdateLogEvent(int type, int id, bool is_machine)
       : type_(type),
         id_(id),
         is_machine_(is_machine) {}
-  GoogleUpdateLogEvent() : type_(0), id_(0), is_machine_(false) {}
-  ~GoogleUpdateLogEvent() {}
+  BraveUpdateLogEvent() : type_(0), id_(0), is_machine_(false) {}
+  ~BraveUpdateLogEvent() {}
   void WriteEvent();
   void set_event_desc(const CString& desc) { event_desc_ = desc; }
   void set_event_text(const CString& text) { event_text_ = text; }
@@ -142,7 +142,7 @@ class GoogleUpdateLogEvent {
   int id_;
   bool is_machine_;
 
-  DISALLOW_EVIL_CONSTRUCTORS(GoogleUpdateLogEvent);
+  DISALLOW_EVIL_CONSTRUCTORS(BraveUpdateLogEvent);
 };
 
 }  // namespace omaha

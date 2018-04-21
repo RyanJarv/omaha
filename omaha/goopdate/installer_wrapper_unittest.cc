@@ -1021,7 +1021,7 @@ TEST_F(InstallerWrapperMachineTest,
   EXPECT_SUCCEEDED(RegKey::DeleteKey(kFullFooAppClientKeyPath));
 }
 
-// The use of kGoogleUpdateAppId is the key to this test.
+// The use of kBraveUpdateAppId is the key to this test.
 // Note that the version is not changed - this is the normal self-update case.
 TEST_F(InstallerWrapperUserTest, InstallApp_UpdateOmahaSucceeds) {
   CString arguments;

@@ -13,7 +13,7 @@
 // limitations under the License.
 // ========================================================================
 //
-// Unit tests for the Google file signature validation.
+// Unit tests for the Brave file signature validation.
 
 #include <windows.h>
 #include <atlstr.h>
@@ -27,7 +27,7 @@ namespace omaha {
 
 namespace {
 
-bool VerifySigneeIsGoogle(const wchar_t* signed_file) {
+bool VerifySigneeIsBrave(const wchar_t* signed_file) {
   return SUCCEEDED(
     VerifyCertificate(signed_file,
                       kCertificateSubjectName,
@@ -46,7 +46,7 @@ TEST(CertInfoTest, CertInfo) {
   ASSERT_TRUE(::PathAppend(CStrBuf(executable_full_path, MAX_PATH),
                            kRelativePath));
   ASSERT_TRUE(File::Exists(executable_full_path));
-  EXPECT_TRUE(VerifySigneeIsGoogle(executable_full_path));
+  EXPECT_TRUE(VerifySigneeIsBrave(executable_full_path));
 
   CertList cert_list;
   ExtractAllCertificatesFromSignature(executable_full_path, &cert_list);
@@ -56,7 +56,7 @@ TEST(CertInfoTest, CertInfo) {
   // excluding the root certificates.
   // The following certificates are enumerated from SaveArguments.exe signed
   // Thursday, April 14, 2016 3:57:37 PM:
-  // * "Google Inc" hash 1a6ac0549a4a44264deb6ff003391da2f285b19f.
+  // * "Brave Inc" hash 1a6ac0549a4a44264deb6ff003391da2f285b19f.
   // * "Thawte Code Signing CA - G2" hash
   //   808d62642b7d1c4a9a83fd667f7a2a9d243fb1c7.
   // * "COMODO SHA-1 Time Stamping Signer" hash
@@ -105,20 +105,20 @@ TEST(CertInfoTest, CertInfo_Sha256) {
   EXPECT_STREQ(kSha256CertificatePublicKeyHash, cert_info->public_key_hash_);
 }
 
-TEST(SignatureValidatorTest, VerifySigneeIsGoogle_OfficiallySigned) {
+TEST(SignatureValidatorTest, VerifySigneeIsBrave_OfficiallySigned) {
   const TCHAR kRelativePath[] = _T("unittest_support\\SaveArguments.exe");
 
   CString executable_full_path(app_util::GetCurrentModuleDirectory());
   ASSERT_TRUE(::PathAppend(CStrBuf(executable_full_path, MAX_PATH),
                            kRelativePath));
   ASSERT_TRUE(File::Exists(executable_full_path));
-  EXPECT_TRUE(VerifySigneeIsGoogle(executable_full_path));
+  EXPECT_TRUE(VerifySigneeIsBrave(executable_full_path));
 }
 
 // Tests a certificate subject containing multiple CNs such as:
-//    "CN = Google Inc (TEST), CN = Some Other CN, ...
+//    "CN = Brave Inc (TEST), CN = Some Other CN, ...
 // The code exactly matches on the first CN only.
-TEST(SignatureValidatorTest, VerifySigneeIsGoogle_TestSigned_MultipleCN) {
+TEST(SignatureValidatorTest, VerifySigneeIsBrave_TestSigned_MultipleCN) {
   const TCHAR kRelativePath[] =
       _T("unittest_support\\SaveArguments_multiple_cn.exe");
 
@@ -126,11 +126,11 @@ TEST(SignatureValidatorTest, VerifySigneeIsGoogle_TestSigned_MultipleCN) {
   ASSERT_TRUE(::PathAppend(CStrBuf(executable_full_path, MAX_PATH),
                            kRelativePath));
   ASSERT_TRUE(File::Exists(executable_full_path));
-  EXPECT_TRUE(VerifySigneeIsGoogle(executable_full_path));
+  EXPECT_TRUE(VerifySigneeIsBrave(executable_full_path));
 }
 
 TEST(SignatureValidatorTest,
-       VerifySigneeIsGoogle_OfficiallySigned_DifferentOU) {
+       VerifySigneeIsBrave_OfficiallySigned_DifferentOU) {
   const TCHAR kRelativePath[] =
       _T("unittest_support\\SaveArguments_different_ou.exe");
 
@@ -138,10 +138,10 @@ TEST(SignatureValidatorTest,
   ASSERT_TRUE(::PathAppend(CStrBuf(executable_full_path, MAX_PATH),
                            kRelativePath));
   ASSERT_TRUE(File::Exists(executable_full_path));
-  EXPECT_TRUE(VerifySigneeIsGoogle(executable_full_path));
+  EXPECT_TRUE(VerifySigneeIsBrave(executable_full_path));
 }
 
-TEST(SignatureValidatorTest, VerifySigneeIsGoogle_OmahaTestSigned) {
+TEST(SignatureValidatorTest, VerifySigneeIsBrave_OmahaTestSigned) {
   const TCHAR kRelativePath[] =
       _T("unittest_support\\SaveArguments_OmahaTestSigned.exe");
 
@@ -149,10 +149,10 @@ TEST(SignatureValidatorTest, VerifySigneeIsGoogle_OmahaTestSigned) {
   ASSERT_TRUE(::PathAppend(CStrBuf(executable_full_path, MAX_PATH),
                            kRelativePath));
   ASSERT_TRUE(File::Exists(executable_full_path));
-  EXPECT_TRUE(VerifySigneeIsGoogle(executable_full_path));
+  EXPECT_TRUE(VerifySigneeIsBrave(executable_full_path));
 }
 
-TEST(SignatureValidatorTest, VerifySigneeIsGoogle_Sha256) {
+TEST(SignatureValidatorTest, VerifySigneeIsBrave_Sha256) {
   const TCHAR kRelativePath[] =
       _T("unittest_support\\sha2_2a9c21acaaa63a3c58a7b9322bee948d.exe");
 
@@ -160,33 +160,33 @@ TEST(SignatureValidatorTest, VerifySigneeIsGoogle_Sha256) {
   ASSERT_TRUE(::PathAppend(CStrBuf(executable_full_path, MAX_PATH),
                            kRelativePath));
   ASSERT_TRUE(File::Exists(executable_full_path));
-  EXPECT_TRUE(VerifySigneeIsGoogle(executable_full_path));
+  EXPECT_TRUE(VerifySigneeIsBrave(executable_full_path));
 }
 
-TEST(SignatureValidatorTest, VerifySigneeIsGoogle_DualSigned_Sha1AndSha256) {
+TEST(SignatureValidatorTest, VerifySigneeIsBrave_DualSigned_Sha1AndSha256) {
   const TCHAR kRelativePath[] = _T("unittest_support\\Sha1_4c40dba5f988fae57a57d6457495f98b_and_sha2_2a9c21acaaa63a3c58a7b9322bee948d.exe");  // NOLINT
 
   CString executable_full_path(app_util::GetCurrentModuleDirectory());
   ASSERT_TRUE(::PathAppend(CStrBuf(executable_full_path, MAX_PATH),
                            kRelativePath));
   ASSERT_TRUE(File::Exists(executable_full_path));
-  EXPECT_TRUE(VerifySigneeIsGoogle(executable_full_path));
+  EXPECT_TRUE(VerifySigneeIsBrave(executable_full_path));
 }
 
 // The certificate was valid when it was used to sign the executable, but it has
 // since expired.
-TEST(SignatureValidatorTest, VerifySigneeIsGoogle_SignedWithNowExpiredCert) {
+TEST(SignatureValidatorTest, VerifySigneeIsBrave_SignedWithNowExpiredCert) {
   const TCHAR kRelativePath[] =
-      _T("unittest_support\\GoogleUpdate_now_expired_cert.exe");
+      _T("unittest_support\\BraveUpdate_now_expired_cert.exe");
 
   CString executable_full_path(app_util::GetCurrentModuleDirectory());
   ASSERT_TRUE(::PathAppend(CStrBuf(executable_full_path, MAX_PATH),
                            kRelativePath));
   ASSERT_TRUE(File::Exists(executable_full_path));
-  EXPECT_TRUE(VerifySigneeIsGoogle(executable_full_path));
+  EXPECT_TRUE(VerifySigneeIsBrave(executable_full_path));
 }
 
-TEST(SignatureValidatorTest, VerifySigneeIsGoogle_TestSigned_NoCN) {
+TEST(SignatureValidatorTest, VerifySigneeIsBrave_TestSigned_NoCN) {
   const TCHAR kRelativePath[] =
       _T("unittest_support\\SaveArguments_no_cn.exe");
 
@@ -194,10 +194,10 @@ TEST(SignatureValidatorTest, VerifySigneeIsGoogle_TestSigned_NoCN) {
   ASSERT_TRUE(::PathAppend(CStrBuf(executable_full_path, MAX_PATH),
                            kRelativePath));
   ASSERT_TRUE(File::Exists(executable_full_path));
-  EXPECT_FALSE(VerifySigneeIsGoogle(executable_full_path));
+  EXPECT_FALSE(VerifySigneeIsBrave(executable_full_path));
 }
 
-TEST(SignatureValidatorTest, VerifySigneeIsGoogle_TestSigned_WrongCN) {
+TEST(SignatureValidatorTest, VerifySigneeIsBrave_TestSigned_WrongCN) {
   const TCHAR kRelativePath[] =
       _T("unittest_support\\SaveArguments_wrong_cn.exe");
 
@@ -205,13 +205,13 @@ TEST(SignatureValidatorTest, VerifySigneeIsGoogle_TestSigned_WrongCN) {
   ASSERT_TRUE(::PathAppend(CStrBuf(executable_full_path, MAX_PATH),
                            kRelativePath));
   ASSERT_TRUE(File::Exists(executable_full_path));
-  EXPECT_FALSE(VerifySigneeIsGoogle(executable_full_path));
+  EXPECT_FALSE(VerifySigneeIsBrave(executable_full_path));
 }
 
 TEST(SignatureValidatorTest, VerifyAuthenticodeSignature) {
   const TCHAR* kFileNamesToVerify[] = {
-    _T("GoogleUpdate_now_expired_cert.exe"),
-    _T("GoogleUpdate_old_signature.exe"),
+    _T("BraveUpdate_now_expired_cert.exe"),
+    _T("BraveUpdate_old_signature.exe"),
     _T("SaveArguments.exe"),
     _T("SaveArguments_OmahaTestSigned.exe"),
     _T("Sha1_4c40dba5f988fae57a57d6457495f98b_and_sha2_2a9c21acaaa63a3c58a7b9322bee948d.exe"),  // NOLINT

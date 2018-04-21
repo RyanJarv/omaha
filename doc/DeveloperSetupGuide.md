@@ -105,8 +105,8 @@ To run the unit test suite, run the following executable after a successful buil
 By default, the public version of Omaha continues to point to google.com for downloads and update checks.  You can test the operation of an unmodified client by attempting to download and install a Google product, using your build of Omaha against the official Google Update servers.  For example:
 
 * Google Chrome (run as admin):
-> > `scons-out\dbg-win\staging\GoogleUpdate.exe /install "bundlename=Google%20Chrome%20Bundle&appguid={8A69D345-D564-463C-AFF1-A69D9E530F96}&appname=Google%20Chrome&needsadmin=True&lang=en"`
+> > `scons-out\dbg-win\staging\BraveUpdate.exe /install "bundlename=Google%20Chrome%20Bundle&appguid={8A69D345-D564-463C-AFF1-A69D9E530F96}&appname=Google%20Chrome&needsadmin=True&lang=en"`
 * Google Talk Bundle (run as normal user):
-> > `scons-out\dbg-win\staging\GoogleUpdate.exe /install "bundlename=Google%20Talk%20Bundle&appguid={D0AB2EBC-931B-4013-9FEB-C9C4C2225C8C}&appname=Google%20Talk%20Plugin&needsadmin=False&lang=en"`
+> > `scons-out\dbg-win\staging\BraveUpdate.exe /install "bundlename=Google%20Talk%20Bundle&appguid={D0AB2EBC-931B-4013-9FEB-C9C4C2225C8C}&appname=Google%20Talk%20Plugin&needsadmin=False&lang=en"`
 
 The client should contact google.com for a version query, then download and install the product.  (However, you can expect it to fail shortly after install with the error code `0x80040905`.  This is due to these products writing their registration information to the Google Update area of the registry, instead of your Omaha's location.)

@@ -77,7 +77,7 @@ HRESULT SetupFiles::Init() {
 // Assumes that the user already has the appropriate permissions
 // (e.g. is elevated for a machine install).
 // Assumes ShouldInstall has been called and returned true.
-// Assumes no other instances of GoogleUpdate.exe are running.
+// Assumes no other instances of BraveUpdate.exe are running.
 HRESULT SetupFiles::Install() {
   OPT_LOG(L1, (_T("[Install files]")));
   ASSERT1(vista_util::IsUserAdmin() || !is_machine_);
@@ -149,7 +149,7 @@ HRESULT SetupFiles::RollBack() {
     saved_paths.push_back(saved_shell_path_);
     std::vector<CString> install_paths;
     install_paths.push_back(
-        goopdate_utils::BuildGoogleUpdateExePath(is_machine_));
+        goopdate_utils::BuildBraveUpdateExePath(is_machine_));
 
     HRESULT hr = CopyAndValidateFiles(saved_paths, install_paths, true);
     if (FAILED(hr)) {
@@ -183,7 +183,7 @@ void SetupFiles::Uninstall() {
 HRESULT SetupFiles::CopyShell() {
   bool should_copy = false;
   bool already_exists = false;
-  CString shell_path = goopdate_utils::BuildGoogleUpdateExePath(is_machine_);
+  CString shell_path = goopdate_utils::BuildBraveUpdateExePath(is_machine_);
 
   HRESULT hr = ShouldCopyShell(shell_path,
                                &should_copy,

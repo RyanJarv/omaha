@@ -24,7 +24,7 @@
 
 namespace omaha {
 
-// This class builds a GoogleUpdate.exe command line and makes sure it's
+// This class builds a BraveUpdate.exe command line and makes sure it's
 // valid against the GoopdateCommandLineValidator.
 class CommandLineBuilder {
  public:

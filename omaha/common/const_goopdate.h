@@ -99,7 +99,7 @@ const TCHAR* const kNeedsAdminYes = _T("&needsadmin=true");
 const TCHAR* const kNeedsAdminPrefers = _T("&needsadmin=prefers");
 
 // Environment variable inherited by an installer child process that indicates
-// whether GoogleUpdate is running as user or machine.
+// whether BraveUpdate is running as user or machine.
 const TCHAR* const kEnvVariableIsMachine = APP_NAME_IDENTIFIER _T("IsMachine");
 const TCHAR* const kEnvVariableUntrustedData = APP_NAME_IDENTIFIER
                                                _T("UntrustedData");
@@ -281,7 +281,7 @@ const TCHAR* const kScheduledTaskNameUASuffix   = _T("UA");
 const TCHAR* const kServiceFileName              = kOmahaShellFileName;
 const char*  const kGoopdateDllEntryAnsi         = "DllEntry";
 
-// The name of the Omaha product in Google's Crash reporting system.
+// The name of the Omaha product in Brave's Crash reporting system.
 const TCHAR* const kCrashOmahaProductName        = _T("Update2");
 
 // Event Id's used for reporting in the event log.
@@ -289,7 +289,7 @@ const TCHAR* const kCrashOmahaProductName        = _T("Update2");
 const int kCrashReportEventId        = 1;
 const int kCrashUploadEventId        = 2;
 
-// Omaha CustomInfoEntry entry names in Google's Crash reporting system.
+// Omaha CustomInfoEntry entry names in Brave's Crash reporting system.
 const TCHAR* const kCrashCustomInfoCommandLineMode  = _T("CommandLineMode");
 
 // Update Check events.
@@ -345,9 +345,9 @@ const TCHAR* const kProgIDUpdate3WebMachineFallback =
 const TCHAR* const kProgIDUpdate3WebSvc =
     APP_NAME_IDENTIFIER _T(".Update3WebSvc");
 
-const TCHAR* const kProgIDGoogleUpdateCoreService =
+const TCHAR* const kProgIDBraveUpdateCoreService =
     APP_NAME_IDENTIFIER _T(".CoreClass");
-const TCHAR* const kProgIDGoogleUpdateCoreMachine =
+const TCHAR* const kProgIDBraveUpdateCoreMachine =
     APP_NAME_IDENTIFIER _T(".CoreMachineClass");
 
 const TCHAR* const kProgIDProcessLauncher =

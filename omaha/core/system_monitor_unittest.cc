@@ -98,7 +98,7 @@ void SystemMonitorTest::MonitorClientsTest(bool is_machine) {
   const TCHAR guid[] = _T("{4AAF2315-B7C8-4633-A1BA-884EFAB755F7}");
 
   CString app_guid = ConcatenatePath(key_name, guid);
-  CString omaha_guid = ConcatenatePath(key_name, kGoogleUpdateAppId);
+  CString omaha_guid = ConcatenatePath(key_name, kBraveUpdateAppId);
   const TCHAR* keys_to_create[] = { app_guid, omaha_guid };
   EXPECT_HRESULT_SUCCEEDED(RegKey::CreateKeys(keys_to_create,
                                               arraysize(keys_to_create)));

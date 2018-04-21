@@ -45,7 +45,7 @@ class ConfigManager {
     return USER_REG_CLIENT_STATE_GOOPDATE;
   }
   const TCHAR* user_registry_update() const { return USER_REG_UPDATE; }
-  const TCHAR* user_registry_google() const { return USER_REG_GOOGLE; }
+  const TCHAR* user_registry_brave() const { return USER_REG_GOOGLE; }
 
   const TCHAR* machine_registry_clients() const { return MACHINE_REG_CLIENTS; }
   const TCHAR* machine_registry_clients_goopdate() const {
@@ -61,7 +61,7 @@ class ConfigManager {
     return MACHINE_REG_CLIENT_STATE_MEDIUM;
   }
   const TCHAR* machine_registry_update() const { return MACHINE_REG_UPDATE; }
-  const TCHAR* machine_registry_google() const { return MACHINE_REG_GOOGLE; }
+  const TCHAR* machine_registry_brave() const { return MACHINE_REG_GOOGLE; }
 
   const TCHAR* registry_clients(bool is_machine) const {
     return is_machine ? machine_registry_clients() : user_registry_clients();
@@ -81,8 +81,8 @@ class ConfigManager {
   const TCHAR* registry_update(bool is_machine) const {
     return is_machine ? machine_registry_update() : user_registry_update();
   }
-  const TCHAR* registry_google(bool is_machine) const {
-    return is_machine ? machine_registry_google() : user_registry_google();
+  const TCHAR* registry_brave(bool is_machine) const {
+    return is_machine ? machine_registry_brave() : user_registry_brave();
   }
 
   // Gets the temporary download dir for the current thread token:

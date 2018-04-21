@@ -170,7 +170,7 @@ HRESULT GetDllPath(HINSTANCE instance, bool is_machine, CString* dll_path) {
     return HRESULTFromLastError();
   }
   if (!FileExists(path)) {
-    return GOOGLEUPDATE_E_DLL_NOT_FOUND;
+    return BRAVEUPDATE_E_DLL_NOT_FOUND;
   }
 
   *dll_path = path;

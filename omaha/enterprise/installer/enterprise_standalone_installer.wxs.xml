@@ -293,7 +293,7 @@
       </Custom>
       <Custom Action='AppendEnterpriseToOptArgsProperty'
               Before='BuildInstallCommand'>
-        (((?ProductClientState=2) AND ($ProductClientState=3)) OR ((?ProductClientState=3) AND REINSTALL)) AND (NOGOOGLEUPDATEPING &lt;&gt; "")
+        (((?ProductClientState=2) AND ($ProductClientState=3)) OR ((?ProductClientState=3) AND REINSTALL)) AND (NOBRAVEUPDATEPING &lt;&gt; "")
       </Custom>
 
       <!-- Set [AllowDowngradeSubstitution] to true if downgrades are allowed. -->

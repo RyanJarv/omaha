@@ -226,7 +226,7 @@ HRESULT GoopdateCommandLineValidator::Validate(const CommandLineParser* parser,
   MapScenarioHandlersIter iter = scenario_handlers_.find(scenario_name);
   if (iter == scenario_handlers_.end()) {
     ASSERT1(false);
-    return GOOGLEUPDATE_COMMANDLINE_E_NO_SCENARIO_HANDLER;
+    return BRAVEUPDATE_COMMANDLINE_E_NO_SCENARIO_HANDLER;
   }
 
   ScenarioHandler handler = (*iter).second;

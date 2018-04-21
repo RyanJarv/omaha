@@ -152,7 +152,7 @@
 
       <!-- Any operations that rely on values, such as brand and usagestats, in
            ClientState should not run until after
-           InstallGoogleUpdateAndRegister. This is sequenced before InstallFiles
+           InstallBraveUpdateAndRegister. This is sequenced before InstallFiles
            so that can be used as well.
            It is also advisable to write the Clients key after this point so
            the specific values in the installer will replace the ones Google

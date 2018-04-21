@@ -355,7 +355,7 @@ bool IsOmahaUpdateAvailable(const xml::UpdateResponse* update_response) {
   ASSERT1(update_response);
   xml::UpdateResponseResult update_response_result(
       update_response_utils::GetResult(update_response,
-                                       kGoogleUpdateAppId,
+                                       kBraveUpdateAppId,
                                        CString(),
                                        lang::GetDefaultLanguage(true)));
   return update_response_result.first == S_OK;

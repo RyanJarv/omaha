@@ -319,10 +319,10 @@ HRESULT Create(bool is_machine,
   CORE_LOG(L2, (_T("[bundle_creator::Create]")));
   ASSERT1(app_bundle);
 
-  CComPtr<IGoogleUpdate3> server;
-  HRESULT hr = update3_utils::CreateGoogleUpdate3Class(is_machine, &server);
+  CComPtr<IBraveUpdate3> server;
+  HRESULT hr = update3_utils::CreateBraveUpdate3Class(is_machine, &server);
   if (FAILED(hr)) {
-    CORE_LOG(LE, (_T("[CreateGoogleUpdate3Class][0x%08x]"), hr));
+    CORE_LOG(LE, (_T("[CreateBraveUpdate3Class][0x%08x]"), hr));
     return hr;
   }
 
@@ -378,10 +378,10 @@ HRESULT CreateFromCommandLine(bool is_machine,
   ASSERT1(app_bundle);
   UNREFERENCED_PARAMETER(is_interactive);
 
-  CComPtr<IGoogleUpdate3> server;
-  HRESULT hr = update3_utils::CreateGoogleUpdate3Class(is_machine, &server);
+  CComPtr<IBraveUpdate3> server;
+  HRESULT hr = update3_utils::CreateBraveUpdate3Class(is_machine, &server);
   if (FAILED(hr)) {
-    CORE_LOG(LE, (_T("[CreateGoogleUpdate3Class][0x%08x]"), hr));
+    CORE_LOG(LE, (_T("[CreateBraveUpdate3Class][0x%08x]"), hr));
     return hr;
   }
 
@@ -470,10 +470,10 @@ HRESULT CreateForOnDemand(bool is_machine,
   CORE_LOG(L2, (_T("[bundle_creator::CreateForOnDemand]")));
   ASSERT1(app_bundle);
 
-  CComPtr<IGoogleUpdate3> server;
-  HRESULT hr = update3_utils::CreateGoogleUpdate3Class(is_machine, &server);
+  CComPtr<IBraveUpdate3> server;
+  HRESULT hr = update3_utils::CreateBraveUpdate3Class(is_machine, &server);
   if (FAILED(hr)) {
-    CORE_LOG(LE, (_T("[CreateGoogleUpdate3Class failed][0x%x]"), hr));
+    CORE_LOG(LE, (_T("[CreateBraveUpdate3Class failed][0x%x]"), hr));
     return hr;
   }
 

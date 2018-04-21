@@ -15,7 +15,7 @@
 
 // Common functions for configuring crash dump directories and the named pipes
 // used for out-of-process crash handling.  These functions are called by
-// GoogleCrashHandler and the in-process crash handler in Goopdate.
+// BraveCrashHandler and the in-process crash handler in Goopdate.
 
 #ifndef OMAHA_COMMON_CRASH_UTILS_H_
 #define OMAHA_COMMON_CRASH_UTILS_H_

@@ -273,23 +273,23 @@ HRESULT LaunchBrowser(bool is_machine, BrowserType type, const CString& url) {
   return S_OK;
 }
 
-CString BuildGoogleUpdateExeDir(bool is_machine) {
+CString BuildBraveUpdateExeDir(bool is_machine) {
   ConfigManager& cm = *ConfigManager::Instance();
   return is_machine ? cm.GetMachineGoopdateInstallDir() :
                       cm.GetUserGoopdateInstallDir();
 }
 
-CString BuildGoogleUpdateExePath(bool is_machine) {
-  CORE_LOG(L3, (_T("[BuildGoogleUpdateExePath][%d]"), is_machine));
+CString BuildBraveUpdateExePath(bool is_machine) {
+  CORE_LOG(L3, (_T("[BuildBraveUpdateExePath][%d]"), is_machine));
 
-  CPath full_file_path(BuildGoogleUpdateExeDir(is_machine));
+  CPath full_file_path(BuildBraveUpdateExeDir(is_machine));
   VERIFY1(full_file_path.Append(kOmahaShellFileName));
 
   return full_file_path;
 }
 
-CString BuildGoogleUpdateServicesPath(bool is_machine, bool use64bit) {
-  CORE_LOG(L3, (_T("[BuildGoogleUpdateServicesPath][%d][%d]"),
+CString BuildBraveUpdateServicesPath(bool is_machine, bool use64bit) {
+  CORE_LOG(L3, (_T("[BuildBraveUpdateServicesPath][%d][%d]"),
                is_machine, use64bit));
 
   CPath full_file_path(BuildInstallDirectory(is_machine, GetVersionString()));
@@ -299,8 +299,8 @@ CString BuildGoogleUpdateServicesPath(bool is_machine, bool use64bit) {
   return full_file_path;
 }
 
-CString BuildGoogleUpdateServicesEnclosedPath(bool is_machine, bool use64bit) {
-  CString path(BuildGoogleUpdateServicesPath(is_machine, use64bit));
+CString BuildBraveUpdateServicesEnclosedPath(bool is_machine, bool use64bit) {
+  CString path(BuildBraveUpdateServicesPath(is_machine, use64bit));
   EnclosePath(&path);
   return path;
 }
@@ -351,18 +351,18 @@ HRESULT StartElevatedMetainstaller(const TCHAR* args, DWORD* exit_code) {
 CString GetInstalledShellVersion(bool is_machine) {
   CORE_LOG(L3, (_T("[GetInstalledShellVersion][%d]"), is_machine));
 
-  const CString shell_path = BuildGoogleUpdateExePath(is_machine);
+  const CString shell_path = BuildBraveUpdateExePath(is_machine);
   const ULONGLONG shell_version = app_util::GetVersionFromFile(shell_path);
   return shell_version ? StringFromVersion(shell_version) : CString();
 }
 
-HRESULT StartGoogleUpdateWithArgs(bool is_machine,
+HRESULT StartBraveUpdateWithArgs(bool is_machine,
                                   const TCHAR* args,
                                   HANDLE* process) {
-  CORE_LOG(L3, (_T("[StartGoogleUpdateWithArgs][%d][%s]"),
+  CORE_LOG(L3, (_T("[StartBraveUpdateWithArgs][%d][%s]"),
                 is_machine, args ? args : _T("")));
 
-  CString exe_path = BuildGoogleUpdateExePath(is_machine);
+  CString exe_path = BuildBraveUpdateExePath(is_machine);
 
   CORE_LOG(L3, (_T("[command line][%s][%s]"), exe_path, args ? args : _T("")));
 
@@ -380,7 +380,7 @@ HRESULT StartCrashHandler(bool is_machine) {
   ASSERT1(!is_machine || user_info::IsRunningAsSystem());
 
   // Always attempt start the 32-bit crash handler.
-  CString exe_path = BuildGoogleUpdateServicesEnclosedPath(is_machine, false);
+  CString exe_path = BuildBraveUpdateServicesEnclosedPath(is_machine, false);
   HRESULT hr = System::StartCommandLine(exe_path);
   if (FAILED(hr)) {
     CORE_LOG(LE, (_T("[can't start 32-bit crash handler][0x%08x]"), hr));
@@ -395,7 +395,7 @@ HRESULT StartCrashHandler(bool is_machine) {
     CORE_LOG(LE, (_T("[Kernel32::IsWow64Process failed][0x%08x]"), hr));
   }
   if (!!is64bit) {
-    exe_path = BuildGoogleUpdateServicesEnclosedPath(is_machine, true);
+    exe_path = BuildBraveUpdateServicesEnclosedPath(is_machine, true);
     hr = System::StartCommandLine(exe_path);
     if (FAILED(hr)) {
       CORE_LOG(LE, (_T("[can't start 64-bit crash handler][0x%08x]"), hr));
@@ -432,7 +432,7 @@ HRESULT InitializeSecurity() {
   // and the primary group.  We grant access to admins and system.
   CSecurityDesc security_descriptor;
   if (SystemInfo::IsRunningOnVistaOrLater()) {
-    // To allow for low-integrity IE to call into IGoogleUpdate.
+    // To allow for low-integrity IE to call into IBraveUpdate.
     security_descriptor.FromString(LOW_INTEGRITY_SDDL_SACL);
   }
   security_descriptor.SetOwner(Sids::Admins());
@@ -1137,7 +1137,7 @@ HRESULT GetInstallWorkerProcesses(bool is_machine,
   SafeCStringFormat(&command_line_to_include, _T("/%s"), kCmdLineUpdate);
   command_lines.push_back(command_line_to_include);
   SafeCStringFormat(&command_line_to_include, _T("/%s"),
-                    kCmdLineLegacyFinishGoogleUpdateInstall);
+                    kCmdLineLegacyFinishBraveUpdateInstall);
   command_lines.push_back(command_line_to_include);
   command_lines.push_back(kCmdLineComServerDash);
 
@@ -1379,7 +1379,7 @@ bool IsAppInstallWorkerRunning(bool is_machine) {
 }
 
 // Returns true if the version does not begin with "1.0." or "1.1.".
-bool IsGoogleUpdate2OrLater(const CString& version) {
+bool IsBraveUpdate2OrLater(const CString& version) {
   const ULONGLONG kFirstOmaha2Version = MAKEDLLVERULL(1, 2, 0, 0);
   ULONGLONG version_number = VersionFromString(version);
   ASSERT1(0 != version_number);
@@ -1458,7 +1458,7 @@ HRESULT UpdateLastChecked(bool is_machine) {
 
 HRESULT LaunchUninstallProcess(bool is_machine) {
   CORE_LOG(L2, (_T("[LaunchUninstallProcess]")));
-  CString exe_path = BuildGoogleUpdateExePath(is_machine);
+  CString exe_path = BuildBraveUpdateExePath(is_machine);
   CommandLineBuilder builder(COMMANDLINE_MODE_UNINSTALL);
   CString cmd_line = builder.GetCommandLineArgs();
   return System::StartProcessWithArgs(exe_path, cmd_line);

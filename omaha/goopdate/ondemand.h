@@ -88,15 +88,15 @@ template <typename T>
 class ATL_NO_VTABLE OnDemand
     : public CComObjectRootEx<CComObjectThreadModel>,
       public CComCoClass<OnDemand<T> >,
-      public IGoogleUpdate,
+      public IBraveUpdate,
       public StdMarshalInfo {
  public:
-  // IGoogleUpdate::CheckForUpdate().
+  // IBraveUpdate::CheckForUpdate().
   STDMETHOD(CheckForUpdate)(const WCHAR* guid, IJobObserver* observer) {
     return DoOnDemandInternalAsync(guid, observer, true);
   }
 
-  // IGoogleUpdate::Update().
+  // IBraveUpdate::Update().
   STDMETHOD(Update)(const WCHAR* guid, IJobObserver* observer) {
     return DoOnDemandInternalAsync(guid, observer, false);
   }
@@ -244,7 +244,7 @@ class ATL_NO_VTABLE OnDemand
   END_REGISTRY_MAP()
 
   BEGIN_COM_MAP(OnDemand)
-    COM_INTERFACE_ENTRY(IGoogleUpdate)
+    COM_INTERFACE_ENTRY(IBraveUpdate)
     COM_INTERFACE_ENTRY(IStdMarshalInfo)
   END_COM_MAP()
 

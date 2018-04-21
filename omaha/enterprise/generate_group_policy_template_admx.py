@@ -35,38 +35,38 @@ ADMX_ENVIRONMENT = '''
     <using namespace="Google.Policies" prefix="Google"/>
     <using prefix="windows" namespace="Microsoft.Policies.Windows" />
   </policyNamespaces>
-  <supersededAdm fileName="GoogleUpdate.adm" />
+  <supersededAdm fileName="BraveUpdate.adm" />
   <resources minRequiredRevision="1.0" />
   <supportedOn>
     <definitions>
-      <definition name="Sup_GoogleUpdate1_2_145_5"
-          displayName="$(string.Sup_GoogleUpdate1_2_145_5)" />
-      <definition name="Sup_GoogleUpdate1_3_21_81"
-          displayName="$(string.Sup_GoogleUpdate1_3_21_81)" />
-      <definition name="Sup_GoogleUpdate1_3_26_0"
-          displayName="$(string.Sup_GoogleUpdate1_3_26_0)" />
-      <definition name="Sup_GoogleUpdate1_3_33_5"
-          displayName="$(string.Sup_GoogleUpdate1_3_33_5)" />
+      <definition name="Sup_BraveUpdate1_2_145_5"
+          displayName="$(string.Sup_BraveUpdate1_2_145_5)" />
+      <definition name="Sup_BraveUpdate1_3_21_81"
+          displayName="$(string.Sup_BraveUpdate1_3_21_81)" />
+      <definition name="Sup_BraveUpdate1_3_26_0"
+          displayName="$(string.Sup_BraveUpdate1_3_26_0)" />
+      <definition name="Sup_BraveUpdate1_3_33_5"
+          displayName="$(string.Sup_BraveUpdate1_3_33_5)" />
     </definitions>
   </supportedOn>
 '''
 
 ADMX_CATEGORIES = r'''
   <categories>
-    <category name="Cat_GoogleUpdate" displayName="$(string.Cat_GoogleUpdate)"
-        explainText="$(string.Explain_GoogleUpdate)">
+    <category name="Cat_BraveUpdate" displayName="$(string.Cat_BraveUpdate)"
+        explainText="$(string.Explain_BraveUpdate)">
       <parentCategory ref="Google:Cat_Google" />
     </category>
     <category name="Cat_Preferences" displayName="$(string.Cat_Preferences)"
         explainText="$(string.Explain_Preferences)">
-      <parentCategory ref="Cat_GoogleUpdate" />
+      <parentCategory ref="Cat_BraveUpdate" />
     </category>
     <category name="Cat_ProxyServer" displayName="$(string.Cat_ProxyServer)">
-      <parentCategory ref="Cat_GoogleUpdate" />
+      <parentCategory ref="Cat_BraveUpdate" />
     </category>
     <category name="Cat_Applications" displayName="$(string.Cat_Applications)"
         explainText="$(string.Explain_Applications)">
-      <parentCategory ref="Cat_GoogleUpdate" />
+      <parentCategory ref="Cat_BraveUpdate" />
     </category>
 %(AppCategorList)s
   </categories>
@@ -81,7 +81,7 @@ ADMX_POLICIES = r'''
         key="%(RootPolicyKey)s"
         valueName="AutoUpdateCheckPeriodMinutes">
       <parentCategory ref="Cat_Preferences" />
-      <supportedOn ref="Sup_GoogleUpdate1_2_145_5" />
+      <supportedOn ref="Sup_BraveUpdate1_2_145_5" />
       <elements>
         <decimal id="Part_AutoUpdateCheckPeriod"
             key="%(RootPolicyKey)s"
@@ -95,7 +95,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_DownloadPreference)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_Preferences" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_26_0" />
+      <supportedOn ref="Sup_BraveUpdate1_3_26_0" />
       <elements>
         <enum id="Part_DownloadPreference" key="%(RootPolicyKey)s"
             valueName="DownloadPreference">
@@ -113,7 +113,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_UpdateCheckSuppressedPeriod)"
         key="Software\Policies\Google\Update">
       <parentCategory ref="Cat_Preferences" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_33_5" />
+      <supportedOn ref="Sup_BraveUpdate1_3_33_5" />
       <elements>
         <decimal id="Part_UpdateCheckSuppressedStartHour"
             key="Software\Policies\Google\Update"
@@ -135,7 +135,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_ProxyMode)"
         key="%(RootPolicyKey)s" valueName="ProxyMode">
       <parentCategory ref="Cat_ProxyServer" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_21_81" />
+      <supportedOn ref="Sup_BraveUpdate1_3_21_81" />
       <elements>
         <enum id="Part_ProxyMode" key="%(RootPolicyKey)s"
             valueName="ProxyMode">
@@ -173,7 +173,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_ProxyServer)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_ProxyServer" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_21_81" />
+      <supportedOn ref="Sup_BraveUpdate1_3_21_81" />
       <elements>
         <text id="Part_ProxyServer" valueName="ProxyServer" />
       </elements>
@@ -184,7 +184,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_ProxyPacUrl)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_ProxyServer" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_21_81" />
+      <supportedOn ref="Sup_BraveUpdate1_3_21_81" />
       <elements>
         <text id="Part_ProxyPacUrl" valueName="ProxyPacUrl" />
       </elements>
@@ -196,7 +196,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_DefaultAllowInstallation)"
         key="%(RootPolicyKey)s" valueName="InstallDefault">
       <parentCategory ref="Cat_Applications" />
-      <supportedOn ref="Sup_GoogleUpdate1_2_145_5" />
+      <supportedOn ref="Sup_BraveUpdate1_2_145_5" />
       <enabledValue><decimal value="1" /></enabledValue>
       <disabledValue><decimal value="0" /></disabledValue>
     </policy>
@@ -206,7 +206,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_DefaultUpdatePolicy)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_Applications" />
-      <supportedOn ref="Sup_GoogleUpdate1_2_145_5" />
+      <supportedOn ref="Sup_BraveUpdate1_2_145_5" />
       <elements>
         <enum id="Part_UpdatePolicy" key="%(RootPolicyKey)s"
             valueName="UpdateDefault" required="true">
@@ -245,7 +245,7 @@ ADMX_APP_POLICY_TEMPLATE = '''\
         key="%(RootPolicyKey)s"
         valueName="Install%(AppGuid)s">
       <parentCategory ref="Cat_%(AppLegalId)s" />
-      <supportedOn ref="Sup_GoogleUpdate1_2_145_5" />
+      <supportedOn ref="Sup_BraveUpdate1_2_145_5" />
       <enabledValue><decimal value="1" /></enabledValue>
       <disabledValue><decimal value="0" /></disabledValue>
     </policy>
@@ -255,7 +255,7 @@ ADMX_APP_POLICY_TEMPLATE = '''\
         presentation="$(presentation.Pol_UpdatePolicy)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_%(AppLegalId)s" />
-      <supportedOn ref="Sup_GoogleUpdate1_2_145_5" />
+      <supportedOn ref="Sup_BraveUpdate1_2_145_5" />
       <elements>
         <enum id="Part_UpdatePolicy"
              valueName="Update%(AppGuid)s" required="true">
@@ -288,7 +288,7 @@ ADMX_APP_POLICY_TEMPLATE = '''\
         presentation="$(presentation.Pol_TargetVersionPrefix)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_%(AppLegalId)s" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_33_5" />
+      <supportedOn ref="Sup_BraveUpdate1_3_33_5" />
       <elements>
         <text id="Part_TargetVersionPrefix"
             valueName="TargetVersionPrefix%(AppGuid)s" />
@@ -406,11 +406,11 @@ ADML_ENVIRONMENT = '''\
 '''
 
 ADML_PREDEFINED_STRINGS_TABLE_EN = [
-    ('Sup_GoogleUpdate1_2_145_5', 'At least Google Update 1.2.145.5'),
-    ('Sup_GoogleUpdate1_3_21_81', 'At least Google Update 1.3.21.81'),
-    ('Sup_GoogleUpdate1_3_26_0', 'At least Google Update 1.3.26.0'),
-    ('Sup_GoogleUpdate1_3_33_5', 'At least Google Update 1.3.33.5'),
-    ('Cat_GoogleUpdate', 'Google Update'),
+    ('Sup_BraveUpdate1_2_145_5', 'At least Google Update 1.2.145.5'),
+    ('Sup_BraveUpdate1_3_21_81', 'At least Google Update 1.3.21.81'),
+    ('Sup_BraveUpdate1_3_26_0', 'At least Google Update 1.3.26.0'),
+    ('Sup_BraveUpdate1_3_33_5', 'At least Google Update 1.3.33.5'),
+    ('Cat_BraveUpdate', 'Google Update'),
     ('Cat_Preferences', 'Preferences'),
     ('Cat_ProxyServer', 'Proxy Server'),
     ('Cat_Applications', 'Applications'),
@@ -448,7 +448,7 @@ ADML_PREDEFINED_STRINGS_TABLE_EN = [
     ('ProxyPacScript_DropDown', 'Use a .pac proxy script'),
     ('ProxyFixedServers_DropDown', 'Use fixed proxy servers'),
     ('ProxyUseSystem_DropDown', 'Use system proxy settings'),
-    ('Explain_GoogleUpdate',
+    ('Explain_BraveUpdate',
      'Policies to control the installation and updating of Google applications '
      'that use Google Update/Google Installer.'),
     ('Explain_Preferences', 'General policies for Google Update.'),

@@ -117,7 +117,7 @@ HRESULT GetCompletionInformation(IApp* app,
   *current_state = STATE_INIT;
 
   // If the COM call fails, which may be why we encountered an error, this
-  // could be "Google Application", which is weird, especially in the mixed
+  // could be "Brave Application", which is weird, especially in the mixed
   // results UI.
   completion_info->display_name = internal::GetAppDisplayName(app);
 

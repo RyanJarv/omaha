@@ -102,9 +102,9 @@ STDMETHODIMP Update3WebControl::createOmahaUserServer(IDispatch** server) {
     return E_POINTER;
   }
 
-  CComPtr<IGoogleUpdate3WebSecurity> security;
+  CComPtr<IBraveUpdate3WebSecurity> security;
   hr = update3_utils::CoCreateWithProxyBlanket(
-      __uuidof(GoogleUpdate3WebUserClass), &security);
+      __uuidof(BraveUpdate3WebUserClass), &security);
   if (FAILED(hr)) {
     CORE_LOG(LE, (_T("[security.CoCreateWithProxyBlanket failed][0x%x]"), hr));
     return hr;
@@ -154,7 +154,7 @@ STDMETHODIMP Update3WebControl::getInstalledVersion(BSTR guid_string,
 
 #if 0
 // TODO(omaha3): Not using this method for now. CoCreation of
-// GoogleUpdate3WebMachineClass can block, and should be using the async
+// BraveUpdate3WebMachineClass can block, and should be using the async
 // creation pattern aka createOmahaMachineServerAsync.
 HRESULT Update3WebControl::GetVersionUsingCOMServer(const TCHAR* guid_string,
                                                     bool is_machine,
@@ -164,10 +164,10 @@ HRESULT Update3WebControl::GetVersionUsingCOMServer(const TCHAR* guid_string,
   ASSERT1(guid_string);
   ASSERT1(version_string);
 
-  CComPtr<IGoogleUpdate3Web> update3web;
+  CComPtr<IBraveUpdate3Web> update3web;
   HRESULT hr = update3_utils::CoCreateWithProxyBlanket(
-      is_machine ? __uuidof(GoogleUpdate3WebMachineClass) :
-                   __uuidof(GoogleUpdate3WebUserClass),
+      is_machine ? __uuidof(BraveUpdate3WebMachineClass) :
+                   __uuidof(BraveUpdate3WebUserClass),
       &update3web);
   if (FAILED(hr)) {
     CORE_LOG(LE,
@@ -326,12 +326,12 @@ HRESULT Update3WebControl::crossInstall(BSTR extra_args) {
 
   scoped_process process_goopdate;
 
-  hr = goopdate_utils::StartGoogleUpdateWithArgs(is_machine(),
+  hr = goopdate_utils::StartBraveUpdateWithArgs(is_machine(),
                                                  final_cmd_line_args,
                                                  address(process_goopdate));
   if (FAILED(hr)) {
     CORE_LOG(LE, (_T("[Update3WebControl::crossInstall]")
-                  _T("[Failed StartGoogleUpdateWithArgs][0x%x]"), hr));
+                  _T("[Failed StartBraveUpdateWithArgs][0x%x]"), hr));
     return hr;
   }
 

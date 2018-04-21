@@ -44,13 +44,13 @@ namespace omaha {
 
 namespace {
 
-class GoogleUpdatePSModule
-    : public CAtlDllModuleT<GoogleUpdatePSModule> {
+class BraveUpdatePSModule
+    : public CAtlDllModuleT<BraveUpdatePSModule> {
  public:
-  GoogleUpdatePSModule() {}
+  BraveUpdatePSModule() {}
 
  private:
-  DISALLOW_COPY_AND_ASSIGN(GoogleUpdatePSModule);  // NOLINT
+  DISALLOW_COPY_AND_ASSIGN(BraveUpdatePSModule);  // NOLINT
 } _AtlModule;
 
 }  // namespace

@@ -105,7 +105,7 @@ void Ping::LoadAppDataFromExtraArgs(const CommandLineExtraArgs& extra_args) {
     apps_data_.push_back(app_data);
   }
 
-  omaha_data_.app_id = kGoogleUpdateAppId;
+  omaha_data_.app_id = kBraveUpdateAppId;
   omaha_data_.language = extra_args.language;
   omaha_data_.brand_code = extra_args.brand_code;
   omaha_data_.client_id = extra_args.client_id;
@@ -114,10 +114,10 @@ void Ping::LoadAppDataFromExtraArgs(const CommandLineExtraArgs& extra_args) {
 }
 
 void Ping::LoadOmahaDataFromRegistry() {
-  omaha_data_.app_id = kGoogleUpdateAppId;
+  omaha_data_.app_id = kBraveUpdateAppId;
   app_registry_utils::GetClientStateData(
       is_machine_,
-      kGoogleUpdateAppId,
+      kBraveUpdateAppId,
       NULL,
       NULL,         // ap is not used yet.
       &omaha_data_.language,
@@ -194,12 +194,12 @@ HRESULT Ping::Send(bool is_fire_and_forget) {
   }
 
   const DWORD wait_timeout_ms = is_fire_and_forget ? 0 : INFINITE;
-  hr = SendUsingGoogleUpdate(request_string, wait_timeout_ms);
+  hr = SendUsingBraveUpdate(request_string, wait_timeout_ms);
   if (SUCCEEDED(hr)) {
     return hr;
   }
 
-  CORE_LOG(LE, (_T("[Ping::SendUsingGoogleUpdate failed][0x%x]"), hr));
+  CORE_LOG(LE, (_T("[Ping::SendUsingBraveUpdate failed][0x%x]"), hr));
 
   hr = SendInProcess(request_string);
   if (SUCCEEDED(hr)) {
@@ -275,10 +275,10 @@ void Ping::BuildAppsPing(const PingEventPtr& ping_event) {
   }
 }
 
-HRESULT Ping::SendUsingGoogleUpdate(const CString& request_string,
+HRESULT Ping::SendUsingBraveUpdate(const CString& request_string,
                                     DWORD wait_timeout_ms) const {
   CString pv;
-  app_registry_utils::GetAppVersion(is_machine_, kGoogleUpdateAppId, &pv);
+  app_registry_utils::GetAppVersion(is_machine_, kBraveUpdateAppId, &pv);
   if (VersionFromString(pv) < kMinOmahaVersionForPingOOP) {
     // Older versions could display a dialog box if they are run with /ping.
     return E_NOTIMPL;
@@ -294,7 +294,7 @@ HRESULT Ping::SendUsingGoogleUpdate(const CString& request_string,
   CString args = builder.GetCommandLineArgs();
 
   scoped_process ping_process;
-  HRESULT hr = goopdate_utils::StartGoogleUpdateWithArgs(is_machine_,
+  HRESULT hr = goopdate_utils::StartBraveUpdateWithArgs(is_machine_,
                                                          args,
                                                          address(ping_process));
   if (FAILED(hr)) {

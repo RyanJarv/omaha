@@ -64,7 +64,7 @@ DECLARE_METRIC_count(worker_install_msi_in_progress_retry_succeeded_install);
 DECLARE_METRIC_integer(
     worker_install_msi_in_progress_retry_succeeded_tries_install);
 
-// Version of the GoogleUpdate.exe shell in use.
+// Version of the BraveUpdate.exe shell in use.
 DECLARE_METRIC_integer(worker_shell_version);
 
 // True if Windows is installing (is in audit mode). This should never be true.

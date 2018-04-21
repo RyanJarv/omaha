@@ -158,7 +158,7 @@ HRESULT GetFileFromCommandString(const TCHAR* s, CString* file) {
   }
 
   // Handle the string starting with "regsvr32"
-  // For example: regsvr32 /u /s "c:\program files\google\googletoolbar3.dll"
+  // For example: regsvr32 /u /s "c:\program files\brave\bravetoolbar3.dll"
   if (String_StartsWith(str, kRegSvr32Cmd1, true) ||
       String_StartsWith(str, kRegSvr32Cmd2, true)) {
     file->SetString(GetTrailingPathFromString(str));
@@ -190,7 +190,7 @@ HRESULT GetFileFromCommandString(const TCHAR* s, CString* file) {
   }
 
   // Otherwise, try to find the file till reaching ".exe"
-  // For example: "C:\Program Files\Google\Google Desktop Search\GoogleDesktopSetup.exe -uninstall"  // NOLINT
+  // For example: "C:\Program Files\Brave\Brave Desktop Search\BraveDesktopSetup.exe -uninstall"  // NOLINT
   const int dot_exe_length = static_cast<int>(_tcslen(kDotExe));
   for (int i = 0; i < str.GetLength(); ++i) {
     if (String_StartsWith(str.GetString() + i, kDotExe, true)) {

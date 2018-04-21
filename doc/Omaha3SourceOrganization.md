@@ -27,11 +27,11 @@ omaha\
         goopdate\
                 resources\      Produces a separate resource-only DLL for each of the languages
                                 that Omaha ships in.
-        google_update\          Produces the constant shell, GoogleUpdate.exe.
+        google_update\          Produces the constant shell, BraveUpdate.exe.
         mi_exe_stub\            Produces a stub EXE, mi_exe_stub.exe, that will be combined
                                 with a TAR to produce the untagged meta-installer.  (The script to
                                 actually do the merge lives in installers\, mentioned below.)
-plugins\                        Produces the browser plugin, npGoogleUpdate3.dll.
+plugins\                        Produces the browser plugin, npBraveUpdate3.dll.
 	recovery\               Produces tools for “Code Red” - a mechanism that the apps being
                                 managed by Omaha can use to check Omaha’s integrity, and
                                 restore it if it appears broken.
@@ -39,9 +39,9 @@ plugins\                        Produces the browser plugin, npGoogleUpdate3.dll
 Finally, we have a few directories that are filled with tools for generating installers and test tools once Omaha proper has been successfully built:
 ```
 omaha\
-        enterprise\             Produces GoogleUpdate.adm, an optional file that can be used 
+        enterprise\             Produces BraveUpdate.adm, an optional file that can be used 
                                 by system administrators to manage Omaha via Group Policy.
-        installers\             Produces GoogleUpdateSetup.exe, the meta-installer, using a
+        installers\             Produces BraveUpdateSetup.exe, the meta-installer, using a
                                 set of Python scripts to generate the Omaha tarball and merging
                                 it with mi_exe_stub.exe.  (This build step also produces some
                                 of the Code Red files.)

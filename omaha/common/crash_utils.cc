@@ -340,7 +340,7 @@ HRESULT StartCrashReporter(bool is_interactive,
     builder.set_custom_info_filename(*custom_info_filename_opt);
   }
 
-  const CString exe_path = goopdate_utils::BuildGoogleUpdateExePath(is_machine);
+  const CString exe_path = goopdate_utils::BuildBraveUpdateExePath(is_machine);
   ASSERT1(!exe_path.IsEmpty());
 
   CString cmd_line = builder.GetCommandLine(exe_path);

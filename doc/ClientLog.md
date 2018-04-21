@@ -10,7 +10,7 @@ The log file location depends on the OS.
 
 # Enabling Logging on Production (opt-win) Builds #
 
-opt-win builds, such as the Google Update builds released to the public, support a limited set of logging (`OPT_LOG` statements in the code), which is disabled by default. To enable logging on these builds, create a file called `C:\GoogleUpdate.ini` with the following contents.
+opt-win builds, such as the Google Update builds released to the public, support a limited set of logging (`OPT_LOG` statements in the code), which is disabled by default. To enable logging on these builds, create a file called `C:\BraveUpdate.ini` with the following contents.
 
 ```
 [LoggingLevel]
@@ -21,7 +21,7 @@ EnableLogging=1
 ```
 
 # Enabling Logging on Debug Builds #
-Non-opt builds (dbg-win and coverage-win) allow provide much more logging and have level 3 enabled for all categories by default. The default logging can be modified by specifying an override in `C:\GoogleUpdate.ini`. Below is an example that overrides the default.
+Non-opt builds (dbg-win and coverage-win) allow provide much more logging and have level 3 enabled for all categories by default. The default logging can be modified by specifying an override in `C:\BraveUpdate.ini`. Below is an example that overrides the default.
 
 ```
 [LoggingLevel]
@@ -38,7 +38,7 @@ LC_REPORT=3
 
 [LoggingSettings]
 EnableLogging=1
-LogFilePath="C:\foo\GoogleUpdate.log"
+LogFilePath="C:\foo\BraveUpdate.log"
 MaxLogFileSize=10000000
 
 ShowTime=1

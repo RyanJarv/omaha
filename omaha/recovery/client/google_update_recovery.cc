@@ -404,7 +404,7 @@ HRESULT GetDownloadTargetPath(CString* download_target_path,
     download_target_path->Replace(_T(".tmp"), _T(".exe"));
   } else {
     // Try a static filename in the temp directory as a fallback.
-    *download_target_path = user_temp_dir + _T("GoogleUpdateSetup.exe");
+    *download_target_path = user_temp_dir + _T("BraveUpdateSetup.exe");
     *temp_file_path = _T("");
   }
 
@@ -510,7 +510,7 @@ HRESULT VerifyFileSignature(const CString& filename) {
 // Verifies the file contains the special markup resource for repair files.
 HRESULT VerifyRepairFileMarkup(const CString& filename) {
   const TCHAR* kMarkupResourceName = MAKEINTRESOURCE(1);
-  const TCHAR* kMarkupResourceType = _T("GOOGLEUPDATEREPAIR");
+  const TCHAR* kMarkupResourceType = _T("BRAVEUPDATEREPAIR");
   const DWORD kMarkupResourceExpectedValue = 1;
 
   scoped_library module(::LoadLibraryEx(filename, 0, LOAD_LIBRARY_AS_DATAFILE));
@@ -570,7 +570,7 @@ HRESULT VerifyIsValidRepairFile(const CString& filename) {
 // after reboot will only succeed when executed by an admin or LocalSystem.
 // Returns HRESULT_FROM_WIN32(ERROR_ACCESS_DISABLED_BY_POLICY) if automatic
 // update checks are disabled.
-HRESULT FixGoogleUpdate(const TCHAR* app_guid,
+HRESULT FixBraveUpdate(const TCHAR* app_guid,
                         const TCHAR* app_version,
                         const TCHAR* app_language,
                         bool is_machine_app,

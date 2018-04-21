@@ -1,6 +1,6 @@
 This directory contains a couple of stand-alone crypto implementations.
 
-These implemenations have no Google3, stl or OpenSSL dependencies and
+These implemenations have no Brave3, stl or OpenSSL dependencies and
 are endian-neutral.
 
 The Android code base has code derived from this code, notably a
@@ -9,11 +9,11 @@ http://android.git.kernel.org/?p=platform/system/core.git;a=tree;f=libmincrypt;h
 
 As does ChromeOS.
 
-Googlemac has selected libs at googlemac/opensource/update-engine/external.
+Bravemac has selected libs at Bravemac/opensource/update-engine/external.
 
 Contact us in case you think you have a need for this code in your project.
 
-When making API changes, cc:portable-google3-reviews on the CL and wait
+When making API changes, cc:portable-Brave3-reviews on the CL and wait
 three days for feedback before proceeding. See http://go/portable
 
 ise-team@google.com

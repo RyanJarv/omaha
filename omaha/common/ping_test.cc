@@ -88,7 +88,7 @@ TEST_F(PingTest, BuildOmahaPing) {
   command_line_extra_args.client_id  = _T("a client id");
   command_line_extra_args.language   = _T("en");
 
-  File::Remove(goopdate_utils::BuildGoogleUpdateExePath(false));
+  File::Remove(goopdate_utils::BuildBraveUpdateExePath(false));
 
   // User ping, missing shell.
   Ping install_ping_no_shell(false, _T("session"), _T("oneclick"));
@@ -117,7 +117,7 @@ TEST_F(PingTest, BuildOmahaPing) {
   shell_path_1_2_183_21.Append(_T("unittest_support\\omaha_1.3.x\\"));
   shell_path_1_2_183_21.Append(kOmahaShellFileName);
   EXPECT_SUCCEEDED(File::Copy(shell_path_1_2_183_21,
-                              goopdate_utils::BuildGoogleUpdateExePath(false),
+                              goopdate_utils::BuildBraveUpdateExePath(false),
                               true));
 
   // User ping, 1.2.183.21 shell.
@@ -361,7 +361,7 @@ TEST_F(PingTest, PersistAndSendPersistedPings) {
 
 // The tests below rely on the out-of-process mechanism to send install pings.
 // Enable the test to debug the sending code.
-TEST_F(PingTest, DISABLED_SendUsingGoogleUpdate) {
+TEST_F(PingTest, DISABLED_SendUsingBraveUpdate) {
   PingEventPtr ping_event(
       new PingEvent(PingEvent::EVENT_INSTALL_COMPLETE,
                     PingEvent::EVENT_RESULT_SUCCESS,
@@ -383,7 +383,7 @@ TEST_F(PingTest, DISABLED_SendUsingGoogleUpdate) {
   const int kWaitForPingProcessToCompleteMs = 60000;
   CString request_string;
   EXPECT_HRESULT_SUCCEEDED(install_ping.BuildRequestString(&request_string));
-  EXPECT_HRESULT_SUCCEEDED(install_ping.SendUsingGoogleUpdate(
+  EXPECT_HRESULT_SUCCEEDED(install_ping.SendUsingBraveUpdate(
       request_string, kWaitForPingProcessToCompleteMs));
 }
 

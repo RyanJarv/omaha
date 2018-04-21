@@ -67,22 +67,22 @@ STDMETHODIMP ProcessLauncher::LaunchCmdElevated(const WCHAR* app_guid,
   ASSERT1(cmd_id);
   ASSERT1(proc_handle);
 
-  CComPtr<IGoogleUpdateCore> google_update_core;
+  CComPtr<IBraveUpdateCore> google_update_core;
   HRESULT hr =
-      google_update_core.CoCreateInstance(__uuidof(GoogleUpdateCoreClass));
+      google_update_core.CoCreateInstance(__uuidof(BraveUpdateCoreClass));
 
   if (FAILED(hr)) {
-    CORE_LOG(LE, (_T("[CoCreate GoogleUpdateCoreClass failed][0x%x]"), hr));
+    CORE_LOG(LE, (_T("[CoCreate BraveUpdateCoreClass failed][0x%x]"), hr));
 
     if (!vista_util::IsVistaOrLater() && !vista_util::IsUserAdmin()) {
       return hr;
     }
 
     hr = System::CoCreateInstanceAsAdmin(NULL,
-                                         __uuidof(GoogleUpdateCoreMachineClass),
+                                         __uuidof(BraveUpdateCoreMachineClass),
                                          IID_PPV_ARGS(&google_update_core));
     if (FAILED(hr)) {
-      CORE_LOG(LE, (_T("[GoogleUpdateCoreMachineClass failed][0x%x]"), hr));
+      CORE_LOG(LE, (_T("[BraveUpdateCoreMachineClass failed][0x%x]"), hr));
       return hr;
     }
   }

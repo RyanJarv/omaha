@@ -73,19 +73,19 @@ namespace omaha {
 // TODO(omaha): We should probably move these to a separate
 // const_com_customization.h in goopdate\.
 TEST(OmahaCustomizationTest, Constants_ComProgIds) {
-  EXPECT_GU_STREQ(_T("GoogleUpdate.OnDemandCOMClassUser"), kProgIDOnDemandUser);
-  EXPECT_GU_STREQ(_T("GoogleUpdate.OnDemandCOMClassMachine"),
+  EXPECT_GU_STREQ(_T("BraveUpdate.OnDemandCOMClassUser"), kProgIDOnDemandUser);
+  EXPECT_GU_STREQ(_T("BraveUpdate.OnDemandCOMClassMachine"),
                   kProgIDOnDemandMachine);
-  EXPECT_GU_STREQ(_T("GoogleUpdate.OnDemandCOMClassSvc"), kProgIDOnDemandSvc);
+  EXPECT_GU_STREQ(_T("BraveUpdate.OnDemandCOMClassSvc"), kProgIDOnDemandSvc);
 
-  EXPECT_GU_STREQ(_T("GoogleUpdate.Update3WebUser"), kProgIDUpdate3WebUser);
-  EXPECT_GU_STREQ(_T("GoogleUpdate.Update3WebMachine"),
+  EXPECT_GU_STREQ(_T("BraveUpdate.Update3WebUser"), kProgIDUpdate3WebUser);
+  EXPECT_GU_STREQ(_T("BraveUpdate.Update3WebMachine"),
                   kProgIDUpdate3WebMachine);
-  EXPECT_GU_STREQ(_T("GoogleUpdate.Update3WebSvc"), kProgIDUpdate3WebSvc);
+  EXPECT_GU_STREQ(_T("BraveUpdate.Update3WebSvc"), kProgIDUpdate3WebSvc);
 
-  EXPECT_GU_STREQ(_T("GoogleUpdate.CoreClass"), kProgIDGoogleUpdateCoreService);
+  EXPECT_GU_STREQ(_T("BraveUpdate.CoreClass"), kProgIDBraveUpdateCoreService);
 
-  EXPECT_GU_STREQ(_T("GoogleUpdate.ProcessLauncher"), kProgIDProcessLauncher);
+  EXPECT_GU_STREQ(_T("BraveUpdate.ProcessLauncher"), kProgIDProcessLauncher);
 }
 
 }  // namespace omaha
@@ -157,22 +157,22 @@ TEST_F(OmahaCustomizationGoopdateComInterfaceNoTypeLibTest, PostInstallAction) {
 
 TEST_F(OmahaCustomizationGoopdateComInterfaceTest, TypeLib) {
   EXPECT_GU_ID_EQ(_T("{655DD85A-3C0D-4674-9C58-AF7168C5861E}"),
-                  LIBID_GoogleUpdate3Lib);
+                  LIBID_BraveUpdate3Lib);
 
   EXPECT_SUCCEEDED(GetTypeLibDocumentation());
-  EXPECT_STREQ(_T("GoogleUpdate3Lib"), item_name_);
+  EXPECT_STREQ(_T("BraveUpdate3Lib"), item_name_);
   EXPECT_GU_STREQ(_T("Google Update 3.0 Type Library"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
 
-TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest, IGoogleUpdate3) {
+TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest, IBraveUpdate3) {
   // TODO(omaha): Test uuid constants after extracting from IDLs.
   EXPECT_GU_ID_EQ(_T("{6DB17455-4E85-46e7-9D23-E555E4B005AF}"),
-                  __uuidof(IGoogleUpdate3));
+                  __uuidof(IBraveUpdate3));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("IGoogleUpdate3")));
-  EXPECT_STREQ(_T("IGoogleUpdate3 Interface"), item_doc_string_);
+  EXPECT_SUCCEEDED(GetDocumentation(_T("IBraveUpdate3")));
+  EXPECT_STREQ(_T("IBraveUpdate3 Interface"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
@@ -286,21 +286,21 @@ TEST_F(OmahaCustomizationGoopdateComInterfaceNoTypeLibTest, ICredentialDialog) {
                   __uuidof(ICredentialDialog));
 }
 
-TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest, IGoogleUpdate3Web) {
+TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest, IBraveUpdate3Web) {
   EXPECT_GU_ID_EQ(_T("{494B20CF-282E-4BDD-9F5D-B70CB09D351E}"),
-                  __uuidof(IGoogleUpdate3Web));
+                  __uuidof(IBraveUpdate3Web));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("IGoogleUpdate3Web")));
-  EXPECT_STREQ(_T("IGoogleUpdate3Web Interface"), item_doc_string_);
+  EXPECT_SUCCEEDED(GetDocumentation(_T("IBraveUpdate3Web")));
+  EXPECT_STREQ(_T("IBraveUpdate3Web Interface"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
 
 // Not in the TypeLib because it derives from IUnknown.
 TEST_F(OmahaCustomizationGoopdateComInterfaceNoTypeLibTest,
-       IGoogleUpdate3WebSecurity) {
+       IBraveUpdate3WebSecurity) {
   EXPECT_GU_ID_EQ(_T("{2D363682-561D-4c3a-81C6-F2F82107562A}"),
-                  __uuidof(IGoogleUpdate3WebSecurity));
+                  __uuidof(IBraveUpdate3WebSecurity));
 }
 
 TEST_F(OmahaCustomizationGoopdateComInterfaceTest, IAppBundleWeb) {
@@ -354,73 +354,73 @@ TEST_F(OmahaCustomizationGoopdateComInterfaceTest, ICoCreateAsyncStatus) {
 }
 
 TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
-              GoogleUpdate3UserClass) {
+              BraveUpdate3UserClass) {
   EXPECT_GU_ID_EQ(_T("{022105BD-948A-40c9-AB42-A3300DDF097F}"),
-                  __uuidof(GoogleUpdate3UserClass));
+                  __uuidof(BraveUpdate3UserClass));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdate3UserClass")));
-  EXPECT_STREQ(_T("GoogleUpdate3 Class for per-user applications"),
+  EXPECT_SUCCEEDED(GetDocumentation(_T("BraveUpdate3UserClass")));
+  EXPECT_STREQ(_T("BraveUpdate3 Class for per-user applications"),
                item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
 
 TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
-              GoogleUpdate3ServiceClass) {
+              BraveUpdate3ServiceClass) {
   EXPECT_GU_ID_EQ(_T("{4EB61BAC-A3B6-4760-9581-655041EF4D69}"),
-                  __uuidof(GoogleUpdate3ServiceClass));
+                  __uuidof(BraveUpdate3ServiceClass));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdate3ServiceClass")));
-  EXPECT_STREQ(_T("GoogleUpdate3 Service Class for machine applications"),
+  EXPECT_SUCCEEDED(GetDocumentation(_T("BraveUpdate3ServiceClass")));
+  EXPECT_STREQ(_T("BraveUpdate3 Service Class for machine applications"),
                item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
 
 TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
-              GoogleUpdate3WebUserClass) {
+              BraveUpdate3WebUserClass) {
   EXPECT_GU_ID_EQ(_T("{22181302-A8A6-4f84-A541-E5CBFC70CC43}"),
-                  __uuidof(GoogleUpdate3WebUserClass));
+                  __uuidof(BraveUpdate3WebUserClass));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdate3WebUserClass")));
-  EXPECT_STREQ(_T("GoogleUpdate3Web for user applications"),
+  EXPECT_SUCCEEDED(GetDocumentation(_T("BraveUpdate3WebUserClass")));
+  EXPECT_STREQ(_T("BraveUpdate3Web for user applications"),
                   item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
 
 TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
-              GoogleUpdate3WebMachineClass) {
+              BraveUpdate3WebMachineClass) {
   EXPECT_GU_ID_EQ(_T("{8A1D4361-2C08-4700-A351-3EAA9CBFF5E4}"),
-                  __uuidof(GoogleUpdate3WebMachineClass));
+                  __uuidof(BraveUpdate3WebMachineClass));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdate3WebMachineClass")));
+  EXPECT_SUCCEEDED(GetDocumentation(_T("BraveUpdate3WebMachineClass")));
   EXPECT_STREQ(
-      _T("Pass-through broker for the GoogleUpdate3WebServiceClass"),
+      _T("Pass-through broker for the BraveUpdate3WebServiceClass"),
       item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
 
 TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
-              GoogleUpdate3WebServiceClass) {
+              BraveUpdate3WebServiceClass) {
   EXPECT_GU_ID_EQ(_T("{534F5323-3569-4f42-919D-1E1CF93E5BF6}"),
-                  __uuidof(GoogleUpdate3WebServiceClass));
+                  __uuidof(BraveUpdate3WebServiceClass));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdate3WebServiceClass")));
-  EXPECT_STREQ(_T("GoogleUpdate3Web"), item_doc_string_);
+  EXPECT_SUCCEEDED(GetDocumentation(_T("BraveUpdate3WebServiceClass")));
+  EXPECT_STREQ(_T("BraveUpdate3Web"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
 
 TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
-              GoogleUpdate3WebMachineFallbackClass) {
+              BraveUpdate3WebMachineFallbackClass) {
   EXPECT_GU_ID_EQ(_T("{598FE0E5-E02D-465d-9A9D-37974A28FD42}"),
-                  __uuidof(GoogleUpdate3WebMachineFallbackClass));
+                  __uuidof(BraveUpdate3WebMachineFallbackClass));
 
   EXPECT_SUCCEEDED(
-      GetDocumentation(_T("GoogleUpdate3WebMachineFallbackClass")));
-  EXPECT_STREQ(L"Fallback mechanism if GoogleUpdate3WebServiceClass fails",
+      GetDocumentation(_T("BraveUpdate3WebMachineFallbackClass")));
+  EXPECT_STREQ(L"Fallback mechanism if BraveUpdate3WebServiceClass fails",
                item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
@@ -593,23 +593,23 @@ TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
 }
 
 TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
-              GoogleUpdateCoreClass) {
+              BraveUpdateCoreClass) {
   EXPECT_GU_ID_EQ(_T("{E225E692-4B47-4777-9BED-4FD7FE257F0E}"),
-                  __uuidof(GoogleUpdateCoreClass));
+                  __uuidof(BraveUpdateCoreClass));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdateCoreClass")));
-  EXPECT_STREQ(_T("GoogleUpdateCore Class"), item_doc_string_);
+  EXPECT_SUCCEEDED(GetDocumentation(_T("BraveUpdateCoreClass")));
+  EXPECT_STREQ(_T("BraveUpdateCore Class"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
 
 TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
-              GoogleUpdateCoreMachineClass) {
+              BraveUpdateCoreMachineClass) {
   EXPECT_GU_ID_EQ(_T("{9B2340A0-4068-43d6-B404-32E27217859D}"),
-                  __uuidof(GoogleUpdateCoreMachineClass));
+                  __uuidof(BraveUpdateCoreMachineClass));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdateCoreMachineClass")));
-  EXPECT_STREQ(_T("GoogleUpdateCore Machine Class"), item_doc_string_);
+  EXPECT_SUCCEEDED(GetDocumentation(_T("BraveUpdateCoreMachineClass")));
+  EXPECT_STREQ(_T("BraveUpdateCore Machine Class"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
@@ -652,14 +652,14 @@ TEST_F(OmahaCustomizationGoopdateComInterfaceNoTypeLibTest,
 }
 
 TEST_F(OmahaCustomizationGoopdateComInterfaceNoTypeLibTest,
-       IGoogleUpdate) {
+       IBraveUpdate) {
   EXPECT_GU_ID_EQ(_T("{31AC3F11-E5EA-4a85-8A3D-8E095A39C27B}"),
-                  __uuidof(IGoogleUpdate));
+                  __uuidof(IBraveUpdate));
 }
 
 TEST_F(OmahaCustomizationGoopdateComInterfaceNoTypeLibTest,
-       IGoogleUpdateCore) {
+       IBraveUpdateCore) {
   EXPECT_GU_ID_EQ(_T("{909489C2-85A6-4322-AA56-D25278649D67}"),
-                  __uuidof(IGoogleUpdateCore));
+                  __uuidof(IBraveUpdateCore));
 }
 

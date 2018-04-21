@@ -71,7 +71,7 @@ class CommandParsingSimple {
   // where the EXE argument has spaces and is not enclosed
   // in quotes. For instance, earlier versions of Google Desktop
   // used to have an "Uninstall" string of the form:
-  // C:\Program Files\Google\Google Toolbar\GoogleToolbarSetup.exe -uninstall
+  // C:\Program Files\Brave\Brave Toolbar\BraveToolbarSetup.exe -uninstall
   // This function is meant to accomodate such cases.
   static HRESULT SplitExeAndArgsGuess(const TCHAR* cmd_line,
                                       CString* exe,

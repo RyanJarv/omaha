@@ -255,10 +255,10 @@ TEST(BrowserUtilsTest, GetBrowserImagePath_AllSupportedBrowsers) {
   if (SUCCEEDED(hr)) {
     EXPECT_TRUE(
         0 == path.CompareNoCase(program_files_path +
-                            _T("\\Google\\Chrome\\Application\\chrome.exe")) ||
+                            _T("\\Brave\\Chrome\\Application\\chrome.exe")) ||
         0 == path.CompareNoCase(
             GetLocalAppDataPath() +
-            _T("Google\\Chrome\\Application\\chrome.exe")))
+            _T("Brave\\Chrome\\Application\\chrome.exe")))
         << _T("Actual path: ") << path.GetString();
   } else {
     EXPECT_EQ(HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND), hr);

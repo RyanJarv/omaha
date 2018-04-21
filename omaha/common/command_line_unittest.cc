@@ -152,7 +152,7 @@ TEST(CommandLineSimpleTest, GetCmdLineTail3) {
 
 TEST(CommandLineSimpleTest, GetCmdLineTail4) {
   // Double quotes.
-  EXPECT_STREQ(_T(""), GetCmdLineTail(_T("\"Google Update.exe\"")));
+  EXPECT_STREQ(_T(""), GetCmdLineTail(_T("\"Brave Update.exe\"")));
 }
 
 TEST(CommandLineSimpleTest, GetCmdLineTail5) {
@@ -163,37 +163,37 @@ TEST(CommandLineSimpleTest, GetCmdLineTail5) {
 TEST(CommandLineSimpleTest, GetCmdLineTail6) {
   // Double quotes and argument.
   EXPECT_STREQ(_T("foobar"),
-               GetCmdLineTail(_T("\"Google Update.exe\" foobar")));
+               GetCmdLineTail(_T("\"Brave Update.exe\" foobar")));
 }
 
 TEST(CommandLineSimpleTest, GetCmdLineTail7) {
   // Double quotes and inner double quote and argument.
   EXPECT_STREQ(_T("foobar"),
-               GetCmdLineTail(_T("\"Google\"\" Update.exe\" foobar")));
+               GetCmdLineTail(_T("\"Brave\"\" Update.exe\" foobar")));
 }
 
 TEST(CommandLineSimpleTest, GetCmdLineTail8) {
   // Double quotes and two arguments.
   EXPECT_STREQ(_T("foo bar"),
-               GetCmdLineTail(_T("\"Google Update.exe\" foo bar")));
+               GetCmdLineTail(_T("\"Brave Update.exe\" foo bar")));
 }
 
 TEST(CommandLineSimpleTest, GetCmdLineTail9) {
   // Double quotes and one argument with quotes.
   EXPECT_STREQ(_T("\"foo bar\""),
-               GetCmdLineTail(_T("\"Google Update.exe\" \"foo bar\"")));
+               GetCmdLineTail(_T("\"Brave Update.exe\" \"foo bar\"")));
 }
 
 TEST(CommandLineSimpleTest, GetCmdLineTail10) {
   // \t as white space.
   EXPECT_STREQ(_T("foo bar"),
-               GetCmdLineTail(_T("\"Google Update.exe\"\tfoo bar")));
+               GetCmdLineTail(_T("\"Brave Update.exe\"\tfoo bar")));
 }
 
 TEST(CommandLineSimpleTest, GetCmdLineTail11) {
   // Trailing space.
   EXPECT_STREQ(_T("foo bar "),
-               GetCmdLineTail(_T("\"Google Update.exe\" foo bar ")));
+               GetCmdLineTail(_T("\"Brave Update.exe\" foo bar ")));
 }
 
 //
@@ -205,7 +205,7 @@ TEST(CommandLineSimpleTest, GetCmdLineTail11) {
 // /install without "extraargs").
 
 // TODO(omaha): This is an Omaha1 back-compat issue.  Omaha2 should _never_
-// call googleupdate.exe with no arguments.  So when we stop supporting Omaha1
+// call Braveupdate.exe with no arguments.  So when we stop supporting Omaha1
 // handoffs we should remove this support.
   // Parse empty command line.
 TEST_F(CommandLineTest, ParseCommandLine_Empty) {
@@ -229,7 +229,7 @@ TEST_F(CommandLineTest, ParseCommandLine_ProgramNameOnly) {
 
 // Parse: <path> /svc
 TEST_F(CommandLineTest, ParseCommandLine_Svc) {
-  const TCHAR* kCmdLine = _T("\"C:\\Program Files\\Google\\Common\\Update\\")
+  const TCHAR* kCmdLine = _T("\"C:\\Program Files\\Brave\\Common\\Update\\")
                            _T("1.0.18.0\\goopdate.exe\" /svc");
   EXPECT_SUCCEEDED(ParseCommandLine(kCmdLine, &args_));
 
@@ -239,7 +239,7 @@ TEST_F(CommandLineTest, ParseCommandLine_Svc) {
 
 // Parse: <path> /medsvc
 TEST_F(CommandLineTest, ParseCommandLine_MedSvc) {
-  const TCHAR* kCmdLine = _T("\"C:\\Program Files\\Google\\Common\\Update\\")
+  const TCHAR* kCmdLine = _T("\"C:\\Program Files\\Brave\\Common\\Update\\")
                            _T("1.0.18.0\\goopdate.exe\" /medsvc");
   EXPECT_SUCCEEDED(ParseCommandLine(kCmdLine, &args_));
 

@@ -888,7 +888,7 @@ HRESULT XmlParser::BuildRequestElement() {
   // Add attributes to the top element:
   // * protocol - protocol version
   // * version - Omaha (goopdate.dll) version
-  // * shell_version - Omaha shell (GoogleUpdate.exe) version
+  // * shell_version - Omaha shell (BraveUpdate.exe) version
   // * ismachine - is machine Omaha
   // * installsource - install source
   // * originurl - origin url, primarily set by Update3Web plugins

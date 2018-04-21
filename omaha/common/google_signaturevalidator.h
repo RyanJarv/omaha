@@ -13,8 +13,8 @@
 // limitations under the License.
 // ========================================================================
 
-#ifndef OMAHA_COMMON_GOOGLE_SIGNATUREVALIDATOR_H_
-#define OMAHA_COMMON_GOOGLE_SIGNATUREVALIDATOR_H_
+#ifndef OMAHA_COMMON_BRAVE_SIGNATUREVALIDATOR_H_
+#define OMAHA_COMMON_BRAVE_SIGNATUREVALIDATOR_H_
 
 #include <windows.h>
 #include <atlstr.h>
@@ -34,5 +34,5 @@ HRESULT VerifyGoogleAuthenticodeSignature(const CString& filename,
 
 }  // namespace omaha
 
-#endif  // OMAHA_COMMON_GOOGLE_SIGNATUREVALIDATOR_H_
+#endif  // OMAHA_COMMON_BRAVE_SIGNATUREVALIDATOR_H_
 

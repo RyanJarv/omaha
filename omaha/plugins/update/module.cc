@@ -23,20 +23,20 @@
 
 namespace omaha {
 
-OBJECT_ENTRY_AUTO(__uuidof(GoogleUpdateOneClickControlCoClass), OneClickControl)
-OBJECT_ENTRY_AUTO(__uuidof(GoogleUpdate3WebControlCoClass), Update3WebControl)
+OBJECT_ENTRY_AUTO(__uuidof(BraveUpdateOneClickControlCoClass), OneClickControl)
+OBJECT_ENTRY_AUTO(__uuidof(BraveUpdate3WebControlCoClass), Update3WebControl)
 
 namespace {
 
-class GoogleUpdateControlModule
-    : public CAtlDllModuleT<GoogleUpdateControlModule> {
+class BraveUpdateControlModule
+    : public CAtlDllModuleT<BraveUpdateControlModule> {
  public:
-  GoogleUpdateControlModule() {}
+  BraveUpdateControlModule() {}
 
-  DECLARE_LIBID(LIBID_GoogleUpdateControlLib);
+  DECLARE_LIBID(LIBID_BraveUpdateControlLib);
 
  private:
-  DISALLOW_COPY_AND_ASSIGN(GoogleUpdateControlModule);  // NOLINT
+  DISALLOW_COPY_AND_ASSIGN(BraveUpdateControlModule);  // NOLINT
 } _AtlModule;
 
 }  // namespace

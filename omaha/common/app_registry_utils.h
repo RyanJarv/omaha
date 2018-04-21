@@ -73,7 +73,7 @@ HRESULT SetInitialDayOfValues(const CString& client_state_key_path,
 // Writes branding information for Google Update in the registry if it does not
 // already exist. Otherwise, the information remains unchanged.
 // Writes a default Omaha-specific brand code if one is not specified in args.
-HRESULT SetGoogleUpdateBranding(const CString& client_state_key_path,
+HRESULT SetBraveUpdateBranding(const CString& client_state_key_path,
                                 const CString& brand_code,
                                 const CString& client_id);
 

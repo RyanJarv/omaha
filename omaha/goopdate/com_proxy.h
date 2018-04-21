@@ -41,7 +41,7 @@ namespace omaha {
 //
 const IID kIIDsToRegister[] = {
   // Omaha3 IIDs:
-  __uuidof(IGoogleUpdate3),
+  __uuidof(IBraveUpdate3),
   __uuidof(IAppBundle),
   __uuidof(IApp),
   __uuidof(IApp2),
@@ -53,8 +53,8 @@ const IID kIIDsToRegister[] = {
 
   __uuidof(IRegistrationUpdateHook),
 
-  __uuidof(IGoogleUpdate3Web),
-  __uuidof(IGoogleUpdate3WebSecurity),
+  __uuidof(IBraveUpdate3Web),
+  __uuidof(IBraveUpdate3WebSecurity),
   __uuidof(IAppBundleWeb),
   __uuidof(IAppWeb),
   __uuidof(IAppCommandWeb),
@@ -70,8 +70,8 @@ const IID kIIDsToRegister[] = {
   __uuidof(IProcessLauncher),
   __uuidof(IProgressWndEvents),
   __uuidof(IJobObserver),
-  __uuidof(IGoogleUpdate),
-  __uuidof(IGoogleUpdateCore),
+  __uuidof(IBraveUpdate),
+  __uuidof(IBraveUpdateCore),
 };
 
 struct ComProxyMode {

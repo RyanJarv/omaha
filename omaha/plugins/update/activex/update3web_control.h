@@ -42,10 +42,10 @@ typedef IObjectSafetyImpl<Update3WebControl, INTERFACESAFE_FOR_UNTRUSTED_CALLER>
 class ATL_NO_VTABLE Update3WebControl
     : public CComObjectRootEx<CComObjectThreadModel>,
       public CComCoClass<Update3WebControl,
-                         &__uuidof(GoogleUpdate3WebControlCoClass)>,
-      public IDispatchImpl<IGoogleUpdate3WebControl,
-                           &__uuidof(IGoogleUpdate3WebControl),
-                           &LIBID_GoogleUpdateControlLib, 0xffff, 0xffff>,
+                         &__uuidof(BraveUpdate3WebControlCoClass)>,
+      public IDispatchImpl<IBraveUpdate3WebControl,
+                           &__uuidof(IBraveUpdate3WebControl),
+                           &LIBID_BraveUpdateControlLib, 0xffff, 0xffff>,
       public Update3WebControlSafety,
       public IObjectWithSiteImpl<Update3WebControl> {
  public:
@@ -80,7 +80,7 @@ class ATL_NO_VTABLE Update3WebControl
     COM_INTERFACE_ENTRY(IObjectWithSite)
   END_COM_MAP()
 
-  // IGoogleUpdate3WebControl methods.
+  // IBraveUpdate3WebControl methods.
   STDMETHOD(createOmahaMachineServerAsync)(VARIANT_BOOL create_elevated,
                                            IDispatch** async_status);
   STDMETHOD(createOmahaUserServer)(IDispatch** server);

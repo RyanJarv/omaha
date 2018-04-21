@@ -23,7 +23,7 @@
 
 namespace omaha {
 
-TEST(GoogleUpdateTest, ShellVersion) {
+TEST(BraveUpdateTest, ShellVersion) {
   CPath actual_shell_path(app_util::GetCurrentModuleDirectory());
   ASSERT_TRUE(actual_shell_path.Append(kOmahaShellFileName));
 

@@ -173,7 +173,7 @@ class Ping {
   FRIEND_TEST(PingTest, PersistPing);
   FRIEND_TEST(PingTest, PersistPing_Load_Delete);
   FRIEND_TEST(PingTest, PersistAndSendPersistedPings);
-  FRIEND_TEST(PingTest, DISABLED_SendUsingGoogleUpdate);
+  FRIEND_TEST(PingTest, DISABLED_SendUsingBraveUpdate);
   FRIEND_TEST(PersistedPingsTest, AddPingEvents);
 
   // pair<unique_id, pair<ping_time, ping_string>>.
@@ -189,10 +189,10 @@ class Ping {
                   const CString& install_source,
                   const CString& request_id);
 
-  // Sends pings using the installed GoogleUpdate, which runs in the
+  // Sends pings using the installed BraveUpdate, which runs in the
   // ping mode. the function waits for the pings to be sent if wait_timeout_ms
   // is not zero. Returns S_OK if the pings have been successfully sent.
-  HRESULT SendUsingGoogleUpdate(const CString& request_string,
+  HRESULT SendUsingBraveUpdate(const CString& request_string,
                                 DWORD wait_timeout_ms) const;
 
   // Sends ping events in process. Returns S_OK if the pings have been

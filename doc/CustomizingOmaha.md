@@ -30,7 +30,7 @@ The following items **MUST** be changed before releasing a fork of Omaha.  Prefe
 
   * **`omaha\goopdate\omaha3_idl.idl`**
 
-> Generate new GUIDs for every interface and coclass.  Changing the descriptive names for them isn't a bad idea either.  (Do not, however, change code-level names such as `IAppBundle` or `GoogleUpdate3UserClass`.)
+> Generate new GUIDs for every interface and coclass.  Changing the descriptive names for them isn't a bad idea either.  (Do not, however, change code-level names such as `IAppBundle` or `BraveUpdate3UserClass`.)
 
   * **`omaha\plugins\update\activex\update_control_idl.idl`**
 
@@ -46,7 +46,7 @@ The following items **MUST** be changed before releasing a fork of Omaha.  Prefe
 
 We strongly recommend making these changes before you release:
 
-  * Change the names of core executables -- `GoogleUpdate.exe`, `goopdate.dll`, `GoogleCrashHandler.exe`, and so on.  (This will require changes to the SCons build scripts, to the names of EXEs in `omaha\base\constants.h`, to WiX MSI fragments, and to several unit tests.)
+  * Change the names of core executables -- `BraveUpdate.exe`, `goopdate.dll`, `BraveCrashHandler.exe`, and so on.  (This will require changes to the SCons build scripts, to the names of EXEs in `omaha\base\constants.h`, to WiX MSI fragments, and to several unit tests.)
 
   * Duplicate the contents of `common\omaha_customization_unittest.cc` into a new file, replace **`EXPECT_GU_STREQ()`** with **`EXPECT_STREQ()`**, and update the string literals for your fork of Omaha.  Do the same with **`EXPECT_GU_ID_EQ()`** in a copy of `goopdate\omaha_customization_goopdate_apis_unittest.cc`.  (These macros change their behavior based on the value of `is_google_update_build` in `main.scons`.  When set to `True`, this test checks for equality - i.e. that the values haven't changed between builds.  When set to `False`, it checks for inequality - i.e. it ensures that these values do not collide with the official Google Update releases.  By adding additional tests with the first behavior, you can provide the same safety measures for your own fork.)
 

@@ -33,9 +33,9 @@ MAIN_POLICY_KEY = r'Software\Policies\Google\Update'
 HEADER = """\
 CLASS MACHINE
   CATEGORY !!Cat_Google
-    CATEGORY !!Cat_GoogleUpdate
+    CATEGORY !!Cat_BraveUpdate
       KEYNAME \"""" + MAIN_POLICY_KEY + """\"
-      EXPLAIN !!Explain_GoogleUpdate
+      EXPLAIN !!Explain_BraveUpdate
 """
 
 PREFERENCES = """
@@ -45,7 +45,7 @@ PREFERENCES = """
 
         POLICY !!Pol_AutoUpdateCheckPeriod
           #if version >= 4
-            SUPPORTED !!Sup_GoogleUpdate1_2_145_5
+            SUPPORTED !!Sup_BraveUpdate1_2_145_5
           #endif
           EXPLAIN !!Explain_AutoUpdateCheckPeriod
           PART !!Part_AutoUpdateCheckPeriod NUMERIC
@@ -71,7 +71,7 @@ PREFERENCES = """
 
         POLICY !!Pol_UpdateCheckSuppressedPeriod
           #if version >= 4
-            SUPPORTED !!Sup_GoogleUpdate1_3_33_5
+            SUPPORTED !!Sup_BraveUpdate1_3_33_5
           #endif
           EXPLAIN !!Explain_UpdateCheckSuppressedPeriod
           PART !!Part_UpdateCheckSuppressedStartHour NUMERIC
@@ -99,7 +99,7 @@ PREFERENCES = """
 
         POLICY !!Pol_DownloadPreference
           #if version >= 4
-            SUPPORTED !!Sup_GoogleUpdate1_3_26_0
+            SUPPORTED !!Sup_BraveUpdate1_3_26_0
           #endif
           EXPLAIN !!Explain_DownloadPreference
           PART !!Part_DownloadPreference DROPDOWNLIST
@@ -117,7 +117,7 @@ PREFERENCES = """
 
         POLICY !!Pol_ProxyMode
           #if version >= 4
-            SUPPORTED !!Sup_GoogleUpdate1_3_21_81
+            SUPPORTED !!Sup_BraveUpdate1_3_21_81
           #endif
           EXPLAIN !!Explain_ProxyMode
 
@@ -135,7 +135,7 @@ PREFERENCES = """
 
         POLICY !!Pol_ProxyServer
           #if version >= 4
-            SUPPORTED !!Sup_GoogleUpdate1_3_21_81
+            SUPPORTED !!Sup_BraveUpdate1_3_21_81
           #endif
           EXPLAIN !!Explain_ProxyServer
 
@@ -146,7 +146,7 @@ PREFERENCES = """
 
         POLICY !!Pol_ProxyPacUrl
           #if version >= 4
-            SUPPORTED !!Sup_GoogleUpdate1_3_21_81
+            SUPPORTED !!Sup_BraveUpdate1_3_21_81
           #endif
           EXPLAIN !!Explain_ProxyPacUrl
 
@@ -180,7 +180,7 @@ UPDATE_POLICY_ITEMLIST = """\
 APPLICATION_DEFAULTS = ("""
         POLICY !!Pol_DefaultAllowInstallation
           #if version >= 4
-            SUPPORTED !!Sup_GoogleUpdate1_2_145_5
+            SUPPORTED !!Sup_BraveUpdate1_2_145_5
           #endif
           EXPLAIN !!Explain_DefaultAllowInstallation
           VALUENAME InstallDefault
@@ -190,7 +190,7 @@ APPLICATION_DEFAULTS = ("""
 
         POLICY !!Pol_DefaultUpdatePolicy
           #if version >= 4
-            SUPPORTED !!Sup_GoogleUpdate1_2_145_5
+            SUPPORTED !!Sup_BraveUpdate1_2_145_5
           #endif
           EXPLAIN !!Explain_DefaultUpdatePolicy
           PART !!Part_UpdatePolicy DROPDOWNLIST
@@ -207,7 +207,7 @@ APP_POLICIES_TEMPLATE = ("""
 
           POLICY !!Pol_AllowInstallation
             #if version >= 4
-              SUPPORTED !!Sup_GoogleUpdate1_2_145_5
+              SUPPORTED !!Sup_BraveUpdate1_2_145_5
             #endif
             EXPLAIN !!Explain_Install$AppLegalId$
             VALUENAME Install$AppGuid$
@@ -217,7 +217,7 @@ APP_POLICIES_TEMPLATE = ("""
 
           POLICY !!Pol_UpdatePolicy
             #if version >= 4
-              SUPPORTED !!Sup_GoogleUpdate1_2_145_5
+              SUPPORTED !!Sup_BraveUpdate1_2_145_5
             #endif
             EXPLAIN !!Explain_AutoUpdate$AppLegalId$
             PART !!Part_UpdatePolicy DROPDOWNLIST
@@ -229,7 +229,7 @@ UPDATE_POLICY_ITEMLIST.replace('            ', '              ') + """
 
           POLICY !!Pol_TargetVersionPrefix
             #if version >= 4
-              SUPPORTED !!Sup_GoogleUpdate1_3_33_5
+              SUPPORTED !!Sup_BraveUpdate1_3_33_5
             #endif
             EXPLAIN !!Explain_TargetVersionPrefix$AppLegalId$
 
@@ -244,7 +244,7 @@ UPDATE_POLICY_ITEMLIST.replace('            ', '              ') + """
 APPLICATIONS_FOOTER = """
       END CATEGORY  ; Applications
 
-    END CATEGORY  ; GoogleUpdate
+    END CATEGORY  ; BraveUpdate
 
   END CATEGORY  ; Google
 """
@@ -273,13 +273,13 @@ STRINGS_HEADER_AND_COMMON = ('\n' +
 HORIZONTAL_RULE +
 """
 [strings]
-Sup_GoogleUpdate1_2_145_5=At least Google Update 1.2.145.5
-Sup_GoogleUpdate1_3_21_81=At least Google Update 1.3.21.81
-Sup_GoogleUpdate1_3_26_0=At least Google Update 1.3.26.0
-Sup_GoogleUpdate1_3_33_5=At least Google Update 1.3.33.5
+Sup_BraveUpdate1_2_145_5=At least Google Update 1.2.145.5
+Sup_BraveUpdate1_3_21_81=At least Google Update 1.3.21.81
+Sup_BraveUpdate1_3_26_0=At least Google Update 1.3.26.0
+Sup_BraveUpdate1_3_33_5=At least Google Update 1.3.33.5
 
 Cat_Google=Google
-Cat_GoogleUpdate=Google Update
+Cat_BraveUpdate=Google Update
 Cat_Preferences=""" + PREFERENCES_CATEGORY + """
 Cat_ProxyServer=""" + PROXYSERVER_CATEGORY + """
 Cat_Applications=""" + APPLICATIONS_CATEGORY + """
@@ -341,7 +341,7 @@ STRINGS_UPDATE_POLICY_OPTIONS = """\
     \\n\\nIf you select manual updates, you should periodically check for updates using $PreApplicationWord$ application's manual update mechanism if available. If you disable updates, you should periodically check for updates and distribute them to users."""
 
 STRINGS_COMMON_EXPLANATIONS = ("""
-Explain_GoogleUpdate=Policies to control the installation and updating of Google applications that use Google Update/Google Installer.
+Explain_BraveUpdate=Policies to control the installation and updating of Google applications that use Google Update/Google Installer.
 
 """ +
 HORIZONTAL_RULE +

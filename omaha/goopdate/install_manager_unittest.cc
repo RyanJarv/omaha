@@ -775,7 +775,7 @@ TEST_F(InstallManagerInstallAppMachineTest,
   EXPECT_SUCCEEDED(RegKey::DeleteKey(kFullFooAppClientKeyPath));
 }
 
-// The use of kGoogleUpdateAppId is the key to this test.
+// The use of kBraveUpdateAppId is the key to this test.
 // Note that the version is not changed - this is the normal self-update case.
 // Among other things, this test verifies that CheckApplicationRegistration() is
 // not called for self-updates.
@@ -785,7 +785,7 @@ TEST_F(InstallManagerInstallAppUserTest, InstallApp_UpdateOmahaSucceeds) {
   app_->next_version()->AddPackage(
       _T("SaveArguments.exe"),
       100, CreateFileHash(_T("hash"), _T("sha256hash")));
-  app_->set_app_guid(StringToGuid(kGoogleUpdateAppId));
+  app_->set_app_guid(StringToGuid(kBraveUpdateAppId));
 
   // TODO(omaha3): This isn't supported yet.
 #if 0
@@ -830,7 +830,7 @@ TEST_F(InstallManagerInstallAppUserTest,
   app_->next_version()->AddPackage(
       _T("SaveArguments.exe"),
       100, CreateFileHash(_T("hash"), _T("sha256hash")));
-  app_->set_app_guid(StringToGuid(kGoogleUpdateAppId));
+  app_->set_app_guid(StringToGuid(kBraveUpdateAppId));
 
   // TODO(omaha3): This isn't supported yet.
 #if 0

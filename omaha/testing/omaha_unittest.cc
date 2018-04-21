@@ -251,7 +251,7 @@ int RunTests(bool is_medium_or_large_test,
   }
 
   if (is_medium_or_large_test) {
-    TerminateAllGoogleUpdateProcesses();
+    TerminateAllBraveUpdateProcesses();
   }
 
   int result = InitializeNetwork();
@@ -284,7 +284,7 @@ int RunTests(bool is_medium_or_large_test,
   DeinitializeNetwork();
 
   if (is_build_system && is_medium_or_large_test) {
-    TerminateAllGoogleUpdateProcesses();
+    TerminateAllBraveUpdateProcesses();
   }
 
   return result;

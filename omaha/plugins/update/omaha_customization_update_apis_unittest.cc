@@ -40,10 +40,10 @@ class OmahaCustomizationUpdateComInterfaceTest
 
 TEST_F(OmahaCustomizationUpdateComInterfaceTest, TypeLib) {
   EXPECT_GU_ID_EQ(_T("{b627c883-e979-4873-80b3-ddd0b658b56a}"),
-                  LIBID_GoogleUpdateControlLib);
+                  LIBID_BraveUpdateControlLib);
 
   EXPECT_SUCCEEDED(GetTypeLibDocumentation());
-  EXPECT_STREQ(_T("GoogleUpdateControlLib"), item_name_);
+  EXPECT_STREQ(_T("BraveUpdateControlLib"), item_name_);
   EXPECT_GU_STREQ(_T("Google Update Browser Plugins 3.0 Type Library"),
                   item_doc_string_);
   EXPECT_EQ(0, help_context_);
@@ -51,47 +51,47 @@ TEST_F(OmahaCustomizationUpdateComInterfaceTest, TypeLib) {
 }
 
 TEST_GU_INT_F(OmahaCustomizationUpdateComInterfaceTest,
-              IGoogleUpdateOneClick) {
+              IBraveUpdateOneClick) {
   // TODO(omaha): Test uuid constants after extracting from IDLs.
   EXPECT_GU_ID_EQ(_T("{6F65D62B-2F32-4483-9028-176C30B2389D}"),
-                  __uuidof(IGoogleUpdateOneClick));
+                  __uuidof(IBraveUpdateOneClick));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("IGoogleUpdateOneClick")));
+  EXPECT_SUCCEEDED(GetDocumentation(_T("IBraveUpdateOneClick")));
   EXPECT_STREQ(_T("Google Update OneClick Control"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
 
 TEST_GU_INT_F(OmahaCustomizationUpdateComInterfaceTest,
-              IGoogleUpdate3WebControl) {
+              IBraveUpdate3WebControl) {
   // TODO(omaha): Test uuid constants after extracting from IDLs.
   EXPECT_GU_ID_EQ(_T("{57E37502-65A5-484a-A035-C1608B2626EA}"),
-                  __uuidof(IGoogleUpdate3WebControl));
+                  __uuidof(IBraveUpdate3WebControl));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("IGoogleUpdate3WebControl")));
-  EXPECT_STREQ(_T("GoogleUpdate3Web Control"), item_doc_string_);
+  EXPECT_SUCCEEDED(GetDocumentation(_T("IBraveUpdate3WebControl")));
+  EXPECT_STREQ(_T("BraveUpdate3Web Control"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
 
 TEST_GU_INT_F(OmahaCustomizationUpdateComInterfaceTest,
-              GoogleUpdateOneClickControlCoClass) {
+              BraveUpdateOneClickControlCoClass) {
   EXPECT_GU_ID_EQ(_T("{c442ac41-9200-4770-8cc0-7cdb4f245c55}"),
-                  __uuidof(GoogleUpdateOneClickControlCoClass));
+                  __uuidof(BraveUpdateOneClickControlCoClass));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdateOneClickControlCoClass")));
+  EXPECT_SUCCEEDED(GetDocumentation(_T("BraveUpdateOneClickControlCoClass")));
   EXPECT_STREQ(_T("Google Update OneClick Control Class"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
 
 TEST_GU_INT_F(OmahaCustomizationUpdateComInterfaceTest,
-              GoogleUpdate3WebControlCoClass) {
+              BraveUpdate3WebControlCoClass) {
   EXPECT_GU_ID_EQ(_T("{c3101a8b-0ee1-4612-bfe9-41ffc1a3c19d}"),
-                  __uuidof(GoogleUpdate3WebControlCoClass));
+                  __uuidof(BraveUpdate3WebControlCoClass));
 
-  EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdate3WebControlCoClass")));
-  EXPECT_STREQ(_T("GoogleUpdate3Web Control Class"), item_doc_string_);
+  EXPECT_SUCCEEDED(GetDocumentation(_T("BraveUpdate3WebControlCoClass")));
+  EXPECT_STREQ(_T("BraveUpdate3Web Control Class"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }

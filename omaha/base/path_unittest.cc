@@ -31,7 +31,7 @@ TEST(PathTest, IsAbsolutePath) {
 }
 
 TEST(PathTest, IsPathInFolder) {
-  ASSERT_TRUE(IsPathInFolder(_T("C:\\Program Files\\GUMP\\Chrome.exe"),
+  ASSERT_TRUE(IsPathInFolder(_T("C:\\Program Files\\GUMP\\Brave.exe"),
                              _T("C:\\Program Files")));
   ASSERT_TRUE(IsPathInFolder(_T("C:\\Program Files\\Temp"),
                              _T("C:\\PROGRAM FILES\\")));
@@ -77,9 +77,9 @@ TEST(PathTest, EnclosePath) {
   EnclosePath(&path);
   EXPECT_STREQ(_T("\"c:\\Windows\\notepad.exe\""), path);
 
-  path = _T("c:\\Program Files\\Google\\Common\\Google Update");
+  path = _T("c:\\Program Files\\Brave\\Common\\Brave Update");
   EnclosePath(&path);
-  EXPECT_STREQ(_T("\"c:\\Program Files\\Google\\Common\\Google Update\""),
+  EXPECT_STREQ(_T("\"c:\\Program Files\\Brave\\Common\\Brave Update\""),
                path);
 }
 
@@ -138,17 +138,17 @@ TEST(PathTest, EnclosePathIfExe) {
   new_path = EnclosePathIfExe(original_path);
   EXPECT_STREQ(_T("\"c:\\Windows\\notepad.exe\""), new_path);
 
-  original_path = _T("c:\\Program Files\\Google\\Update");
+  original_path = _T("c:\\Program Files\\Brave\\Update");
   new_path = EnclosePathIfExe(original_path);
   EXPECT_STREQ(original_path, new_path);
 
-  original_path = _T("c:\\Progra Files\\Google\\Update\\1.1.1.1\\goopdate.dll");
+  original_path = _T("c:\\Progra Files\\Brave\\Update\\1.1.1.1\\goopdate.dll");
   new_path = EnclosePathIfExe(original_path);
   EXPECT_STREQ(original_path, new_path);
 
-  original_path = _T("c:\\Prog F\\Googl\\Update\\GoogleUpdate.exe");
+  original_path = _T("c:\\Prog F\\Brav\\Update\\BraveUpdate.exe");
   new_path = EnclosePathIfExe(original_path);
-  EXPECT_STREQ(_T("\"c:\\Prog F\\Googl\\Update\\GoogleUpdate.exe\""), new_path);
+  EXPECT_STREQ(_T("\"c:\\Prog F\\Brav\\Update\\BraveUpdate.exe\""), new_path);
 }
 
 TEST(PathTest, ConcatenatePath) {

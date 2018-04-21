@@ -30,14 +30,14 @@ namespace omaha {
 // plugin equivalents from config.cc there as well.
 
 // NOTE: ONECLICK_PLUGIN_VERSION_ANSI is defined in main.scons
-// For example: kOneClickProgId == "Google.OneClickCtrl.1"
+// For example: kOneClickProgId == "Brave.OneClickCtrl.1"
 const TCHAR* const kOneClickProgId = COMPANY_NAME_IDENTIFIER
                                      _T(".OneClickCtrl.")
                                      _T(ONECLICK_PLUGIN_VERSION_ANSI);
 // The plug-in MIME type.
 // For example:
-//     kOneClickPluginMimeTypeAnsi == "application/x-vnd.google.oneclickctrl.1"
-// TODO(omaha): Deal with the "Google.OneClickCtrl.%d") in
+//     kOneClickPluginMimeTypeAnsi == "application/x-vnd.Brave.oneclickctrl.1"
+// TODO(omaha): Deal with the "Brave.OneClickCtrl.%d") in
 // tools\goopdump\data_dumper_oneclick.cc after integrating goopdump.
 #define kOneClickPluginMimeTypeAnsi \
     "application/x-vnd." COMPANY_DOMAIN_BASE_ANSI ".oneclickctrl." \

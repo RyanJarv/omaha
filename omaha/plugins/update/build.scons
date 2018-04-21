@@ -22,7 +22,7 @@ Import('env')
 # EnablePrecompile on the main environment, which customization_test_env clones.
 # causes the opt build to fail.
 # TODO(omaha): How much of this needs to be used by all libraries that get built
-# and how much can be moved to BuildNpGoogleUpdateDll?
+# and how much can be moved to BuildNpBraveUpdateDll?
 update_env = env.Clone()
 update_env.Append(
     CPPDEFINES = [
@@ -145,7 +145,7 @@ update_lib = update_env.ComponentStaticLibrary(
 )
 
 
-def BuildNpGoogleUpdateDll(omaha_version_info):
+def BuildNpBraveUpdateDll(omaha_version_info):
   version_string = omaha_version_info.GetVersionString()
   prefix = omaha_version_info.filename_prefix
 
@@ -209,7 +209,7 @@ def BuildNpGoogleUpdateDll(omaha_version_info):
 
 
 for omaha_version_info in env['omaha_versions_info']:
-  BuildNpGoogleUpdateDll(omaha_version_info)
+  BuildNpBraveUpdateDll(omaha_version_info)
 
 
 #

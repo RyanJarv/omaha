@@ -49,10 +49,10 @@ class OnDemandTest : public testing::Test {
     on_demand = NULL;
     if (is_machine) {
       return on_demand.CoCreateInstance(
-          L"GoogleUpdate.OnDemandCOMClassMachine");
+          L"BraveUpdate.OnDemandCOMClassMachine");
     } else {
       return on_demand.CoCreateInstance(
-          L"GoogleUpdate.OnDemandCOMClassUser");
+          L"BraveUpdate.OnDemandCOMClassUser");
     }
   }
 
@@ -108,7 +108,7 @@ class OnDemandTest : public testing::Test {
 
   CComObject<JobObserver>* job_observer;
   CComPtr<IJobObserver> job_holder;
-  CComPtr<IGoogleUpdate> on_demand;
+  CComPtr<IBraveUpdate> on_demand;
 };
 
 TEST_F(OnDemandTest, BasicUpdate) {

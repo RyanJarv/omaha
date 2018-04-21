@@ -71,9 +71,9 @@ const TCHAR* const kUpdateAppsSingleInstance =
 const TCHAR* const kInstallAppSingleInstance =
     _T("%s-{0684C3E2-4EFA-4D1C-AE8D-A61945B94687}");
 
-// Ensures the GoogleUpdate3 server only runs one instance per machine and one
+// Ensures the BraveUpdate3 server only runs one instance per machine and one
 // instance per each user session.
-const TCHAR* const kGoogleUpdate3SingleInstance =
+const TCHAR* const kBraveUpdate3SingleInstance =
     _T("{BD1D9A71-3C5B-436B-BAD8-D337E3226819}");
 
 // TODO(omaha): Delete Job Object code.
@@ -135,13 +135,13 @@ const TCHAR* const kExternalUpdaterActivityPrefix =
 
 // The name of the shared memory objects containing the serialized COM
 // interface pointers exposed by the machine core.
-// TODO(omaha): Rename these constants to remove "GoogleUpdate".
+// TODO(omaha): Rename these constants to remove "BraveUpdate".
 // TODO(omaha): Consider following the kGlobalPrefix convention with the 'G'
 // for the new shared Omaha 3 name  and building this from the same #define as
 // kGlobalPrefix.
-const TCHAR* const kGoogleUpdate3SharedMemoryName =
+const TCHAR* const kBraveUpdate3SharedMemoryName =
     _T("Global\\") APP_NAME_IDENTIFIER _T("3");
-const TCHAR* const kGoogleUpdateCoreSharedMemoryName =
+const TCHAR* const kBraveUpdateCoreSharedMemoryName =
     _T("Global\\") APP_NAME_IDENTIFIER _T("Core");
 
 }  // namespace omaha

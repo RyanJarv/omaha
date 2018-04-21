@@ -80,7 +80,7 @@ HRESULT AppBundleStateInitialized::CreateApp(AppBundle* app_bundle,
   // a few unit tests that break this assumption mostly during the setup of
   // the unit test itself.
 #if 0
-  if (app_id.CompareNoCase(kGoogleUpdateAppId) == 0) {
+  if (app_id.CompareNoCase(kBraveUpdateAppId) == 0) {
     CORE_LOG(LE, (_T("[Omaha itself can't be created as a new app]")));
     return E_INVALIDARG;
   }

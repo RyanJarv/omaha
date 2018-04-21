@@ -252,7 +252,7 @@ CString CommandLineBuilder::GetCommandLineArgs() const {
 }
 
 CString CommandLineBuilder::GetCommandLine(const CString& program_name) const {
-  // Do not pass the results of the the /update builder to GoogleUpdate.exe.
+  // Do not pass the results of the the /update builder to BraveUpdate.exe.
   // The command line for /update is intended to be passed to a metainstaller.
   // See GetUpdate() for more information.
   ASSERT1(COMMANDLINE_MODE_UPDATE != mode_ ||

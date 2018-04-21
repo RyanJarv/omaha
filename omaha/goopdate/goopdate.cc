@@ -265,7 +265,7 @@ class GoopdateImpl {
   HRESULT HandleRegisterMsiHelper();
 
   // TODO(omaha): Reconcile the two uninstall functions and paths.
-  void MaybeUninstallGoogleUpdate();
+  void MaybeUninstallBraveUpdate();
 
   // Uninstalls Google Update if a /install process failed to install itself
   // or the app and there are no other apps registered.
@@ -328,7 +328,7 @@ GoopdateImpl::GoopdateImpl(Goopdate* goopdate, bool is_local_system)
   // fails to allocate memory.
   VERIFY1(set_new_handler(&GoopdateImpl::OutOfMemoryHandler) == 0);
 
-  // Install the exception handler.  If GoogleCrashHandler is running, this will
+  // Install the exception handler.  If BraveCrashHandler is running, this will
   // connect to it for out-of-process handling; if not, it will install an
   // in-process breakpad crash handler with a callback to upload it.
   VERIFY1(SUCCEEDED(InstallExceptionHandler()));
@@ -538,7 +538,7 @@ HRESULT GoopdateImpl::DoMain(HINSTANCE instance,
   cmd_show_ = cmd_show;
 
   // The system terminates the process without displaying a retry dialog box
-  // for the user. GoogleUpdate has no user state to be saved, therefore
+  // for the user. BraveUpdate has no user state to be saved, therefore
   // prompting the user for input is meaningless.
   VERIFY1(SUCCEEDED(SetProcessSilentShutdown()));
 
@@ -615,7 +615,7 @@ HRESULT GoopdateImpl::DoMain(HINSTANCE instance,
   bool has_ui_been_displayed = false;
 
   if (!is_machine_ && vista_util::IsElevatedWithEnableLUAOn()) {
-    CORE_LOG(LW, (_T("User GoogleUpdate is possibly running in an unsupported ")
+    CORE_LOG(LW, (_T("User BraveUpdate is possibly running in an unsupported ")
                   _T("way, at High integrity with UAC possibly enabled.")));
   }
 
@@ -785,14 +785,14 @@ HRESULT GoopdateImpl::ExecuteMode(bool* has_ui_been_displayed) {
           return E_FAIL;
 
         case COMMANDLINE_MODE_COMBROKER: {
-          omaha::GoogleUpdate* module = new omaha::GoogleUpdate(
-              is_machine_, omaha::GoogleUpdate::kBrokerMode);
+          omaha::BraveUpdate* module = new omaha::BraveUpdate(
+              is_machine_, omaha::BraveUpdate::kBrokerMode);
           return module->Main();
         }
 
         case COMMANDLINE_MODE_ONDEMAND: {
-          omaha::GoogleUpdate* module = new omaha::GoogleUpdate(
-              is_machine_, omaha::GoogleUpdate::kOnDemandMode);
+          omaha::BraveUpdate* module = new omaha::BraveUpdate(
+              is_machine_, omaha::BraveUpdate::kOnDemandMode);
           return module->Main();
         }
 
@@ -838,30 +838,30 @@ HRESULT GoopdateImpl::ExecuteMode(bool* has_ui_been_displayed) {
 
             case COMMANDLINE_MODE_REGSERVER:
             case COMMANDLINE_MODE_UNREGSERVER: {
-              // GoogleUpdate instances are created on the stack and we reset
-              // the _pAtlModule to allow for multiple instances of GoogleUpdate
+              // BraveUpdate instances are created on the stack and we reset
+              // the _pAtlModule to allow for multiple instances of BraveUpdate
               // to be created and destroyed serially.
-              hr = omaha::GoogleUpdate(
-                  is_machine_, omaha::GoogleUpdate::kUpdate3Mode).Main();
+              hr = omaha::BraveUpdate(
+                  is_machine_, omaha::BraveUpdate::kUpdate3Mode).Main();
               if (FAILED(hr)) {
                 return hr;
               }
               _pAtlModule = NULL;
 
-              hr = omaha::GoogleUpdate(
-                  is_machine_, omaha::GoogleUpdate::kBrokerMode).Main();
+              hr = omaha::BraveUpdate(
+                  is_machine_, omaha::BraveUpdate::kBrokerMode).Main();
               if (FAILED(hr)) {
                 return hr;
               }
               _pAtlModule = NULL;
 
-              return omaha::GoogleUpdate(
-                  is_machine_, omaha::GoogleUpdate::kOnDemandMode).Main();
+              return omaha::BraveUpdate(
+                  is_machine_, omaha::BraveUpdate::kOnDemandMode).Main();
             }
 
             case COMMANDLINE_MODE_COMSERVER: {
-              omaha::GoogleUpdate* module = new omaha::GoogleUpdate(
-                  is_machine_, omaha::GoogleUpdate::kUpdate3Mode);
+              omaha::BraveUpdate* module = new omaha::BraveUpdate(
+                  is_machine_, omaha::BraveUpdate::kUpdate3Mode);
               return module->Main();
             }
 
@@ -1011,7 +1011,7 @@ HRESULT GoopdateImpl::LoadResourceDllIfNecessary(CommandLineMode mode,
       break;
 
     // For the Core, the resource DLL needs to be loaded when the Core is
-    // servicing IGoogleUpdate3. The Core loads the resource DLL after the Code
+    // servicing IBraveUpdate3. The Core loads the resource DLL after the Code
     // Red kickoff, from within core.cc.
     case COMMANDLINE_MODE_CORE:
     case COMMANDLINE_MODE_REGSERVER:
@@ -1277,7 +1277,7 @@ HRESULT GoopdateImpl::DoUpdateAllApps(bool* has_ui_been_displayed ) {
   }
 
   // TODO(omaha): Consider moving InitializeClientSecurity calls inside
-  // install_apps.cc or maybe to update3_utils::CreateGoogleUpdate3Class().
+  // install_apps.cc or maybe to update3_utils::CreateBraveUpdate3Class().
   HRESULT hr = InitializeClientSecurity();
   if (FAILED(hr)) {
     ASSERT1(false);
@@ -1324,7 +1324,7 @@ HRESULT GoopdateImpl::HandleUninstall() {
   HRESULT hr = WaitForMSIExecute(kWaitForMSIExecuteMs);
   CORE_LOG(L2, (_T("[WaitForMSIExecute returned 0x%08x]"), hr));
   if (SUCCEEDED(hr)) {
-    MaybeUninstallGoogleUpdate();
+    MaybeUninstallBraveUpdate();
   }
   return S_OK;
 }
@@ -1385,7 +1385,7 @@ HRESULT GoopdateImpl::HandleRegisterMsiHelper() {
     return S_OK;
   }
 
-  SetupGoogleUpdate setup_google_update(is_machine_, false);
+  SetupBraveUpdate setup_google_update(is_machine_, false);
   HRESULT hr = setup_google_update.InstallMsiHelper();
   if (FAILED(hr)) {
     CORE_LOG(LE, (_T("[InstallMsiHelper failed][%#x]"), hr));
@@ -1434,8 +1434,8 @@ HRESULT GoopdateImpl::HandleRegisterMsiHelper() {
 // no other single lock that can be acquired to prevent changes to the
 // application registration. The code looks for install workers but the test is
 // racy if not protected by locks.
-void GoopdateImpl::MaybeUninstallGoogleUpdate() {
-  CORE_LOG(L1, (_T("[MaybeUninstallGoogleUpdate]")));
+void GoopdateImpl::MaybeUninstallBraveUpdate() {
+  CORE_LOG(L1, (_T("[MaybeUninstallBraveUpdate]")));
   has_uninstalled_ =
       !!SUCCEEDED(install_self::UninstallSelf(is_machine_, true));
 }
@@ -1613,7 +1613,7 @@ HRESULT PromoteAppEulaAccepted(bool is_machine) {
     }
 
     if (app_registry_utils::IsAppEulaAccepted(is_machine, sub_key_name, true)) {
-      ASSERT1(kGoogleUpdateAppId != sub_key_name);
+      ASSERT1(kBraveUpdateAppId != sub_key_name);
       return install_self::SetEulaAccepted(is_machine);
     }
   }
@@ -1657,7 +1657,7 @@ bool IsMachineProcess(CommandLineMode mode,
     case COMMANDLINE_MODE_ONDEMAND:
 #if !OFFICIAL_BUILD
       // Return machine == true. This is to facilitate unit tests such as
-      // GoogleUpdateCoreTest.LaunchCmdElevated_LocalServerRegistered.
+      // BraveUpdateCoreTest.LaunchCmdElevated_LocalServerRegistered.
       if (IsOmahaShellRunningFromStaging()) {
         return true;
       }
@@ -1666,7 +1666,7 @@ bool IsMachineProcess(CommandLineMode mode,
       ASSERT1(goopdate_utils::IsRunningFromOfficialGoopdateDir(false) ||
               goopdate_utils::IsRunningFromOfficialGoopdateDir(true) ||
               _T("omaha_unittest.exe") == app_util::GetCurrentModuleName() ||
-              _T("GoogleUpdate_unsigned.exe") ==
+              _T("BraveUpdate_unsigned.exe") ==
                   app_util::GetModuleName(NULL));  // Running in debugger.
       return is_running_from_official_machine_directory;
 
@@ -1725,7 +1725,7 @@ bool IsMachineProcess(CommandLineMode mode,
     case COMMANDLINE_MODE_UNREGSERVER:
 #if !OFFICIAL_BUILD
       // Return machine == true. This is to facilitate unit tests such as
-      // GoogleUpdateCoreTest.LaunchCmdElevated_LocalServerRegistered.
+      // BraveUpdateCoreTest.LaunchCmdElevated_LocalServerRegistered.
       if (IsOmahaShellRunningFromStaging()) {
         return true;
       }

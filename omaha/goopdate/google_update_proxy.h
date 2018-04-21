@@ -14,7 +14,7 @@
 // ========================================================================
 //
 // Defines SharedMemoryProxy to encapsulate marshaling and unmarshaling of
-// IGoogleUpdate3 and other interface pointers across process boundaries.
+// IBraveUpdate3 and other interface pointers across process boundaries.
 //
 // TODO(omaha): seems possible to make it general purpose and move it to common.
 #ifndef OMAHA_GOOPDATE_GOOGLE_UPDATE_PROXY_H__

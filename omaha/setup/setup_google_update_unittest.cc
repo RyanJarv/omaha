@@ -63,7 +63,7 @@ CString GetMsiUninstallKey() {
 // Does not replace files if they already exist.
 void CopyFilesRequiredByFinishInstall(bool is_machine, const CString& version) {
   const CString omaha_path = is_machine ?
-      GetGoogleUpdateMachinePath() : GetGoogleUpdateUserPath();
+      GetBraveUpdateMachinePath() : GetBraveUpdateUserPath();
   const CString expected_shell_path =
       ConcatenatePath(omaha_path, kOmahaShellFileName);
   const CString version_path = ConcatenatePath(omaha_path, version);
@@ -103,9 +103,9 @@ void SetupCOMLocalServerRegistration(bool is_machine) {
   // Setup the following for the unit test:
   // * LocalServer32 under CLSID_OnDemandMachineAppsClass or
   //   CLSID_OnDemandUserAppsClass should be the current exe's module path.
-  // * InProcServer32 under CLSID of IID_IGoogleUpdate should be the path of the
+  // * InProcServer32 under CLSID of IID_IBraveUpdate should be the path of the
   //   current module.
-  // * ProxyStubClsid32 under IGoogleUpdate interface should be the CLSID of the
+  // * ProxyStubClsid32 under IBraveUpdate interface should be the CLSID of the
   //   proxy, which is PROXY_CLSID_IS.
 
   CString base_clsid_key(is_machine ? _T("HKLM") : _T("HKCU"));
@@ -136,7 +136,7 @@ void SetupCOMLocalServerRegistration(bool is_machine) {
 
   CString igoogleupdate_interface_key(is_machine ? _T("HKLM") : _T("HKCU"));
   igoogleupdate_interface_key += _T("\\Software\\Classes\\Interface\\");
-  igoogleupdate_interface_key += GuidToString(__uuidof(IGoogleUpdate));
+  igoogleupdate_interface_key += GuidToString(__uuidof(IBraveUpdate));
   igoogleupdate_interface_key += _T("\\ProxyStubClsid32");
   CString proxy_interface_value(GuidToString(proxy_clsid));
   ASSERT_FALSE(proxy_interface_value.IsEmpty());
@@ -265,13 +265,13 @@ void VerifyHklmKeyHasMediumIntegrity(const CString& key_full_name) {
                             KEY_READ | KEY_SET_VALUE | KEY_CREATE_SUB_KEY);
 }
 
-class SetupGoogleUpdateTest : public testing::Test {
+class SetupBraveUpdateTest : public testing::Test {
  protected:
-  explicit SetupGoogleUpdateTest(bool is_machine) : is_machine_(is_machine) {}
-  virtual ~SetupGoogleUpdateTest() {}
+  explicit SetupBraveUpdateTest(bool is_machine) : is_machine_(is_machine) {}
+  virtual ~SetupBraveUpdateTest() {}
 
   virtual void SetUp() {
-    setup_google_update_.reset(new SetupGoogleUpdate(is_machine_, false));
+    setup_google_update_.reset(new SetupBraveUpdate(is_machine_, false));
   }
 
   HRESULT InstallRegistryValues() {
@@ -299,48 +299,48 @@ class SetupGoogleUpdateTest : public testing::Test {
   }
 
   bool is_machine_;
-  scoped_ptr<SetupGoogleUpdate> setup_google_update_;
+  scoped_ptr<SetupBraveUpdate> setup_google_update_;
 };
 
-class SetupGoogleUpdateUserTest : public SetupGoogleUpdateTest {
+class SetupBraveUpdateUserTest : public SetupBraveUpdateTest {
  protected:
-  SetupGoogleUpdateUserTest() : SetupGoogleUpdateTest(false) {
+  SetupBraveUpdateUserTest() : SetupBraveUpdateTest(false) {
     CString expected_shell_path =
-        ConcatenatePath(GetGoogleUpdateUserPath(), GetVersionString());
+        ConcatenatePath(GetBraveUpdateUserPath(), GetVersionString());
     expected_run_key_value_ = ConcatenatePath(expected_shell_path,
                                               kOmahaCoreFileName);
   }
 
   virtual void SetUp() {
-    SetupGoogleUpdateTest::SetUp();
+    SetupBraveUpdateTest::SetUp();
     RegKey::DeleteKey(USER_REG_UPDATE);
   }
 
   virtual void TearDown() {
     RegKey::DeleteKey(USER_REG_UPDATE);
-    SetupGoogleUpdateTest::TearDown();
+    SetupBraveUpdateTest::TearDown();
   }
 
   CString expected_run_key_value_;
 };
 
-class SetupGoogleUpdateMachineTest : public SetupGoogleUpdateTest {
+class SetupBraveUpdateMachineTest : public SetupBraveUpdateTest {
  protected:
-  SetupGoogleUpdateMachineTest() : SetupGoogleUpdateTest(true) {}
+  SetupBraveUpdateMachineTest() : SetupBraveUpdateTest(true) {}
 
   virtual void SetUp() {
     RegKey::DeleteKey(MACHINE_REG_UPDATE);
-    SetupGoogleUpdateTest::SetUp();
+    SetupBraveUpdateTest::SetUp();
   }
 
   virtual void TearDown() {
     RegKey::DeleteKey(MACHINE_REG_UPDATE);
-    SetupGoogleUpdateTest::TearDown();
+    SetupBraveUpdateTest::TearDown();
   }
 };
 
 // This test uninstalls all other versions of Omaha.
-TEST_F(SetupGoogleUpdateUserTest, FinishInstall_RunKeyDoesNotExist) {
+TEST_F(SetupBraveUpdateUserTest, FinishInstall_RunKeyDoesNotExist) {
   RegKey::DeleteValue(kRunKey, _T(OMAHA_APP_NAME_ANSI));
   ASSERT_FALSE(RegKey::HasValue(kRunKey, _T(OMAHA_APP_NAME_ANSI)));
 
@@ -367,7 +367,7 @@ TEST_F(SetupGoogleUpdateUserTest, FinishInstall_RunKeyDoesNotExist) {
 
   // Check the system state.
 
-  CPath expected_shell_path(GetGoogleUpdateUserPath());
+  CPath expected_shell_path(GetBraveUpdateUserPath());
   expected_shell_path.Append(kOmahaShellFileName);
   CString shell_path;
   EXPECT_SUCCEEDED(RegKey::GetValue(USER_REG_UPDATE, _T("path"), &shell_path));
@@ -406,9 +406,9 @@ TEST_F(SetupGoogleUpdateUserTest, FinishInstall_RunKeyDoesNotExist) {
   }
 }
 
-// TODO(omaha): Assumes GoogleUpdate.exe exists in the installed location, which
+// TODO(omaha): Assumes BraveUpdate.exe exists in the installed location, which
 // is not always true when run independently.
-TEST_F(SetupGoogleUpdateUserTest, InstallRegistryValues) {
+TEST_F(SetupBraveUpdateUserTest, InstallRegistryValues) {
   if (IsTestRunByLocalSystem()) {
     return;
   }
@@ -440,7 +440,7 @@ TEST_F(SetupGoogleUpdateUserTest, InstallRegistryValues) {
   EXPECT_SUCCEEDED(client_state_key.Open(USER_REG_CLIENT_STATE));
   EXPECT_EQ(1, client_state_key.GetSubkeyCount());
 
-  CPath expected_shell_path(GetGoogleUpdateUserPath());
+  CPath expected_shell_path(GetBraveUpdateUserPath());
   expected_shell_path.Append(kOmahaShellFileName);
   CString shell_path;
   EXPECT_SUCCEEDED(RegKey::GetValue(USER_REG_UPDATE, _T("path"), &shell_path));
@@ -462,10 +462,10 @@ TEST_F(SetupGoogleUpdateUserTest, InstallRegistryValues) {
   EXPECT_STREQ(GetVersionString(), product_version);
 }
 
-// TODO(omaha): Assumes GoogleUpdate.exe exists in the installed location, which
+// TODO(omaha): Assumes BraveUpdate.exe exists in the installed location, which
 // is not always true when run independently.
 // TODO(omaha): Fails when run by itself on Windows Vista.
-TEST_F(SetupGoogleUpdateMachineTest, InstallRegistryValues) {
+TEST_F(SetupBraveUpdateMachineTest, InstallRegistryValues) {
   EXPECT_SUCCEEDED(InstallRegistryValues());
   const uint32 now = Time64ToInt32(GetCurrent100NSTime());
 
@@ -500,7 +500,7 @@ TEST_F(SetupGoogleUpdateMachineTest, InstallRegistryValues) {
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_PROGRAM_FILES, &expected_shell_path));
   expected_shell_path.Append(_T("\\") SHORT_COMPANY_NAME
                              _T("\\") PRODUCT_NAME
-                             _T("\\GoogleUpdate.exe"));
+                             _T("\\BraveUpdate.exe"));
   CString shell_path;
   EXPECT_SUCCEEDED(
       RegKey::GetValue(MACHINE_REG_UPDATE, _T("path"), &shell_path));
@@ -534,7 +534,7 @@ TEST_F(SetupGoogleUpdateMachineTest, InstallRegistryValues) {
   VerifyHklmKeyHasMediumIntegrity(app_client_state_medium_key_name);
 }
 
-TEST_F(SetupGoogleUpdateMachineTest,
+TEST_F(SetupBraveUpdateMachineTest,
        CreateClientStateMedium_KeyAlreadyExistsWithSamePermissions) {
   EXPECT_SUCCEEDED(RegKey::CreateKey(MACHINE_REG_UPDATE));
   EXPECT_SUCCEEDED(CreateClientStateMedium());
@@ -545,7 +545,7 @@ TEST_F(SetupGoogleUpdateMachineTest,
 }
 
 // CreateClientStateMedium does not replace permissions on existing keys.
-TEST_F(SetupGoogleUpdateMachineTest,
+TEST_F(SetupBraveUpdateMachineTest,
        CreateClientStateMedium_KeysAlreadyExistWithDifferentPermissions) {
   const CString app1_client_state_medium_key_name = AppendRegKeyPath(
       MACHINE_REG_CLIENT_STATE_MEDIUM,
@@ -607,7 +607,7 @@ TEST_F(SetupGoogleUpdateMachineTest,
       app2_client_state_medium_key_name, KEY_WRITE, &dacl, &interactive);
 }
 
-TEST_F(SetupGoogleUpdateUserTest, InstallLaunchMechanisms_RunKeyValueExists) {
+TEST_F(SetupBraveUpdateUserTest, InstallLaunchMechanisms_RunKeyValueExists) {
   EXPECT_SUCCEEDED(RegKey::SetValue(kRunKey,
                                     _T(OMAHA_APP_NAME_ANSI),
                                     _T("fo /b")));
@@ -627,7 +627,7 @@ TEST_F(SetupGoogleUpdateUserTest, InstallLaunchMechanisms_RunKeyValueExists) {
   EXPECT_FALSE(scheduled_task_utils::IsInstalledGoopdateTaskUA(false));
 }
 
-TEST_F(SetupGoogleUpdateUserTest, InstallLaunchMechanisms_RunKeyDoesNotExist) {
+TEST_F(SetupBraveUpdateUserTest, InstallLaunchMechanisms_RunKeyDoesNotExist) {
   RegKey::DeleteValue(kRunKey, _T(OMAHA_APP_NAME_ANSI));
   ASSERT_FALSE(RegKey::HasValue(kRunKey, _T(OMAHA_APP_NAME_ANSI)));
 
@@ -648,7 +648,7 @@ TEST_F(SetupGoogleUpdateUserTest, InstallLaunchMechanisms_RunKeyDoesNotExist) {
 
 // The helper can be installed when the test begins.
 // It will not be installed when the test successfully completes.
-TEST_F(SetupGoogleUpdateMachineTest, InstallAndUninstallMsiHelper) {
+TEST_F(SetupBraveUpdateMachineTest, InstallAndUninstallMsiHelper) {
   const TCHAR* MsiInstallRegValueKey =
       ConfigManager::Instance()->machine_registry_update();
 
@@ -716,7 +716,7 @@ TEST_F(SetupGoogleUpdateMachineTest, InstallAndUninstallMsiHelper) {
 // original filename in the new directory.
 // The helper can be installed when the test begins.
 // It will not be installed when the test successfully completes.
-TEST_F(SetupGoogleUpdateMachineTest,
+TEST_F(SetupBraveUpdateMachineTest,
        InstallMsiHelper_OverinstallDifferentMsiBuild) {
   if (!vista_util::IsUserAdmin()) {
     std::wcout << _T("\tThis test did not run because it must be run as admin.")
@@ -764,7 +764,7 @@ TEST_F(SetupGoogleUpdateMachineTest,
   EXPECT_FALSE(RegKey::HasKey(GetMsiUninstallKey()));
 }
 
-TEST_F(SetupGoogleUpdateMachineTest, WriteClientStateMedium) {
+TEST_F(SetupBraveUpdateMachineTest, WriteClientStateMedium) {
   bool is_uac_on(false);
   EXPECT_SUCCEEDED(vista_util::IsUACOn(&is_uac_on));
 
@@ -807,7 +807,7 @@ TEST_F(SetupGoogleUpdateMachineTest, WriteClientStateMedium) {
 // verifies that the created app subkey inherits those.
 // The Update key must be created first to avoid applying ClientStateMedium's
 // permissions to all its parent keys.
-TEST_F(SetupGoogleUpdateMachineTest,
+TEST_F(SetupBraveUpdateMachineTest,
        WritePreInstallData_CheckClientStateMediumPermissions) {
   // Start with a clean state without a ClientStateMedium key.
   const CString client_state_medium_key_name(

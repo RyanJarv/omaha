@@ -59,7 +59,7 @@ bool IsElevationRequired(bool is_machine) {
 namespace internal {
 
 // TODO(omaha3): Make this elevate the metainstaller instead of
-// GoogleUpdate.exe so the files are extracted to a secure location.
+// BraveUpdate.exe so the files are extracted to a secure location.
 // May need to add all languages to the metainstaller's version resources so
 // the user sees the localized string in the UAC.
 // TODO(omaha3): We will need to save the metainstaller for OneClick
@@ -471,11 +471,11 @@ HRESULT LaunchHandoffProcess(bool is_machine,
 
   CString cmd_line = builder.GetCommandLineArgs();
 
-  HRESULT hr = goopdate_utils::StartGoogleUpdateWithArgs(is_machine,
+  HRESULT hr = goopdate_utils::StartBraveUpdateWithArgs(is_machine,
                                                          cmd_line,
                                                          process);
   if (FAILED(hr)) {
-    OPT_LOG(LE, (_T("[Google Update hand off failed][%s][0x%08x]"),
+    OPT_LOG(LE, (_T("[Brave Update hand off failed][%s][0x%08x]"),
                  cmd_line, hr));
     // TODO(omaha3): Report hr somehow. Was reported in extra code in Omaha 2.
     return GOOPDATE_E_HANDOFF_FAILED;
@@ -547,7 +547,7 @@ CString GetErrorText(HRESULT error, const CString& bundle_name) {
       {
         CString company_name;
         VERIFY1(company_name.LoadString(IDS_FRIENDLY_COMPANY_NAME));
-        error_text.FormatMessage(IDS_APPLICATION_INSTALLING_GOOGLE_UPDATE,
+        error_text.FormatMessage(IDS_APPLICATION_INSTALLING_BRAVE_UPDATE,
                                  company_name);
       }
       break;
@@ -706,7 +706,7 @@ HRESULT Install(bool is_interactive,
   // the version of the installed Omaha before the setup code ran.
   CString current_version;
   app_registry_utils::GetAppVersion(*is_machine,
-                                    kGoogleUpdateAppId,
+                                    kBraveUpdateAppId,
                                     &current_version);
 
   bool has_setup_succeeded  = false;

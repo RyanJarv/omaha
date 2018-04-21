@@ -41,8 +41,8 @@ bool UseInProcCOMServer() {
 }
 
 template <typename Update3COMClassT>
-HRESULT CreateGoogleUpdate3LocalClass(IGoogleUpdate3** server) {
-  CORE_LOG(L3, (_T("[CreateGoogleUpdate3LocalClass]")));
+HRESULT CreateBraveUpdate3LocalClass(IBraveUpdate3** server) {
+  CORE_LOG(L3, (_T("[CreateBraveUpdate3LocalClass]")));
   ASSERT1(server);
 
   typedef CComObject<Update3COMClassT> Update3;
@@ -87,13 +87,13 @@ HRESULT SetProxyBlanketAllowImpersonate(IUnknown* server) {
   return S_OK;
 }
 
-HRESULT CreateGoogleUpdate3Class(bool is_machine, IGoogleUpdate3** server) {
-  CORE_LOG(L3, (_T("[CreateGoogleUpdate3Class][%d]"), is_machine));
+HRESULT CreateBraveUpdate3Class(bool is_machine, IBraveUpdate3** server) {
+  CORE_LOG(L3, (_T("[CreateBraveUpdate3Class][%d]"), is_machine));
   ASSERT1(server);
 
-  CComPtr<IGoogleUpdate3> com_server;
-  HRESULT hr = is_machine ? CreateGoogleUpdate3MachineClass(&com_server) :
-                            CreateGoogleUpdate3UserClass(&com_server);
+  CComPtr<IBraveUpdate3> com_server;
+  HRESULT hr = is_machine ? CreateBraveUpdate3MachineClass(&com_server) :
+                            CreateBraveUpdate3UserClass(&com_server);
   if (FAILED(hr)) {
     return hr;
   }
@@ -110,29 +110,29 @@ HRESULT CreateGoogleUpdate3Class(bool is_machine, IGoogleUpdate3** server) {
 // Tries to CoCreate the service CLSID first. If that fails, tries to create the
 // server in-proc. Finally, sets a security blanket on the interface to allow
 // the server to impersonate the client.
-HRESULT CreateGoogleUpdate3MachineClass(IGoogleUpdate3** machine_server) {
+HRESULT CreateBraveUpdate3MachineClass(IBraveUpdate3** machine_server) {
   ASSERT1(machine_server);
   ASSERT1(vista_util::IsUserAdmin());
 
   if (UseInProcCOMServer()) {
     return
-        CreateGoogleUpdate3LocalClass<Update3COMClassService>(machine_server);
+        CreateBraveUpdate3LocalClass<Update3COMClassService>(machine_server);
   }
 
-  CComPtr<IGoogleUpdate3> server;
-  HRESULT hr = server.CoCreateInstance(__uuidof(GoogleUpdate3ServiceClass));
+  CComPtr<IBraveUpdate3> server;
+  HRESULT hr = server.CoCreateInstance(__uuidof(BraveUpdate3ServiceClass));
 
   if (FAILED(hr)) {
-    CORE_LOG(LE, (_T("[CoCreate GoogleUpdate3ServiceClass failed][0x%x]"), hr));
+    CORE_LOG(LE, (_T("[CoCreate BraveUpdate3ServiceClass failed][0x%x]"), hr));
 
-    hr = CreateGoogleUpdate3LocalClass<Update3COMClassService>(&server);
+    hr = CreateBraveUpdate3LocalClass<Update3COMClassService>(&server);
     if (hr == GOOPDATE_E_INSTANCES_RUNNING) {
-      CORE_LOG(L3, (_T("[Retry CoCreate GoogleUpdate3ServiceClass]")));
-      hr = server.CoCreateInstance(__uuidof(GoogleUpdate3ServiceClass));
+      CORE_LOG(L3, (_T("[Retry CoCreate BraveUpdate3ServiceClass]")));
+      hr = server.CoCreateInstance(__uuidof(BraveUpdate3ServiceClass));
     }
 
     if (FAILED(hr)) {
-      CORE_LOG(LE, (_T("[Create GoogleUpdate3MachineClass failed][0x%x]"), hr));
+      CORE_LOG(LE, (_T("[Create BraveUpdate3MachineClass failed][0x%x]"), hr));
       return hr;
     }
   }
@@ -144,17 +144,17 @@ HRESULT CreateGoogleUpdate3MachineClass(IGoogleUpdate3** machine_server) {
 
 // Tries to CoCreate the LocalServer CLSID first. If that fails, tries to create
 // the server in-proc.
-HRESULT CreateGoogleUpdate3UserClass(IGoogleUpdate3** user_server) {
+HRESULT CreateBraveUpdate3UserClass(IBraveUpdate3** user_server) {
   ASSERT1(user_server);
 
   if (UseInProcCOMServer()) {
-    return CreateGoogleUpdate3LocalClass<Update3COMClassUser>(user_server);
+    return CreateBraveUpdate3LocalClass<Update3COMClassUser>(user_server);
   }
 
-  CComPtr<IGoogleUpdate3> server;
-  HRESULT hr = server.CoCreateInstance(__uuidof(GoogleUpdate3UserClass));
+  CComPtr<IBraveUpdate3> server;
+  HRESULT hr = server.CoCreateInstance(__uuidof(BraveUpdate3UserClass));
   if (FAILED(hr)) {
-    CORE_LOG(LE, (_T("[CoCreate GoogleUpdate3UserClass failed][0x%x]"), hr));
+    CORE_LOG(LE, (_T("[CoCreate BraveUpdate3UserClass failed][0x%x]"), hr));
 
     // The primary reason for the LocalServer activation failing on Vista/Win7
     // is that COM does not look at HKCU registration when the code is running
@@ -162,7 +162,7 @@ HRESULT CreateGoogleUpdate3UserClass(IGoogleUpdate3** user_server) {
     // one install at a time, so we use it only as a backup mechanism.
     OPT_LOG(LE, (_T("[IsElevatedWithEnableLUAOn][%d]"),
                  vista_util::IsElevatedWithEnableLUAOn()));
-    hr = CreateGoogleUpdate3LocalClass<Update3COMClassUser>(&server);
+    hr = CreateBraveUpdate3LocalClass<Update3COMClassUser>(&server);
     if (FAILED(hr)) {
       return hr;
     }
@@ -173,7 +173,7 @@ HRESULT CreateGoogleUpdate3UserClass(IGoogleUpdate3** user_server) {
   return S_OK;
 }
 
-HRESULT CreateAppBundle(IGoogleUpdate3* server, IAppBundle** app_bundle) {
+HRESULT CreateAppBundle(IBraveUpdate3* server, IAppBundle** app_bundle) {
   ASSERT1(server);
   ASSERT1(app_bundle);
 

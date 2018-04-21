@@ -142,7 +142,7 @@ CString MakeTestFilepath(const CString& relpath) {
 HRESULT VerifyFileSignature(const CString& filename);
 HRESULT VerifyRepairFileMarkup(const CString& filename);
 
-class GoogleUpdateRecoveryTest : public testing::Test {
+class BraveUpdateRecoveryTest : public testing::Test {
  public:
   static void set_saved_url(const CString& saved_url) {
     saved_url_ = saved_url;
@@ -157,7 +157,7 @@ class GoogleUpdateRecoveryTest : public testing::Test {
   }
 
  protected:
-  GoogleUpdateRecoveryTest() {
+  BraveUpdateRecoveryTest() {
     saved_url_.Empty();
     saved_file_path_.Empty();
     saved_context_ = NULL;
@@ -250,9 +250,9 @@ class GoogleUpdateRecoveryTest : public testing::Test {
     ASSERT1(url);
     ASSERT1(file_path);
 
-    GoogleUpdateRecoveryTest::set_saved_url(url);
-    GoogleUpdateRecoveryTest::set_saved_file_path(file_path);
-    GoogleUpdateRecoveryTest::set_saved_context(context);
+    BraveUpdateRecoveryTest::set_saved_url(url);
+    BraveUpdateRecoveryTest::set_saved_file_path(file_path);
+    BraveUpdateRecoveryTest::set_saved_context(context);
 
     CString executable_full_path(app_util::GetCurrentModuleDirectory());
     VERIFY1(::PathAppend(CStrBuf(executable_full_path, MAX_PATH),
@@ -273,9 +273,9 @@ class GoogleUpdateRecoveryTest : public testing::Test {
     ASSERT1(url);
     ASSERT1(file_path);
 
-    GoogleUpdateRecoveryTest::set_saved_url(url);
-    GoogleUpdateRecoveryTest::set_saved_file_path(file_path);
-    GoogleUpdateRecoveryTest::set_saved_context(context);
+    BraveUpdateRecoveryTest::set_saved_url(url);
+    BraveUpdateRecoveryTest::set_saved_file_path(file_path);
+    BraveUpdateRecoveryTest::set_saved_context(context);
 
     return kDummyNoFileError;
   }
@@ -302,9 +302,9 @@ class GoogleUpdateRecoveryTest : public testing::Test {
     ASSERT1(url);
     ASSERT1(file_path);
 
-    GoogleUpdateRecoveryTest::set_saved_url(url);
-    GoogleUpdateRecoveryTest::set_saved_file_path(file_path);
-    GoogleUpdateRecoveryTest::set_saved_context(context);
+    BraveUpdateRecoveryTest::set_saved_url(url);
+    BraveUpdateRecoveryTest::set_saved_file_path(file_path);
+    BraveUpdateRecoveryTest::set_saved_context(context);
 
     NetworkConfig* network_config = NULL;
     NetworkConfigManager& network_manager = NetworkConfigManager::Instance();
@@ -347,22 +347,22 @@ class GoogleUpdateRecoveryTest : public testing::Test {
   }
 };
 
-CString GoogleUpdateRecoveryTest::saved_url_;
-CString GoogleUpdateRecoveryTest::saved_file_path_;
-void* GoogleUpdateRecoveryTest::saved_context_;
+CString BraveUpdateRecoveryTest::saved_url_;
+CString BraveUpdateRecoveryTest::saved_file_path_;
+void* BraveUpdateRecoveryTest::saved_context_;
 
-class GoogleUpdateRecoveryRegistryProtectedTest
-    : public GoogleUpdateRecoveryTest,
+class BraveUpdateRecoveryRegistryProtectedTest
+    : public BraveUpdateRecoveryTest,
       public ::testing::WithParamInterface<bool> {
  protected:
-  GoogleUpdateRecoveryRegistryProtectedTest()
+  BraveUpdateRecoveryRegistryProtectedTest()
       : hive_override_key_name_(kRegistryHiveOverrideRoot) {
   }
 
   CString hive_override_key_name_;
 
   virtual void SetUp() {
-    GoogleUpdateRecoveryTest::SetUp();
+    BraveUpdateRecoveryTest::SetUp();
     RegKey::DeleteKey(hive_override_key_name_, true);
     OverrideRegistryHives(hive_override_key_name_);
 
@@ -377,7 +377,7 @@ class GoogleUpdateRecoveryRegistryProtectedTest
 
     RestoreRegistryHives();
     EXPECT_HRESULT_SUCCEEDED(RegKey::DeleteKey(hive_override_key_name_, true));
-    GoogleUpdateRecoveryTest::TearDown();
+    BraveUpdateRecoveryTest::TearDown();
   }
 
   bool IsDomain() {
@@ -405,12 +405,12 @@ class GoogleUpdateRecoveryRegistryProtectedTest
 };
 
 //
-// FixGoogleUpdate Tests
+// FixBraveUpdate Tests
 //
 
-TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_UseRealHttpClient) {
+TEST_F(BraveUpdateRecoveryTest, FixBraveUpdate_UseRealHttpClient) {
   EXPECT_EQ(TRUST_E_SUBJECT_FORM_UNKNOWN,
-            FixGoogleUpdate(kDummyAppGuid,
+            FixBraveUpdate(kDummyAppGuid,
                             kDummyAppVersion,
                             kDummyAppLang,
                             true,
@@ -418,7 +418,7 @@ TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_UseRealHttpClient) {
                             NULL));
 }
 
-TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_FileReturned_Machine) {
+TEST_F(BraveUpdateRecoveryTest, FixBraveUpdate_FileReturned_Machine) {
   CString saved_arguments_path = ConcatenatePath(app_util::GetTempDir(),
                                                  kSavedArgumentsFileName);
 
@@ -426,7 +426,7 @@ TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_FileReturned_Machine) {
   EXPECT_FALSE(File::Exists(saved_arguments_path));
 
   CString context_string(_T("some context"));
-  EXPECT_HRESULT_SUCCEEDED(FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_HRESULT_SUCCEEDED(FixBraveUpdate(kDummyAppGuid,
                                            kDummyAppVersion,
                                            kDummyAppLang,
                                            true,
@@ -444,7 +444,7 @@ TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_FileReturned_Machine) {
   EXPECT_TRUE(::DeleteFile(saved_arguments_path));
 }
 
-TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_FileReturned_User) {
+TEST_F(BraveUpdateRecoveryTest, FixBraveUpdate_FileReturned_User) {
   CString saved_arguments_path = ConcatenatePath(app_util::GetTempDir(),
                                                  kSavedArgumentsFileName);
 
@@ -452,7 +452,7 @@ TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_FileReturned_User) {
   EXPECT_FALSE(File::Exists(saved_arguments_path));
 
   CString context_string(_T("more context"));
-  EXPECT_HRESULT_SUCCEEDED(FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_HRESULT_SUCCEEDED(FixBraveUpdate(kDummyAppGuid,
                                            kDummyAppVersion,
                                            kDummyAppLang,
                                            false,
@@ -470,8 +470,8 @@ TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_FileReturned_User) {
   EXPECT_TRUE(::DeleteFile(saved_arguments_path));
 }
 
-TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_NoFile_Machine) {
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+TEST_F(BraveUpdateRecoveryTest, FixBraveUpdate_NoFile_Machine) {
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                true,
@@ -487,8 +487,8 @@ TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_NoFile_Machine) {
       << _T("The temp directory was deleted or not created.");
 }
 
-TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_NoFile_User) {
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+TEST_F(BraveUpdateRecoveryTest, FixBraveUpdate_NoFile_User) {
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                false,
@@ -505,11 +505,11 @@ TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_NoFile_User) {
 }
 
 INSTANTIATE_TEST_CASE_P(IsDomain,
-                        GoogleUpdateRecoveryRegistryProtectedTest,
+                        BraveUpdateRecoveryRegistryProtectedTest,
                         ::testing::Bool());
 
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_AllValues_MachineApp) {
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_AllValues_MachineApp) {
   const TCHAR kExpectedUrlFormat[] = _T("https://clients2.google.com/service/check2?appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=5.6.78.1&userid=%s&osversion=");  // NOLINT
 
   const CString prev_tmp = GetTmp();
@@ -520,7 +520,7 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
                                             _T("pv"),
                                             _T("5.6.78.1")));
 
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                true,
@@ -536,8 +536,8 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
   EXPECT_TRUE(::SetEnvironmentVariable(_T("TMP"), prev_tmp));
 }
 
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_AllValues_UserApp) {
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_AllValues_UserApp) {
   const TCHAR kExpectedUrlFormat[] = _T("https://clients2.google.com/service/check2?appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=0&version=5.6.78.1&userid=%s&osversion=");  // NOLINT
 
   const CString prev_tmp = GetTmp();
@@ -548,7 +548,7 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
                                             _T("pv"),
                                             _T("5.6.78.1")));
 
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                false,
@@ -564,9 +564,9 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
   EXPECT_TRUE(::SetEnvironmentVariable(_T("TMP"), prev_tmp));
 }
 
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_NoOmahaRegKeys) {
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_NoOmahaRegKeys) {
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                true,
@@ -577,11 +577,11 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
   CheckSavedUrlOSFragment();
 }
 
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_EmptyAppInfo) {
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_EmptyAppInfo) {
   const TCHAR kExpectedUrl[] = _T("https://clients2.google.com/service/check2?appid=&appversion=&applang=&machine=1&version=0.0.0.0&userid=&osversion=");  // NOLINT
 
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(_T(""),
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(_T(""),
                                                _T(""),
                                                _T(""),
                                                true,
@@ -591,27 +591,27 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
   CheckSavedUrlOSFragment();
 }
 
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_NullArgs) {
-  EXPECT_EQ(E_INVALIDARG, FixGoogleUpdate(NULL,
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_NullArgs) {
+  EXPECT_EQ(E_INVALIDARG, FixBraveUpdate(NULL,
                                           _T(""),
                                           _T(""),
                                           true,
                                           DownloadFileNoFile,
                                           NULL));
-  EXPECT_EQ(E_INVALIDARG, FixGoogleUpdate(_T(""),
+  EXPECT_EQ(E_INVALIDARG, FixBraveUpdate(_T(""),
                                           NULL,
                                           _T(""),
                                           true,
                                           DownloadFileNoFile,
                                           NULL));
-  EXPECT_EQ(E_INVALIDARG, FixGoogleUpdate(_T(""),
+  EXPECT_EQ(E_INVALIDARG, FixBraveUpdate(_T(""),
                                           _T(""),
                                           NULL,
                                           true,
                                           DownloadFileNoFile,
                                           NULL));
-  EXPECT_EQ(E_INVALIDARG, FixGoogleUpdate(_T(""),
+  EXPECT_EQ(E_INVALIDARG, FixBraveUpdate(_T(""),
                                           _T(""),
                                           _T(""),
                                           true,
@@ -621,8 +621,8 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
 
 // Setting kRegValueAutoUpdateCheckPeriodOverrideMinutes to zero disables
 // Code Red checks just as it does regular update checks.
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_AutoUpdateCheckPeriodMinutesIsZeroDword) {
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_AutoUpdateCheckPeriodMinutesIsZeroDword) {
   EXPECT_HRESULT_SUCCEEDED(
       RegKey::SetValue(kRegKeyGoopdateGroupPolicy,
                        kRegValueAutoUpdateCheckPeriodOverrideMinutes,
@@ -631,7 +631,7 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
   EXPECT_EQ(IsDomain() ?
             HRESULT_FROM_WIN32(ERROR_ACCESS_DISABLED_BY_POLICY) :
             kDummyNoFileError,
-            FixGoogleUpdate(kDummyAppGuid,
+            FixBraveUpdate(kDummyAppGuid,
                             kDummyAppVersion,
                             kDummyAppLang,
                             true,
@@ -640,14 +640,14 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
   EXPECT_EQ(IsDomain(), saved_url_.IsEmpty());
 }
 
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_AutoUpdateCheckPeriodMinutesIsZeroDwordInHkcu) {
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_AutoUpdateCheckPeriodMinutesIsZeroDwordInHkcu) {
   EXPECT_HRESULT_SUCCEEDED(
       RegKey::SetValue(USER_KEY GOOPDATE_POLICIES_RELATIVE,
                        kRegValueAutoUpdateCheckPeriodOverrideMinutes,
                        static_cast<DWORD>(0)));
 
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                true,
@@ -658,14 +658,14 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
   CheckSavedUrlOSFragment();
 }
 
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_AutoUpdateCheckPeriodMinutesIsNonZeroDword) {
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_AutoUpdateCheckPeriodMinutesIsNonZeroDword) {
   EXPECT_HRESULT_SUCCEEDED(
       RegKey::SetValue(kRegKeyGoopdateGroupPolicy,
                        kRegValueAutoUpdateCheckPeriodOverrideMinutes,
                        static_cast<DWORD>(1400)));
 
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                true,
@@ -676,14 +676,14 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
   CheckSavedUrlOSFragment();
 }
 
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_AutoUpdateCheckPeriodMinutesIsZeroDword64) {
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_AutoUpdateCheckPeriodMinutesIsZeroDword64) {
   EXPECT_HRESULT_SUCCEEDED(
       RegKey::SetValue(kRegKeyGoopdateGroupPolicy,
                        kRegValueAutoUpdateCheckPeriodOverrideMinutes,
                        static_cast<DWORD64>(0)));
 
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                true,
@@ -694,14 +694,14 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
   CheckSavedUrlOSFragment();
 }
 
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_AutoUpdateCheckPeriodMinutesIsNonZeroDword64) {
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_AutoUpdateCheckPeriodMinutesIsNonZeroDword64) {
   EXPECT_HRESULT_SUCCEEDED(
       RegKey::SetValue(kRegKeyGoopdateGroupPolicy,
                        kRegValueAutoUpdateCheckPeriodOverrideMinutes,
                        static_cast<DWORD64>(1400)));
 
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                true,
@@ -712,14 +712,14 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
   CheckSavedUrlOSFragment();
 }
 
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_AutoUpdateCheckPeriodMinutesIsZeroAsString) {
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_AutoUpdateCheckPeriodMinutesIsZeroAsString) {
   EXPECT_HRESULT_SUCCEEDED(
       RegKey::SetValue(kRegKeyGoopdateGroupPolicy,
                        kRegValueAutoUpdateCheckPeriodOverrideMinutes,
                        _T("0")));
 
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                true,
@@ -730,8 +730,8 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
   CheckSavedUrlOSFragment();
 }
 
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_AutoUpdateCheckPeriodMinutesIsZeroAsBinary) {
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_AutoUpdateCheckPeriodMinutesIsZeroAsBinary) {
   const byte zero = 0;
   EXPECT_HRESULT_SUCCEEDED(
       RegKey::SetValue(kRegKeyGoopdateGroupPolicy,
@@ -739,7 +739,7 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
                        &zero,
                        sizeof(zero)));
 
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                true,
@@ -750,11 +750,11 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
   CheckSavedUrlOSFragment();
 }
 
-TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_GroupPolicyKeyExistsButNoAutoUpdateCheckPeriodMinutes) {
+TEST_P(BraveUpdateRecoveryRegistryProtectedTest,
+       FixBraveUpdate_GroupPolicyKeyExistsButNoAutoUpdateCheckPeriodMinutes) {
   EXPECT_HRESULT_SUCCEEDED(RegKey::CreateKey(kRegKeyGoopdateGroupPolicy));
 
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                true,
@@ -766,7 +766,7 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
 }
 
 // Verifies that the file is saved even if the temp directory doesn't exist.
-TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_SaveToNonExistantDirectory) {
+TEST_F(BraveUpdateRecoveryTest, FixBraveUpdate_SaveToNonExistantDirectory) {
   const TCHAR kNonExistantDirectory[] = _T("c:\\directory_does_not_exist");
   DeleteDirectory(kNonExistantDirectory);
   EXPECT_FALSE(File::Exists(kNonExistantDirectory));
@@ -775,7 +775,7 @@ TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_SaveToNonExistantDirectory) {
   EXPECT_TRUE(::SetEnvironmentVariable(_T("TMP"), kNonExistantDirectory));
 
   EXPECT_EQ(TRUST_E_SUBJECT_FORM_UNKNOWN,
-            FixGoogleUpdate(kDummyAppGuid,
+            FixBraveUpdate(kDummyAppGuid,
                             kDummyAppVersion,
                             kDummyAppLang,
                             true,
@@ -788,14 +788,14 @@ TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_SaveToNonExistantDirectory) {
   EXPECT_HRESULT_SUCCEEDED(DeleteDirectory(kNonExistantDirectory));
 }
 
-TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_FileCollision) {
+TEST_F(BraveUpdateRecoveryTest, FixBraveUpdate_FileCollision) {
   const CString prev_tmp = GetTmp();
   EXPECT_TRUE(::SetEnvironmentVariable(_T("TMP"), kTempDirectory));
 
   CString saved_arguments_path = ConcatenatePath(app_util::GetTempDir(),
                                                  kSavedArgumentsFileName);
 
-  EXPECT_HRESULT_SUCCEEDED(FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_HRESULT_SUCCEEDED(FixBraveUpdate(kDummyAppGuid,
                                            kDummyAppVersion,
                                            kDummyAppLang,
                                            false,
@@ -811,7 +811,7 @@ TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_FileCollision) {
   FileLock lock;
   EXPECT_HRESULT_SUCCEEDED(lock.Lock(first_saved_file_path));
 
-  EXPECT_HRESULT_SUCCEEDED(FixGoogleUpdate(kDummyAppGuid,
+  EXPECT_HRESULT_SUCCEEDED(FixBraveUpdate(kDummyAppGuid,
                                            kDummyAppVersion,
                                            kDummyAppLang,
                                            false,
@@ -840,45 +840,45 @@ TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_FileCollision) {
 //
 // VerifyFileSignature Tests
 //
-TEST_F(GoogleUpdateRecoveryTest, VerifyFileSignature_SignedValid) {
+TEST_F(BraveUpdateRecoveryTest, VerifyFileSignature_SignedValid) {
   const CString executable_full_path(MakeTestFilepath(
       kArgumentSavingExecutableRelativePath));
   EXPECT_TRUE(File::Exists(executable_full_path));
   EXPECT_HRESULT_SUCCEEDED(VerifyFileSignature(executable_full_path));
 }
 
-TEST_F(GoogleUpdateRecoveryTest, VerifyFileSignature_NotSigned) {
+TEST_F(BraveUpdateRecoveryTest, VerifyFileSignature_NotSigned) {
   const CString executable_full_path(MakeTestFilepath(
-      _T("GoogleUpdate_unsigned.exe")));
+      _T("BraveUpdate_unsigned.exe")));
   EXPECT_TRUE(File::Exists(executable_full_path));
   EXPECT_EQ(TRUST_E_NOSIGNATURE, VerifyFileSignature(executable_full_path));
 }
 
 // The file is signed with an old cerificate not present in the pin list.
-TEST_F(GoogleUpdateRecoveryTest, VerifyFileSignature_NotTrusted) {
+TEST_F(BraveUpdateRecoveryTest, VerifyFileSignature_NotTrusted) {
   const CString executable_full_path(MakeTestFilepath(
-      _T("unittest_support\\GoogleUpdate_old_signature.exe")));
+      _T("unittest_support\\BraveUpdate_old_signature.exe")));
   EXPECT_TRUE(File::Exists(executable_full_path));
   EXPECT_EQ(GOOPDATE_E_SIGNATURE_NOT_TRUSTED_PIN,
             VerifyFileSignature(executable_full_path));
 }
 
-TEST_F(GoogleUpdateRecoveryTest, VerifyFileSignature_UntrustedChain) {
+TEST_F(BraveUpdateRecoveryTest, VerifyFileSignature_UntrustedChain) {
   const CString executable_full_path(MakeTestFilepath(
       _T("unittest_support\\SaveArguments_OmahaTestSigned.exe")));
   EXPECT_TRUE(File::Exists(executable_full_path));
   EXPECT_EQ(CERT_E_UNTRUSTEDROOT, VerifyFileSignature(executable_full_path));
 }
 
-TEST_F(GoogleUpdateRecoveryTest, VerifyFileSignature_HashFails) {
+TEST_F(BraveUpdateRecoveryTest, VerifyFileSignature_HashFails) {
   const CString executable_full_path(MakeTestFilepath(
-      _T("unittest_support\\GoogleUpdate_corrupted.exe")));
+      _T("unittest_support\\BraveUpdate_corrupted.exe")));
   EXPECT_TRUE(File::Exists(executable_full_path));
   EXPECT_EQ(TRUST_E_BAD_DIGEST, VerifyFileSignature(executable_full_path));
 }
 
 // The file for Windows Vista and later may not exist on all systems.
-TEST_F(GoogleUpdateRecoveryTest,
+TEST_F(BraveUpdateRecoveryTest,
        VerifyFileSignature_NonGoogleSignature) {
   CString file_path = SystemInfo::IsRunningOnVistaOrLater() ?
       _T("%SYSTEM%\\ntdll.dll") : _T("%SYSTEM%\\wuauclt.exe");
@@ -894,7 +894,7 @@ TEST_F(GoogleUpdateRecoveryTest,
             VerifyFileSignature(file_path));
 }
 
-TEST_F(GoogleUpdateRecoveryTest, VerifyFileSignature_BadFilenames) {
+TEST_F(BraveUpdateRecoveryTest, VerifyFileSignature_BadFilenames) {
   EXPECT_EQ(CRYPT_E_FILE_ERROR, VerifyFileSignature(_T("NoSuchFile.exe")));
 
   EXPECT_EQ(CRYPT_E_FILE_ERROR, VerifyFileSignature(NULL));
@@ -905,19 +905,19 @@ TEST_F(GoogleUpdateRecoveryTest, VerifyFileSignature_BadFilenames) {
 //
 // VerifyRepairFileMarkup Tests
 //
-TEST_F(GoogleUpdateRecoveryTest, VerifyRepairFileMarkup_ValidMarkup) {
+TEST_F(BraveUpdateRecoveryTest, VerifyRepairFileMarkup_ValidMarkup) {
   EXPECT_HRESULT_SUCCEEDED(VerifyRepairFileMarkup(MakeTestFilepath(
       _T("unittest_support\\SaveArguments.exe"))));
 }
 
-TEST_F(GoogleUpdateRecoveryTest, VerifyRepairFileMarkup_InvalidMarkups) {
+TEST_F(BraveUpdateRecoveryTest, VerifyRepairFileMarkup_InvalidMarkups) {
   const TCHAR kNoResourcesExecutable[] =
       _T("unittest_support\\SaveArguments_unsigned_no_resources.exe");
 
   EXPECT_EQ(HRESULT_FROM_WIN32(ERROR_RESOURCE_DATA_NOT_FOUND),
             VerifyRepairFileMarkup(MakeTestFilepath(kNoResourcesExecutable)));
 
-  const TCHAR kResourcesButNoMarkupExecutable[] = _T("GoogleUpdate.exe");
+  const TCHAR kResourcesButNoMarkupExecutable[] = _T("BraveUpdate.exe");
   EXPECT_EQ(HRESULT_FROM_WIN32(ERROR_RESOURCE_TYPE_NOT_FOUND),
             VerifyRepairFileMarkup(MakeTestFilepath(
                 kResourcesButNoMarkupExecutable)));
@@ -941,7 +941,7 @@ TEST_F(GoogleUpdateRecoveryTest, VerifyRepairFileMarkup_InvalidMarkups) {
                 kWrongMarkupValueExecutable)));
 }
 
-TEST_F(GoogleUpdateRecoveryTest, VerifyRepairFileMarkup_BadFilenames) {
+TEST_F(BraveUpdateRecoveryTest, VerifyRepairFileMarkup_BadFilenames) {
   const TCHAR kMissingFile[] = _T("NoSuchFile.exe");
   EXPECT_EQ(FALSE, ::PathFileExists(MakeTestFilepath(kMissingFile)));
   EXPECT_EQ(HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND),
@@ -957,8 +957,8 @@ TEST_F(GoogleUpdateRecoveryTest, VerifyRepairFileMarkup_BadFilenames) {
 //
 // Production Server Response Tests Tests
 //
-TEST_F(GoogleUpdateRecoveryTest, ProductionServerResponseTest) {
-  EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
+TEST_F(BraveUpdateRecoveryTest, ProductionServerResponseTest) {
+  EXPECT_EQ(kDummyNoFileError, FixBraveUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
                                                true,

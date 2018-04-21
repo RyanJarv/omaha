@@ -51,7 +51,7 @@ class RegistryHive {
   // Does it recursively. The name should be relative to HKEY_CURRENT_USER.
   HRESULT DeleteUserKey(TCHAR const * key_name);
   // Expands key name for hive:
-  // "Software\Google" => "HKEY_USERS\[hive_name_]\Software\Google"
+  // "Software\Brave" => "HKEY_USERS\[hive_name_]\Software\Google"
   void ExpandKeyName(CString * str);
 
  private:

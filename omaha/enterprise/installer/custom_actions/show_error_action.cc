@@ -41,7 +41,7 @@ const int kGuidStringLength = 38;  // 128/4 + 4 dashes + 2 braces.
 const DWORD kInstallerResultFailedCustomError = 1;
 const wchar_t kPropertyCustomActionData[] = L"CustomActionData";
 const wchar_t kRegKeyClientState[] = SOFTWARE_GOOGLE_UPDATE_CLIENTSTATE;
-const wchar_t kRegKeyGoogleUpdate[] = SOFTWARE_GOOGLE_UPDATE;
+const wchar_t kRegKeyBraveUpdate[] = SOFTWARE_GOOGLE_UPDATE;
 const wchar_t kRegValueLastInstallerResult[] = L"LastInstallerResult";
 const wchar_t kRegValueLastInstallerResultUIString[] =
     L"LastInstallerResultUIString";
@@ -213,12 +213,12 @@ bool GetLastInstallerResultUIString(const std::wstring& app_guid,
   GetAppClientStateKey(app_guid, &client_state_name);
 
   // First try looking in the app's ClientState key.  Failing that, fall back to
-  // Google Update's own SOFTWARE\Google\Update key, into which GoogleUpdate.exe
+  // Google Update's own SOFTWARE\Google\Update key, into which BraveUpdate.exe
   // copies the app's value (see AppManager::ClearInstallerResultApiValues).
   LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, client_state_name.c_str(),
                              NULL, KEY_QUERY_VALUE, &key);
   if (result != ERROR_SUCCESS) {
-    result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, kRegKeyGoogleUpdate, NULL,
+    result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, kRegKeyBraveUpdate, NULL,
                           KEY_QUERY_VALUE, &key);
   }
 

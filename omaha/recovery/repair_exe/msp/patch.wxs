@@ -26,7 +26,7 @@
       Classification="Service Pack"
       AllowRemoval="yes" />
 
-    <Family DiskId="2" MediaSrcProp="GoogleUpdatePatchSrcPropName"
+    <Family DiskId="2" MediaSrcProp="BraveUpdatePatchSrcPropName"
             Name="GoogleUp" SequenceStart="1000">
       <UpgradeImage Id="AfterImage" SourceFile="$(var.AfterImage)">
         <TargetImage Id="BeforeImage" SourceFile="$(var.BeforeImage)"

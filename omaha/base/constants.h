@@ -80,7 +80,7 @@ const TCHAR* const kCompanyInternalLanGroupName = COMPANY_DOMAIN_BASE;
 
 // The base name of the main executable. Everything except the ".exe".
 // Most files start with the main .exe's base name.
-// MAIN_EXE_BASE_NAME = "GoogleUpdate"
+// MAIN_EXE_BASE_NAME = "BraveUpdate"
 #define MAIN_EXE_BASE_NAME  _T(MAIN_EXE_BASE_NAME_ANSI)
 
 // Base name of the main DLL.
@@ -128,7 +128,7 @@ const TCHAR* const kPSFileNameUser     = _T("psuser.dll");
 const TCHAR* const kPSFileNameUser64   = _T("psuser_64.dll");
 
 // TODO(omaha): Replace the following literal in clickonce\build.scons.
-// '%s/GoogleUpdateSetup.exe'
+// '%s/BraveUpdateSetup.exe'
 
 // These must be in sync with the WiX files.
 // TODO(omaha): Make these constants in main.scons and use them in the .wxs
@@ -156,7 +156,7 @@ const TCHAR* const kTemporaryFilenamePrefix = _T("gup");
 //
 // TODO(omaha): Rename all of these "Omaha".
 #define GOOPDATE_APP_ID _T("{430FD4D0-B729-4F61-AA34-91526481799D}")
-const TCHAR* const kGoogleUpdateAppId = GOOPDATE_APP_ID;
+const TCHAR* const kBraveUpdateAppId = GOOPDATE_APP_ID;
 const GUID kGoopdateGuid = {0x430FD4D0, 0xB729, 0x4F61,
                             {0xAA, 0x34, 0x91, 0x52, 0x64, 0x81, 0x79, 0x9D}};
 
@@ -349,7 +349,7 @@ const TCHAR* const kRegValueTestSourceAuto     = _T("auto");
 // wpad=[false|true];script=script_url;proxy=host:port
 const TCHAR* const kRegValueNetConfig          = _T("NetConfig");
 
-// Setting this value makes the client create the IGoogleUpdate3 COM server
+// Setting this value makes the client create the IBraveUpdate3 COM server
 // in-proc.
 const TCHAR* const kRegValueUseInProcCOMServer = _T("UseInProcCOMServer");
 
@@ -393,7 +393,7 @@ const int kExtraMaxLength = 64 * 1024;  // 64 KB
 
 // Default brand code value when one is not specified.
 // This has been specifically assigned to Omaha.
-const TCHAR* const kDefaultGoogleUpdateBrandCode = _T("GGLS");
+const TCHAR* const kDefaultBraveUpdateBrandCode = _T("GGLS");
 
 // The platform named used for Windows.
 const TCHAR* const kPlatformWin = _T("win");
@@ -537,21 +537,21 @@ const TCHAR kHeaderXHTTPAttempts[]       = _T("X-HTTP-Attempts");
 // previous UID.
 const TCHAR kHeaderXOldUserId[]          = _T("X-Old-UID");
 
-// The client sends a X-GoogleUpdate-Interactivity header to indicate whether
+// The client sends a X-BraveUpdate-Interactivity header to indicate whether
 // the current request is foreground or background.
 // A value of "fg" ("foreground") indicates foreground install or on-demand
 // updates. "bg" ("background") indicates silent update traffic.
-const TCHAR kHeaderXInteractive[] = _T("X-GoogleUpdate-Interactivity");
+const TCHAR kHeaderXInteractive[] = _T("X-BraveUpdate-Interactivity");
 
-// The client sends a X-GoogleUpdate-AppId header to indicate the apps
+// The client sends a X-BraveUpdate-AppId header to indicate the apps
 // associated with the request. When updating multiple apps, the client
 // specifies a comma-separated list of app ids.
-const TCHAR kHeaderXAppId[]       = _T("X-GoogleUpdate-AppId");
+const TCHAR kHeaderXAppId[]       = _T("X-BraveUpdate-AppId");
 
-// The client sends a X-GoogleUpdate-Updater header to indicate the identity of
+// The client sends a X-BraveUpdate-Updater header to indicate the identity of
 // the updater. This is the "updater" version string also present in the
 // request. In the case of Omaha, prepend "Omaha-" to the version string.
-const TCHAR kHeaderXUpdater[]     = _T("X-GoogleUpdate-Updater");
+const TCHAR kHeaderXUpdater[]     = _T("X-BraveUpdate-Updater");
 
 // ***                                                                      ***
 // *** Custom HTTP request headers that may be in an Omaha server response. ***

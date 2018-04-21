@@ -57,8 +57,8 @@ template <typename T>
 class ATL_NO_VTABLE Update3COMClass
     : public CComObjectRootEx<CComObjectThreadModel>,
       public CComCoClass<Update3COMClass<T> >,
-      public IDispatchImpl<IGoogleUpdate3,
-                           &__uuidof(IGoogleUpdate3),
+      public IDispatchImpl<IBraveUpdate3,
+                           &__uuidof(IBraveUpdate3),
                            &CAtlModule::m_libid,
                            kMajorTypeLibVersion,
                            kMinorTypeLibVersion>,
@@ -85,7 +85,7 @@ class ATL_NO_VTABLE Update3COMClass
   END_REGISTRY_MAP()
 
   BEGIN_COM_MAP(Update3COMClassT)
-    COM_INTERFACE_ENTRY(IGoogleUpdate3)
+    COM_INTERFACE_ENTRY(IBraveUpdate3)
     COM_INTERFACE_ENTRY(IDispatch)
     COM_INTERFACE_ENTRY(IStdMarshalInfo)
   END_COM_MAP()
@@ -212,13 +212,13 @@ extern TCHAR kProgIDUpdate3COMClassServiceLocal[];
 
 typedef Update3COMClassMode<false,
                             kProgIDUpdate3COMClassUserLocal,
-                            __uuidof(GoogleUpdate3UserClass),
+                            __uuidof(BraveUpdate3UserClass),
                             IDR_LOCAL_SERVER_RGS,
                             kHKRootUser> Update3COMClassModeUser;
 
 typedef Update3COMClassMode<true,
                             kProgIDUpdate3COMClassServiceLocal,
-                            __uuidof(GoogleUpdate3ServiceClass),
+                            __uuidof(BraveUpdate3ServiceClass),
                             IDR_LOCAL_SERVICE_RGS,
                             kHKRootService> Update3COMClassModeService;
 

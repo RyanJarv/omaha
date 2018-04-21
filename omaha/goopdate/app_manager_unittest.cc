@@ -1098,10 +1098,10 @@ class AppManagerTestBase : public AppTestBaseWithRegistryOverride {
     }
   }
 
-  // Uses SetupGoogleUpdate to create the ClientStateMedium key with the
+  // Uses SetupBraveUpdate to create the ClientStateMedium key with the
   // appropriate permissions. Used to test that the permissions are inherited.
   void CreateClientStateMediumKey() {
-    SetupGoogleUpdate setup_google_update(true, false);
+    SetupBraveUpdate setup_google_update(true, false);
 
     // On Windows 7, AddAllowedAce() can fail if the registry is redirected. So
     // we ignore errors from this call.
@@ -2545,11 +2545,11 @@ TEST_F(AppManagerMachineTest, SynchronizeClientStateTest) {
 
 // Should not create ClientStateMedium key.
 TEST_F(AppManagerMachineTest, SynchronizeClientState_Omaha) {
-  SynchronizeClientStateTest(kGoogleUpdateAppId);
+  SynchronizeClientStateTest(kBraveUpdateAppId);
 
   const CString client_state_medium_key_name = AppendRegKeyPath(
     ConfigManager::Instance()->machine_registry_client_state_medium(),
-    kGoogleUpdateAppId);
+    kBraveUpdateAppId);
   EXPECT_FALSE(RegKey::HasKey(client_state_medium_key_name));
 }
 

@@ -202,7 +202,7 @@ HRESULT EventLogger::ReadLastEvent(const TCHAR* src_name, EVENTLOGRECORD* rec) {
 // are using different languages., however we may decide to do so.
 const TCHAR* const EventLogger::kSourceName = kAppName;
 
-void GoogleUpdateLogEvent::WriteEvent() {
+void BraveUpdateLogEvent::WriteEvent() {
   ASSERT1(!event_desc_.IsEmpty());
   ASSERT1(type_ != 0);
   ASSERT1(id_ != 0);

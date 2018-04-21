@@ -55,19 +55,19 @@ namespace goopdate_utils {
 typedef HRESULT (*RegisterOrUnregisterFunction)(void* data, bool is_register);
 
 // Builds the directory of the Google Update executable.
-CString BuildGoogleUpdateExeDir(bool is_machine);
+CString BuildBraveUpdateExeDir(bool is_machine);
 
 // Builds the path of the Google Update version found in the registry. The
 // command line is of the form "<install location>\googleupdate.exe"
-CString BuildGoogleUpdateExePath(bool is_machine);
+CString BuildBraveUpdateExePath(bool is_machine);
 
 // Builds the path of the crash handler. The command line is of the form
 // "<install location>\googlecrashhandler.exe"; googlecrashhandler64.exe is
 // used if use64bit is true.
-CString BuildGoogleUpdateServicesPath(bool is_machine, bool use64bit);
+CString BuildBraveUpdateServicesPath(bool is_machine, bool use64bit);
 
 // Builds the path of the crash handler and adds the enclosing quotes.
-CString BuildGoogleUpdateServicesEnclosedPath(bool is_machine, bool use64bit);
+CString BuildBraveUpdateServicesEnclosedPath(bool is_machine, bool use64bit);
 
 // Returns true if the currently executing binary is running from the
 // Machine/User Goopdate directory, or a directory under it.
@@ -80,19 +80,19 @@ bool IsRunningFromDir(int csidl);
 // If running the installed machine instance, returns HKLM. Else returns HKCU.
 CString GetHKRoot();
 
-// Returns the version of GoogleUpdate.exe that is installed in the official
-// location. Returns an empty CString if GoogleUpdate.exe is missing.
+// Returns the version of BraveUpdate.exe that is installed in the official
+// location. Returns an empty CString if BraveUpdate.exe is missing.
 CString GetInstalledShellVersion(bool is_machine);
 
 // Starts an instance of the Google Update version found in the registry.
 // Only use to start interactive processes because it uses ::ShellExecuteEx().
 // args can be NULL.
 // process can be NULL. If not NULL, caller is responsible for closing handle.
-HRESULT StartGoogleUpdateWithArgs(bool is_machine,
+HRESULT StartBraveUpdateWithArgs(bool is_machine,
                                   const TCHAR* args,
                                   HANDLE* process);
 
-// Starts an instance of GoogleCrashHandler.exe, and GoogleCrashHandler64.exe
+// Starts an instance of BraveCrashHandler.exe, and BraveCrashHandler64.exe
 // if we're running on a 64-bit OS.
 HRESULT StartCrashHandler(bool is_machine);
 
@@ -100,7 +100,7 @@ HRESULT StartCrashHandler(bool is_machine);
 // elevated mode using the "Runas" verb.
 HRESULT StartElevatedMetainstaller(const TCHAR* args, DWORD* exit_code);
 
-// Registers security and sets the security values for the GoogleUpdate
+// Registers security and sets the security values for the BraveUpdate
 // process when running as a COM server.
 HRESULT InitializeSecurity();
 
@@ -243,7 +243,7 @@ HRESULT WriteNameValuePairsToHandle(const HANDLE file_handle,
 bool IsAppInstallWorkerRunning(bool is_machine);
 
 // Returns whether the version is an "Omaha 2" version or later.
-bool IsGoogleUpdate2OrLater(const CString& version);
+bool IsBraveUpdate2OrLater(const CString& version);
 
 // Converts the installer_data value to UTF8. Then writes this UTF8 data
 // prefixed with the UTF8 BOM of EF BB BF to a temp file. Returns the path to

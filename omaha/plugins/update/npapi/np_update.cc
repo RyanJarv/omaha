@@ -132,11 +132,11 @@ bool NPUpdate::MapMimeTypeToClsid(CLSID* clsid) {
   // We could also consider extracting the MIME_TYPE resource from the current
   // DLL and populating it from that.
   if (0 == mime_type_.CompareNoCase(CString(UPDATE3WEB_MIME_TYPE))) {
-    *clsid = __uuidof(GoogleUpdate3WebControlCoClass);
+    *clsid = __uuidof(BraveUpdate3WebControlCoClass);
     return true;
   }
   if (0 == mime_type_.CompareNoCase(CString(ONECLICK_MIME_TYPE))) {
-    *clsid = __uuidof(GoogleUpdateOneClickControlCoClass);
+    *clsid = __uuidof(BraveUpdateOneClickControlCoClass);
     return true;
   }
   return false;

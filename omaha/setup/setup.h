@@ -17,7 +17,7 @@
 // temp location.
 //  1) Copy the Google Update files to the install location.
 //  2) Do everything else to install Google Update.
-//   * Executed by SetupGoogleUpdate().
+//   * Executed by SetupBraveUpdate().
 //
 //  Uninstall() undoes both phases of setup.
 //  All methods assume the instance is running with the correct permissions.
@@ -67,7 +67,7 @@ class Setup {
   typedef std::vector<uint32> Pids;
 
   // Completes installation.
-  HRESULT SetupGoogleUpdate();
+  HRESULT SetupBraveUpdate();
 
   // Handles Setup lock acquisition failures and returns the error to report.
   HRESULT HandleLockFailed(int lock_version);
@@ -87,20 +87,20 @@ class Setup {
   // over-installed.
   bool ShouldOverinstall();
 
-  HRESULT DoProtectedGoogleUpdateInstall(SetupFiles* setup_files);
+  HRESULT DoProtectedBraveUpdateInstall(SetupFiles* setup_files);
 
-  // Rolls back the changes made during DoProtectedGoogleUpdateInstall().
+  // Rolls back the changes made during DoProtectedBraveUpdateInstall().
   // Call when that method fails.
   void RollBack(SetupFiles* setup_files);
 
   // Tells other instances to stop.
-  HRESULT StopGoogleUpdate();
+  HRESULT StopBraveUpdate();
 
-  // Returns how long to wait before terminating GoogleUpdate.exe forcefully.
+  // Returns how long to wait before terminating BraveUpdate.exe forcefully.
   int GetForceKillWaitTimeMs() const;
 
   // Tells other instances to stop then waits for them to exit.
-  HRESULT StopGoogleUpdateAndWait(int wait_time_before_kill_ms);
+  HRESULT StopBraveUpdateAndWait(int wait_time_before_kill_ms);
 
   // Sets the shutdown event to signal other instances for this user or machine
   // to exit.
@@ -109,14 +109,14 @@ class Setup {
   // Releases all the shutdown events.
   void ReleaseShutdownEvents();
 
-  // Waits for other instances of GoogleUpdate.exe to exit.
+  // Waits for other instances of BraveUpdate.exe to exit.
   HRESULT WaitForOtherInstancesToExit(const Pids& pids,
                                       int wait_time_before_kill_ms);
 
-  // Gets the list of all the GoogleUpdate.exe processes to wait for.
+  // Gets the list of all the BraveUpdate.exe processes to wait for.
   HRESULT GetPidsToWaitFor(Pids* pids) const;
 
-  // Gets a list of GoogleUpdate.exe processes for user or machine that are
+  // Gets a list of BraveUpdate.exe processes for user or machine that are
   // running from the respective official directory, except "/install" or
   // "/registerproduct" instances.
   // In the machine case we search in all the accounts since the workers can be
@@ -169,8 +169,8 @@ class Setup {
   // Initializes the Setup Lock with correct name and security attributes.
   static bool InitSetupLock(bool is_machine, GLock* setup_lock);
 
-  // Returns true if GoogleUpdate can be uninstalled now.
-  bool CanUninstallGoogleUpdate() const;
+  // Returns true if BraveUpdate can be uninstalled now.
+  bool CanUninstallBraveUpdate() const;
 
   // Control the state of the DelayUninstall flag.  If set, uninstall will
   // be delayed for at least 24 hours after initial install.

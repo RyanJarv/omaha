@@ -49,7 +49,7 @@ TEST(ShellTest, ShellLink) {
                                      link,
                                      install_dir,
                                      _T(""),
-                                     _T("Google Update Unit Test"),
+                                     _T("Brave Update Unit Test"),
                                      'W',
                                      HOTKEYF_ALT | HOTKEYF_CONTROL,
                                      NULL));

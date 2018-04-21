@@ -24,16 +24,16 @@ TCHAR kHKRootService[] = _T("HKLM");
 TCHAR kProgIDUpdate3COMClassServiceLocal[] = kProgIDUpdate3COMClassService;
 
 // A private object map with custom registration works best, even though this
-// stuff is deprecated. This is because GoogleUpdate.exe has other objects
+// stuff is deprecated. This is because BraveUpdate.exe has other objects
 // defined elsewhere and we do not want to expose those from the service.
 BEGIN_OBJECT_MAP(object_map_google_update3)
-  OBJECT_ENTRY(__uuidof(GoogleUpdate3ServiceClass), Update3COMClassService)
+  OBJECT_ENTRY(__uuidof(BraveUpdate3ServiceClass), Update3COMClassService)
 END_OBJECT_MAP()
 
 BEGIN_OBJECT_MAP(object_map_google_update_medium)
   OBJECT_ENTRY(__uuidof(OnDemandMachineAppsServiceClass), OnDemandService)
-  OBJECT_ENTRY(__uuidof(GoogleUpdate3WebServiceClass), Update3WebService)
-  OBJECT_ENTRY(__uuidof(GoogleUpdateCoreClass), GoogleUpdateCoreService)
+  OBJECT_ENTRY(__uuidof(BraveUpdate3WebServiceClass), Update3WebService)
+  OBJECT_ENTRY(__uuidof(BraveUpdateCoreClass), BraveUpdateCoreService)
 END_OBJECT_MAP()
 
 CommandLineMode Update3ServiceMode::commandline_mode() {
@@ -61,7 +61,7 @@ bool Update3ServiceMode::allow_access_from_medium() {
 }
 
 CString Update3ServiceMode::app_id_string() {
-  return GuidToString(__uuidof(GoogleUpdate3ServiceClass));
+  return GuidToString(__uuidof(BraveUpdate3ServiceClass));
 }
 
 CString Update3ServiceMode::GetCurrentServiceName() {
@@ -73,7 +73,7 @@ HRESULT Update3ServiceMode::PreMessageLoop() {
   SERVICE_LOG(L1, (_T("[Starting Google Update core...]")));
   CommandLineBuilder builder(COMMANDLINE_MODE_CORE);
   CString args = builder.GetCommandLineArgs();
-  return goopdate_utils::StartGoogleUpdateWithArgs(true, args, NULL);
+  return goopdate_utils::StartBraveUpdateWithArgs(true, args, NULL);
 }
 
 CommandLineMode UpdateMediumServiceMode::commandline_mode() {
