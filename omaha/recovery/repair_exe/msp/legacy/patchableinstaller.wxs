@@ -28,7 +28,7 @@
 
             <Component Id="MainComponent" Guid="717B7059-A988-492f-AF1B-DCF70BE809AB">
               <!-- Cannot have an msi patch without a file -->
-              <File Id="RequiredFile" Name="RequiredFile.txt" DiskId="1" Source="C:\omaha\omaha\recovery\repair_exe\msp\requiredfile.txt" Vital="yes"/>
+              <File Id="RequiredFile" Name="RequiredFile.txt" DiskId="1" Source="$(var.RequiredFile)" Vital="yes"/>
               <!-- Cannot have an empty component -->
               <RegistryValue Id="NonEmptyComponent" Action="write" Root="HKLM" Key="SOFTWARE\Google\Update" Name="MsiStubRun" Type="integer" Value="0" />
             </Component>
