@@ -84,7 +84,7 @@ const TCHAR* const kCompanyInternalLanGroupName = COMPANY_DOMAIN_BASE;
 #define MAIN_EXE_BASE_NAME  _T(MAIN_EXE_BASE_NAME_ANSI)
 
 // Base name of the main DLL.
-// MAIN_DLL_BASE_NAME = "goopdate"
+// MAIN_DLL_BASE_NAME = "brapdate"
 #define MAIN_DLL_BASE_NAME _T(MAIN_DLL_BASE_NAME_ANSI)
 
 // Application name.
@@ -155,10 +155,10 @@ const TCHAR* const kTemporaryFilenamePrefix = _T("gup");
 // Omaha's app ID
 //
 // TODO(omaha): Rename all of these "Omaha".
-#define GOOPDATE_APP_ID _T("{430FD4D0-B729-4F61-AA34-91526481799D}")
+#define GOOPDATE_APP_ID _T("{B131C935-9BE6-41DA-9599-1F776BEB8019}")
 const TCHAR* const kBraveUpdateAppId = GOOPDATE_APP_ID;
-const GUID kGoopdateGuid = {0x430FD4D0, 0xB729, 0x4F61,
-                            {0xAA, 0x34, 0x91, 0x52, 0x64, 0x81, 0x79, 0x9D}};
+const GUID kGoopdateGuid = {0xB131C935, 0x9BE6, 0x41DA,
+                            {0x95, 0x99, 0x1F, 0x77, 0x6B, 0xEB, 0x80, 0x19}};
 
 // Chrome AppIDs
 #define CHROME_APP_ID _T("{8A69D345-D564-463C-AFF1-A69D9E530F96}")
@@ -230,17 +230,16 @@ const TCHAR* const kChromeAppId = CHROME_APP_ID;
 
 // Regular expressions for the servers allowed to use the Omaha plugins.
 const TCHAR* const kSiteLockPatternStrings[] = {
-  _T("^(gears)|(mail)|(tools)|(www)|(desktop)|(pack)|(chrome)|(drive)\\.google\\.com$"),  // NOLINT
-  _T("^www\\.google\\.(ad)|(bg)|(ca)|(cn)|(cz)|(de)|(es)|(fi)|(fr)|(gr)|(hr)|(hu)|(it)|(ki)|(kr)|(lt)|(lv)|(nl)|(no)|(pl)|(pt)|(ro)|(ru)|(sk)|(sg)|(sl)|(sr)|(vn)$"),  // NOLINT
-  _T("^www\\.google\\.co\\.(hu)|(id)|(il)|(it)|(jp)|(kr)|(th)|(uk)$"),
-  _T("^www\\.google\\.com\\.(ar)|(au)|(br)|(cn)|(et)|(gr)|(hr)|(ki)|(lv)|(om)|(pl)|(pt)|(ru)|(sg)|(sv)|(tr)|(vn)$"),  // NOLINT
-  _T("^(www\\.)?chrome\\.com$"),
+  _T("^(gears)|(mail)|(tools)|(www)|(desktop)|(pack)|(chrome)|(drive)\\.brave\\.com$"),  // NOLINT
+  _T("^www\\.brave\\.(ad)|(bg)|(ca)|(cn)|(cz)|(de)|(es)|(fi)|(fr)|(gr)|(hr)|(hu)|(it)|(ki)|(kr)|(lt)|(lv)|(nl)|(no)|(pl)|(pt)|(ro)|(ru)|(sk)|(sg)|(sl)|(sr)|(vn)$"),  // NOLINT
+  _T("^www\\.brave\\.co\\.(hu)|(id)|(il)|(it)|(jp)|(kr)|(th)|(uk)$"),
+  _T("^www\\.brave\\.com\\.(ar)|(au)|(br)|(cn)|(et)|(gr)|(hr)|(ki)|(lv)|(om)|(pl)|(pt)|(ru)|(sg)|(sv)|(tr)|(vn)$"),  // NOLINT
 };
 
 //
 // Minimum compatible shell version.
 // Shell versions equal to or newer than the following version are compatible
-// with the current version of goopdate.dll and do not need be replaced:
+// with the current version of brapdate.dll and do not need be replaced:
 // 1.3.26.1.
 const ULONGLONG kCompatibleMinimumOlderShellVersion = 0x00010003001A0001;
 

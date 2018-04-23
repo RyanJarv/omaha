@@ -115,11 +115,11 @@ TEST(AppUtilTest, GetVersionFromModule) {
 }
 
 TEST(AppUtilTest, GetVersionFromFile) {
-  CPath goopdate_path(GetCurrentModuleDirectory());
-  ASSERT_TRUE(goopdate_path.Append(kUnittestName));
-  ASSERT_TRUE(File::Exists(goopdate_path));
+  CPath brapdate_path(GetCurrentModuleDirectory());
+  ASSERT_TRUE(brapdate_path.Append(kUnittestName));
+  ASSERT_TRUE(File::Exists(brapdate_path));
 
-  EXPECT_EQ(OMAHA_BUILD_VERSION, GetVersionFromFile(goopdate_path));
+  EXPECT_EQ(OMAHA_BUILD_VERSION, GetVersionFromFile(brapdate_path));
 }
 
 TEST(AppUtilTest, GetTempDirForImpersonatedOrCurrentUser) {

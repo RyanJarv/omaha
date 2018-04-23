@@ -223,7 +223,7 @@ TEST(FileTest, File) {
                                   MAX_PATH);
     temp_dir.ReleaseBuffer();
     ASSERT_TRUE(dw);
-    CString known_file1(windows_dir + L"\\NOTEPAD.EXE");
+    CString known_file1(windows_dir + L"\\System32\\NOTEPAD.EXE");
     CString known_file2(windows_dir + L"\\REGEDIT.EXE");
     CString temp_file1(temp_dir + L"\\FOO.TMP");
     CString temp_file2(temp_dir + L"\\BAR.TMP");
@@ -419,8 +419,8 @@ TEST(FileTest, AreFilesIdentical) {
                                        CStrBuf(windows_dir, MAX_PATH),
                                        MAX_PATH));
 
-  CString known_file1(windows_dir + _T("\\NOTEPAD.EXE"));
-  CString known_file2(windows_dir + _T("\\REGEDIT.EXE"));
+  CString known_file1(windows_dir + _T("\\System32\\NOTEPAD.EXE"));
+  CString known_file2(windows_dir + _T("\\System32\\REGEDIT.EXE"));
 
   EXPECT_TRUE(File::AreFilesIdentical(known_file1, known_file1));
   EXPECT_FALSE(File::AreFilesIdentical(known_file1, known_file2));

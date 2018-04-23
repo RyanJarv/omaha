@@ -167,7 +167,7 @@ TEST(SignaturesTest, CreationVerification) {
                                   0,
                                   &encoded_cert_without_private_key));
   CString cert_password = _T("f00bar");
-  CString cert_subject_name = _T("Unofficial Brave Test");
+  CString cert_subject_name = _T("Unofficial Google Test");
 
   // Get testdata.
   std::vector<byte> raw_testdata;

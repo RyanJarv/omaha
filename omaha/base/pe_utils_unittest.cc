@@ -35,7 +35,7 @@ TEST(PEUtilsTest, PEUtils) {
   ASSERT_TRUE(dw);
 
   // Get a known executable to play with
-  CString notepad(windows_dir + L"\\NOTEPAD.EXE");
+  CString notepad(windows_dir + L"\\System32\\NOTEPAD.EXE");
   ASSERT_TRUE(File::Exists(notepad));
 
   CString temp_exe(temp_dir + L"\\pe_utils_test.exe");

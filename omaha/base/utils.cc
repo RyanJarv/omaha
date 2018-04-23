@@ -1850,7 +1850,7 @@ HRESULT GetUserKeysFromHkeyUsers(std::vector<CString>* key_names) {
       }
 
       if (sid_type == SidTypeUser) {
-        // Change the RunAs keys for the user goopdates to point to the
+        // Change the RunAs keys for the user brapdates to point to the
         // machine install.
         CString user_reg_key_name = AppendRegKeyPath(USERS_KEY, user_key_name);
         key_names->push_back(user_reg_key_name);

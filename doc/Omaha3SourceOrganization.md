@@ -1,5 +1,5 @@
 # Omaha3 Source Organization #
-The Omaha client is split along its modes - each task that goopdate is capable of performing (i.e. running as the Update3 COM server, or as a Client, or a bootstrapper, or as an Omaha2 COM server, etc.) is split out into a different directory.  Thus, we have the following subdirectories that each produce a .lib as their output in the build:
+The Omaha client is split along its modes - each task that brapdate is capable of performing (i.e. running as the Update3 COM server, or as a Client, or a bootstrapper, or as an Omaha2 COM server, etc.) is split out into a different directory.  Thus, we have the following subdirectories that each produce a .lib as their output in the build:
 ```
 omaha\
         base\           Headers\utilities used by multiple Google products.

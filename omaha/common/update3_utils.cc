@@ -93,7 +93,7 @@ HRESULT CreateBraveUpdate3Class(bool is_machine, IBraveUpdate3** server) {
 
   CComPtr<IBraveUpdate3> com_server;
   HRESULT hr = is_machine ? CreateBraveUpdate3MachineClass(&com_server) :
-                            CreateBraveUpdate3UserClass(&com_server);
+                            CreateGoogleUpdate3UserClass(&com_server);
   if (FAILED(hr)) {
     return hr;
   }
@@ -144,7 +144,7 @@ HRESULT CreateBraveUpdate3MachineClass(IBraveUpdate3** machine_server) {
 
 // Tries to CoCreate the LocalServer CLSID first. If that fails, tries to create
 // the server in-proc.
-HRESULT CreateBraveUpdate3UserClass(IBraveUpdate3** user_server) {
+HRESULT CreateGoogleUpdate3UserClass(IBraveUpdate3** user_server) {
   ASSERT1(user_server);
 
   if (UseInProcCOMServer()) {
@@ -152,9 +152,9 @@ HRESULT CreateBraveUpdate3UserClass(IBraveUpdate3** user_server) {
   }
 
   CComPtr<IBraveUpdate3> server;
-  HRESULT hr = server.CoCreateInstance(__uuidof(BraveUpdate3UserClass));
+  HRESULT hr = server.CoCreateInstance(__uuidof(GoogleUpdate3UserClass));
   if (FAILED(hr)) {
-    CORE_LOG(LE, (_T("[CoCreate BraveUpdate3UserClass failed][0x%x]"), hr));
+    CORE_LOG(LE, (_T("[CoCreate GoogleUpdate3UserClass failed][0x%x]"), hr));
 
     // The primary reason for the LocalServer activation failing on Vista/Win7
     // is that COM does not look at HKCU registration when the code is running

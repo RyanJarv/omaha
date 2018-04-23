@@ -857,7 +857,7 @@ TEST_F(BraveUpdateRecoveryTest, VerifyFileSignature_NotSigned) {
 // The file is signed with an old cerificate not present in the pin list.
 TEST_F(BraveUpdateRecoveryTest, VerifyFileSignature_NotTrusted) {
   const CString executable_full_path(MakeTestFilepath(
-      _T("unittest_support\\GoogleUpdate_old_signature.exe")));
+      _T("unittest_support\\BraveUpdate_old_signature.exe")));
   EXPECT_TRUE(File::Exists(executable_full_path));
   EXPECT_EQ(GOOPDATE_E_SIGNATURE_NOT_TRUSTED_PIN,
             VerifyFileSignature(executable_full_path));
@@ -872,7 +872,7 @@ TEST_F(BraveUpdateRecoveryTest, VerifyFileSignature_UntrustedChain) {
 
 TEST_F(BraveUpdateRecoveryTest, VerifyFileSignature_HashFails) {
   const CString executable_full_path(MakeTestFilepath(
-      _T("unittest_support\\GoogleUpdate_corrupted.exe")));
+      _T("unittest_support\\BraveUpdate_corrupted.exe")));
   EXPECT_TRUE(File::Exists(executable_full_path));
   EXPECT_EQ(TRUST_E_BAD_DIGEST, VerifyFileSignature(executable_full_path));
 }
@@ -917,7 +917,7 @@ TEST_F(BraveUpdateRecoveryTest, VerifyRepairFileMarkup_InvalidMarkups) {
   EXPECT_EQ(HRESULT_FROM_WIN32(ERROR_RESOURCE_DATA_NOT_FOUND),
             VerifyRepairFileMarkup(MakeTestFilepath(kNoResourcesExecutable)));
 
-  const TCHAR kResourcesButNoMarkupExecutable[] = _T("GoogleUpdate.exe");
+  const TCHAR kResourcesButNoMarkupExecutable[] = _T("BraveUpdate.exe");
   EXPECT_EQ(HRESULT_FROM_WIN32(ERROR_RESOURCE_TYPE_NOT_FOUND),
             VerifyRepairFileMarkup(MakeTestFilepath(
                 kResourcesButNoMarkupExecutable)));

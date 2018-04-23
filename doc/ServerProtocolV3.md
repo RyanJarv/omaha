@@ -48,7 +48,7 @@ Versions are members of an ordered set. A version `A` is greater than a version 
 
 ## GUIDs ##
 The Omaha protocol deals with globally-unique identifiers in multiple places. For the purpose of the protocol, a GUID one of the following formats:
-  1. a 128-bit value, serialized as a string of hexadecimal digits as follows: "`{00000000-1111-2222-3333-444444444444}`" (e.g. "`{430FD4D0-B729-4F61-AA34-91526481799D}`").
+  1. a 128-bit value, serialized as a string of hexadecimal digits as follows: "`{00000000-1111-2222-3333-444444444444}`" (e.g. "`{B131C935-9BE6-41DA-9599-1F776BEB8019}`").
   1. A lowercase Mac bundle ID (for example `com.google.chrome`). This format is only allowed to identify a product.
 
 ## Counting Algorithms ##

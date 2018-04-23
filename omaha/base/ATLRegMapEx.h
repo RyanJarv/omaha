@@ -198,13 +198,13 @@ struct _ATL_REGMAP_ENTRYKeeper : public _ATL_REGMAP_ENTRY {
 
 // Add in an entry with key x, and value being the current module path.
 // For example, REGMAP_MODULE("foo"), with the current module being
-// "goopdate.dll" will result in the entry:
-// "foo", "{blah}\\Google\\Update\\1.2.71.7\\goopdate.dll"
+// "brapdate.dll" will result in the entry:
+// "foo", "{blah}\\Google\\Update\\1.2.71.7\\brapdate.dll"
 #define REGMAP_MODULE(x) _ATL_REGMAP_ENTRYKeeper((x)),
 
 // Add in an entry with key x, and value being modulename, fully qualified with
 // the current module path. For example, REGMAP_MODULE2("foo", "npClick7.dll")
-// with the current module being "goopdate.dll" will result in the entry:
+// with the current module being "brapdate.dll" will result in the entry:
 // "foo", "{blah}\\Google\\Update\\1.2.71.7\\npClick7.dll"
 #define REGMAP_MODULE2(x, modulename)                                       \
     _ATL_REGMAP_ENTRYKeeper((x), (modulename), true),

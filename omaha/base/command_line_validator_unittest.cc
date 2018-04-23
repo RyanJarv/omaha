@@ -98,7 +98,7 @@ TEST_F(CommandLineValidatorTest, BasicScenarioPass) {
 }
 
 TEST_F(CommandLineValidatorTest, BasicScenarioFail) {
-  EXPECT_SUCCEEDED(parser_.ParseFromString(_T("goopdate.exe /something bad")));
+  EXPECT_SUCCEEDED(parser_.ParseFromString(_T("brapdate.exe /something bad")));
   EXPECT_FAILED(validator1_.Validate(parser_, &scenario_match_name_));
 }
 

@@ -11,7 +11,7 @@ Omaha builds using Hammer from Google's open-sourced [Software Construction Tool
 |hammer --verbose|Verbose output                                                                                     |
 |hammer --use\_precompiled\_headers|Enable precompiled header support (default)                                                        |
 |hammer --no-use\_precompiled\_headers|Disable precompiled header support                                                                 |
-|hammer --min|Minimum build (useful for quickly testing changes in goopdate.dll)                                 |
+|hammer --min|Minimum build (useful for quickly testing changes in brapdate.dll)                                 |
 |hammer --all|Complete build (all subdirectories)                                                                |
 |hammer --authenticode\_file=`<file>`|Use `<file>` as signing key. Must use .pfx file.                                                   |
 |hammer --authenticode\_password=`<password>`|`<password>` is the password for the signing key.                                                  |

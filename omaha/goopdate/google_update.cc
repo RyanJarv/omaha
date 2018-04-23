@@ -46,7 +46,7 @@ TCHAR kHKRootMachine[] = _T("HKLM");
 TCHAR kProgIDUpdate3COMClassUserLocal[] = kProgIDUpdate3COMClassUser;
 
 BEGIN_OBJECT_MAP(object_map_update3_user_mode)
-  OBJECT_ENTRY(__uuidof(BraveUpdate3UserClass), Update3COMClassUser)
+  OBJECT_ENTRY(__uuidof(GoogleUpdate3UserClass), Update3COMClassUser)
 END_OBJECT_MAP()
 
 BEGIN_OBJECT_MAP(object_map_broker_machine_mode)

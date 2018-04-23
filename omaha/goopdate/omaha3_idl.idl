@@ -930,7 +930,7 @@ library BraveUpdate3Lib {
     uuid(2CF4A521-EC1E-4075-A20B-5DE3E5B89B1B),
     helpstring("BraveUpdate3 Class for per-user applications")
   ]
-  coclass BraveUpdate3UserClass {
+  coclass GoogleUpdate3UserClass {
     [default] interface IDispatch;
   }
 

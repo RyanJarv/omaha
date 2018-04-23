@@ -61,7 +61,7 @@ HRESULT CoCreateWithProxyBlanket(REFCLSID rclsid, T* t) {
 // Create methods.
 HRESULT CreateBraveUpdate3Class(bool is_machine, IBraveUpdate3** server);
 HRESULT CreateBraveUpdate3MachineClass(IBraveUpdate3** machine_server);
-HRESULT CreateBraveUpdate3UserClass(IBraveUpdate3** user_server);
+HRESULT CreateGoogleUpdate3UserClass(IBraveUpdate3** user_server);
 HRESULT CreateAppBundle(IBraveUpdate3* server, IAppBundle** app_bundle);
 HRESULT CreateApp(BSTR app_id, IAppBundle* app_bundle, IApp** app);
 HRESULT CreateInstalledApp(BSTR app_id, IAppBundle* app_bundle, IApp** app);

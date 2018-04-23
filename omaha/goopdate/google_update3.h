@@ -212,7 +212,7 @@ extern TCHAR kProgIDUpdate3COMClassServiceLocal[];
 
 typedef Update3COMClassMode<false,
                             kProgIDUpdate3COMClassUserLocal,
-                            __uuidof(BraveUpdate3UserClass),
+                            __uuidof(GoogleUpdate3UserClass),
                             IDR_LOCAL_SERVER_RGS,
                             kHKRootUser> Update3COMClassModeUser;
 

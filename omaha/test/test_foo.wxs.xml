@@ -86,7 +86,7 @@
               </Directory>
               <Component Id='FooReg' Guid='$(var.FooComponentGuidRegistry)'>
                 <RegistryValue Root='HKLM'
-                  Key='Software\OmahaCompanyName\Update\Clients\[UPDATE2_ID]'
+                  Key='Software\Brave\Update\Clients\[UPDATE2_ID]'
                   Name='name' Value="test_foo"
                   Action='write' Type='string' />
                 <RegistryValue Root='HKLM'

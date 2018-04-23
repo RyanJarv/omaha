@@ -22,7 +22,7 @@ _Request:_
      machineid="{B421053D-AA39-418A-B6C3-123456789ABC}" userid="{422ED4F2-699D-49E1-9D60-123456789ABC}"
      requestid="{D7E8D72F-C657-4119-AA48-123456789ABC}">
   <o:os platform="win" version="5.1" sp="Service Pack 2"/>
-  <o:app appid="{430FD4D0-B729-4F61-AA34-91526481799D}" version="1.2.183.7" lang="en" brand="GGLS"
+  <o:app appid="{B131C935-9BE6-41DA-9599-1F776BEB8019}" version="1.2.183.7" lang="en" brand="GGLS"
       client="" installage="32" installsource="scheduler">
     <o:updatecheck tag="beta"/>
   </o:app>
@@ -41,7 +41,7 @@ There is not an update for either of the apps. The app and ping elements are ack
 <?xml version="1.0" encoding="UTF-8"?>
 <gupdate xmlns="http://www.google.com/update2/response" protocol="2.0">
   <daystart elapsed_seconds="59892"/>
-  <app appid="{430FD4D0-B729-4F61-AA34-91526481799D}" status="ok">
+  <app appid="{B131C935-9BE6-41DA-9599-1F776BEB8019}" status="ok">
     <updatecheck status="noupdate"/>
   </app>
   <app appid="{8A69D345-D564-463C-AFF1-A69D9E530F96}" status="ok">
@@ -58,7 +58,7 @@ There is an update available for only the second app. The app and ping elements 
 <?xml version="1.0" encoding="UTF-8"?>
 <gupdate xmlns="http://www.google.com/update2/response" protocol="2.0">
   <daystart elapsed_seconds="59892"/>
-  <app appid="{430FD4D0-B729-4F61-AA34-91526481799D}" status="ok">
+  <app appid="{B131C935-9BE6-41DA-9599-1F776BEB8019}" status="ok">
     <updatecheck status="noupdate"/>
   </app>
   <app appid="{8A69D345-D564-463C-AFF1-A69D9E530F96}" status="ok">

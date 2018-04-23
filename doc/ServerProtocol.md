@@ -25,7 +25,7 @@ _Request:_
 <request protocol="3.0" version="1.3.23.0" ismachine="0" sessionid="{5FAD27D4-6BFA-4daa-A1B3-5A1F821FEE0F}" userid="{D0BBD725-742D-44ae-8D46-0231E881D58E}" installsource="scheduler" testsource="ossdev" requestid="{C8F6EDF3-B623-4ee6-B2DA-1D08A0B4C665}">
   <hw sse2="1"/>
   <os platform="win" version="6.1" sp="" arch="x64"/>
-  <app appid="{430FD4D0-B729-4F61-AA34-91526481799D}" version="1.3.23.0" nextversion="" lang="en" brand="GGLS" client="someclientid" installage="39">
+  <app appid="{B131C935-9BE6-41DA-9599-1F776BEB8019}" version="1.3.23.0" nextversion="" lang="en" brand="GGLS" client="someclientid" installage="39">
     <updatecheck/>
     <ping r="1"/>
   </app>
@@ -43,7 +43,7 @@ There is not an update for either of the apps. The app and ping elements are ack
 <?xml version="1.0" encoding="UTF-8"?>
 <response protocol="3.0" server="prod">
   <daystart elapsed_seconds="56508"/>
-  <app appid="{430FD4D0-B729-4F61-AA34-91526481799D}" status="ok">
+  <app appid="{B131C935-9BE6-41DA-9599-1F776BEB8019}" status="ok">
     <updatecheck status="noupdate"/>
     <ping status="ok"/>
   </app>
@@ -61,7 +61,7 @@ There is an update available for only the second app. The app and ping elements 
 <?xml version="1.0" encoding="UTF-8"?>
 <response protocol="3.0" server="prod">
   <daystart elapsed_seconds="56508"/>
-  <app appid="{430FD4D0-B729-4F61-AA34-91526481799D}" status="ok">
+  <app appid="{B131C935-9BE6-41DA-9599-1F776BEB8019}" status="ok">
     <updatecheck status="noupdate"/>
     <ping status="ok"/>
   </app>
@@ -122,7 +122,7 @@ _Request:_
 <?xml version="1.0" encoding="UTF-8"?>
 <request protocol="3.0" version="1.3.23.0" ismachine="0" sessionid="{5FAD27D4-6BFA-4daa-A1B3-5A1F821FEE0F}" userid="{D0BBD725-742D-44ae-8D46-0231E881D58E}" installsource="scheduler" testsource="ossdev" requestid="{C8F6EDF3-B623-4ee6-B2DA-1D08A0B4C665}">
   <os platform="win" version="6.1" sp="" arch="x64"/>
-  <app appid="{430FD4D0-B729-4F61-AA34-91526481799D}" version="1.3.23.0" nextversion="" lang="en" brand="GGLS" client="someclientid" installage="39">
+  <app appid="{B131C935-9BE6-41DA-9599-1F776BEB8019}" version="1.3.23.0" nextversion="" lang="en" brand="GGLS" client="someclientid" installage="39">
     <updatecheck/>
     <data name="install" index="verboselogging"/>
     <data name="untrusted">Some untrusted data</data>

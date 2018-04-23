@@ -142,7 +142,7 @@ TEST(PathTest, EnclosePathIfExe) {
   new_path = EnclosePathIfExe(original_path);
   EXPECT_STREQ(original_path, new_path);
 
-  original_path = _T("c:\\Progra Files\\Brave\\Update\\1.1.1.1\\goopdate.dll");
+  original_path = _T("c:\\Progra Files\\Brave\\Update\\1.1.1.1\\brapdate.dll");
   new_path = EnclosePathIfExe(original_path);
   EXPECT_STREQ(original_path, new_path);
 
